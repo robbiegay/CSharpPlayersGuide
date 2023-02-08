@@ -210,6 +210,27 @@ Console.WriteLine(@$"Welcome to the game /\/\ {name} /\/\");*/
     Thread.Sleep(100);
 }*/
 
+/*var x = 5;
+Console.WriteLine($@"how to put x in \t {{{x}}}"); // {{ to escape to {
+Console.WriteLine(@"how to put x in \t {{{x}}}"); 
+Console.WriteLine($"how to put x in \t {{{x}}}"); 
+Console.WriteLine("how to put x in \t {{{x}}}"); 
+// @ means no escape chars
+// $ means -> can use {}
+Console.ReadKey(true);*/
+
+/*Console.WriteLine($"Formating numbers");
+Console.WriteLine($"{042.0100}");
+Console.WriteLine($"{042.0100:000.000000}"); // 0's = display digits no matter what
+Console.WriteLine($"{042.0100:###.######}"); // #'s = only display significant digits
+Console.WriteLine($"{042.0100:0.00%}"); // display a decimal as a percent
+Console.ReadKey(true);*/
+
+
+
+
+
+
 
 // you could create a graphic display program that pints color line by line
 // Create some rainbows
@@ -249,8 +270,103 @@ var notes = new List<(int, double)>() {
 for (int i = 0; i < notes.Count; i++)
 {
     var note = notes[i];
-    Console.WriteLine($"freq: {note.Item1} -- duration: {note.Item2}");
+    Console.WriteLine($"freq: {note.Item1,5} -- duration: {note.Item2,5}"); // {x , [whitespace before word]}
     Console.Beep(note.Item1, (int)note.Item2);
 }
 
 Console.ReadKey(true);
+
+
+
+
+
+
+
+
+/*Console.Title = "Defense of Consolas";
+Console.Write("Target Row? ");
+int targetRow;
+int.TryParse(Console.ReadLine(), out targetRow);
+Console.Write("Target Column? ");
+int targetColumn;
+int.TryParse(Console.ReadLine(), out targetColumn);
+Console.WriteLine("Deploy to:");
+Console.ForegroundColor = ConsoleColor.Red;
+Console.WriteLine($"({targetRow}, {targetColumn - 1})");
+Console.WriteLine($"({targetRow - 1}, {targetColumn})");
+Console.WriteLine($"({targetRow}, {targetColumn + 1})");
+Console.WriteLine($"({targetRow + 1}, {targetColumn})");
+Console.ForegroundColor = ConsoleColor.White;
+Console.Beep();*/
+
+
+/*var t = 1;
+if (true)
+{
+    t = 2;
+}
+Console.WriteLine(t);*/
+
+/*Console.Title = "The Great Clock of Consola";
+Console.WriteLine("Enter -1 to exit...");
+while (true)
+{
+    Console.Write("Enter a number: ");
+    int number;
+    int.TryParse(Console.ReadLine(), out number);
+    if (number == -1) break;
+
+    bool isEven = number % 2 == 0;
+
+    if (isEven)
+        Console.WriteLine("Tick");
+    else
+        Console.WriteLine("Tock");
+}*/
+
+
+
+
+/*Console.Title = "The Watchtower";
+Console.WriteLine("Enter -100 to exit...");
+Console.WriteLine("\nConsolas is located at: 0, 0\n");
+while (true)
+{
+    Console.Write("Enter an x coordinate: ");
+    int x;
+    int.TryParse(Console.ReadLine(), out x);
+    Console.Write("Enter an y coordinate: ");
+    int y;
+    int.TryParse(Console.ReadLine(), out y);
+
+    if (x == -100 || y == -100) break;
+    Console.WriteLine($"Enemy location: {x}, {y}");
+
+    Console.Write("The enemy is ");
+    Console.ForegroundColor = ConsoleColor.Black;
+    Console.BackgroundColor = ConsoleColor.Green;
+
+    if (x < 0 && y > 0)
+        Console.Write("to the northwest!");
+    else if (x < 0 && y == 0)
+        Console.Write("to the west!");
+    else if (x < 0 && y < 0)
+        Console.Write("to the southwest!");
+    else if (x == 0 && y > 0)
+        Console.Write("to the north!");
+    else if (x == 0 && y == 0)
+        Console.Write("here!");
+    else if (x == 0 && y < 0)
+        Console.Write("to the south!");
+    else if (x > 0 && y > 0)
+        Console.Write("to the northeast!");
+    else if (x > 0 && y == 0)
+        Console.Write("to the east!");
+    else if (x > 0 && y < 0)
+        Console.Write("to the southeast!");
+
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.BackgroundColor = ConsoleColor.Black;
+
+    Console.Write("\n\n");
+}*/
