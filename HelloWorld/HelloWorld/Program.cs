@@ -2,7 +2,7 @@
 
 //
 // See https://aka.ms/new-console-template for more information
-// Was just intended to be a HelloWorld program but grew to include several chapters 
+// Was just intended to be a HelloWorld program but grew to include several levels 
 //
 
 // Lets users select which exercise to run:
@@ -10,7 +10,7 @@ var shouldExit = false;
 
 while (!shouldExit) 
 {
-    Console.Title = "C# Player's Guide: levels 2-9";
+    Console.Title = "C# Player's Guide: Levels 2-9";
 
     Console.WriteLine("Press 'e' to exit...\n\nEnter a value to run a program:");
     Console.WriteLine("\t1: HelloWorld");
@@ -131,9 +131,11 @@ while (!shouldExit)
 // No exercises
 
 
+
 //
 // Level 3
 //
+
 void HelloWorld()
 {
     Console.WriteLine("Hello, world!");
@@ -147,24 +149,26 @@ void WhatComesNext()
 void TheMakingsOfAProgrammer()
 {
     Console.WriteLine("Hello! I am in a C# RPG game"); // string literal
-    Console.WriteLine("And I need a few statements"); // string literal
-    Console.WriteLine("2 more after this"); // string literal
-    Console.WriteLine("one more..."); // string literal
-    Console.WriteLine("done!"); // string literal
+    Console.WriteLine("And I need a few statements"); 
+    Console.WriteLine("2 more after this"); 
+    Console.WriteLine("one more..."); 
+    Console.WriteLine("done!"); 
 }
 
+// Notes:
 // . = member access operator
-// code map: Base Class Library (BCL) -> system (namespace) -> Console (class) -> WriteLine (method)
+// Code map: Base Class Library (BCL) -> system (namespace) -> Console (class) -> WriteLine (method)
 // BCL also includes things like Convert and Math classes
 
 void ConsolasAndTelim()
 {
     Console.WriteLine("Bread is ready.\nWho is the bread ready for?");
-    string name = Console.ReadLine() ?? "default"; // compiler warning (could be an issue) vs a compiler error
+    string name = Console.ReadLine() ?? "default"; // compiler warning (could be an issue) vs a compiler error (wont compile)
     Console.WriteLine($"Notes: {name} got bread.");
 }
 
-// build configs -> release has code optimization turns on that will do things like remove unused variables. Good for releases but can make debugging harder
+// Notes:
+// Build configs -> release has code optimization turns on that will do things like remove unused variables. Good for releases but can make debugging harder
 
 
 
@@ -184,15 +188,20 @@ void TheThingNamer3000()
 }
 
 
+
 // 
 // Level 5
 // 
 
-// muli value initilization and assignment
-/*int a, b, c = 10;
+// Notes:
+// Multi value initilization and assignment
+/*
+int a, b, c = 10;
 a = b = c = 7;
-Console.WriteLine(a + b + c);*/
-// quiz: name, type value / true / no / answer, value1, delete_me, PI
+Console.WriteLine(a + b + c);
+*/
+
+// Quiz: name, type value / true / no / answer, value1, delete_me, PI
 
 
 
@@ -200,8 +209,9 @@ Console.WriteLine(a + b + c);*/
 // Level 6
 //
 
-// built in / primitive types
-/*byte w; //      0 - 256 (size: 1 byte)
+// Notes: built in/primitive types
+/*
+byte w; //      0 - 256 (size: 1 byte)
 sbyte ww; // -128 - 127
 
 short x; //  -32k~ - 32k~
@@ -211,18 +221,19 @@ ushort xx; // 0 - 65535 (2 bytes)
 uint yy = 0xFF4; // hex literal 
 ulong zz = 0b1011; // binary literal
 
-char yeah = '\u0061'; // 2 bytes? ascii or unicode -> \uxxxx = unicode
+char ch = '\u0061'; // 2 bytes -- \uxxxx = unicode encoding
 
 byte test = 257 - 2;
 
-double sci = 43e22; // scientifici notation*/
+double sci = 43e22; // scientifici notation
+*/
 
 // float, doube, decimal (money)
 // computer will convert anything smaller than an int to int to do math and convert it back so the smaller values aren't really that useful
 
 void TheVariableShop()
 {
-    // each of 14 variable types
+    // each of the 14 variable types
     byte b = 255;
     sbyte sb = -12;
     short s = 32_000;
@@ -239,7 +250,7 @@ void TheVariableShop()
     double d = 84.3e23;
     decimal dec = 44.42m;
 
-    bool isAllOfThem = true;
+    bool isABool = true;
 
     Console.WriteLine($"byte: {b}");
     Console.WriteLine($"sbyte: {sb}");
@@ -257,12 +268,12 @@ void TheVariableShop()
     Console.WriteLine($"double: {d}");
     Console.WriteLine($"decimal: {dec}");
 
-    Console.WriteLine($"isAllOfThem: {isAllOfThem}");
+    Console.WriteLine($"isABool: {isABool}");
 }
 
 void TheVariableShopReturns()
 {
-    // each of 14 variable types
+    // each of the 14 variable types
     byte b = 255;
     sbyte sb = -12;
     short s = 32_000;
@@ -294,7 +305,7 @@ void TheVariableShopReturns()
     f = float.NegativeInfinity;
     d = double.NaN;
     dec = 1_000.99m;
-    isAllOfThem = false;
+    bool isABool = false;
 
     Console.WriteLine($"byte: {b}");
     Console.WriteLine($"sbyte: {sb}");
@@ -312,7 +323,7 @@ void TheVariableShopReturns()
     Console.WriteLine($"double: {d}");
     Console.WriteLine($"decimal: {dec}");
 
-    Console.WriteLine($"isAllOfThem: {isAllOfThem}");
+    Console.WriteLine($"isABool: {isABool}");
 }
 
 void Level6Notes()
@@ -456,7 +467,9 @@ void TheTriangleFarmer()
     Console.ForegroundColor = ConsoleColor.White;
 }
 
-/*int testInt = short.MinValue;
+// Notes:
+/*
+int testInt = short.MinValue;
 Console.WriteLine(testInt);
 Console.WriteLine(double.NegativeInfinity);
 Console.WriteLine(double.NaN);
@@ -464,12 +477,14 @@ Console.WriteLine(8.0 / 0); // floating point division by zero assumes that you 
 Console.WriteLine(-8.0 / 0);
 Console.WriteLine(0.0 / 0); // 0.0 / 0.0 = NaN
 
+// Inverting numbers using negation sign (-)
 int aaa = -1;
 Console.WriteLine(+aaa);
 aaa = -aaa;
 Console.WriteLine(aaa);
 aaa = -aaa;
-Console.WriteLine(aaa);*/
+Console.WriteLine(aaa);
+*/
 
 void TheFourSistersAndTheDuckbear()
 {
@@ -478,8 +493,12 @@ void TheFourSistersAndTheDuckbear()
     int.TryParse(Console.ReadLine(), out eggs);
     Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine($"\nTotal eggs: {eggs}");
-    Console.WriteLine($"Each of the 4 sisters will recieve {eggs / 4} eggs");
-    Console.WriteLine($"Duckbear will recieve {eggs % 4} eggs");
+    
+    var sisterEggs = eggs / 4;
+    Console.WriteLine($"Each of the 4 sisters will recieve {sisterEggs} {(sisterEggs == 1 ? "egg" : "eggs")}");
+
+    var duckbearEggs = eggs % 4;
+    Console.WriteLine($"Duckbear will recieve {duckbearEggs} {(duckbearEggs == 1 ? "egg" : "eggs")}");
     Console.ForegroundColor = ConsoleColor.White;
 }
 
@@ -508,12 +527,15 @@ void TheDominionOfKings()
     }
 }
 
-/*byte a = byte.MaxValue;
+// Notes:
+/*
+byte a = byte.MaxValue;
 byte b = 4;
 byte result = (byte)(a + b); // no addition defined for shorts so there is implicit casting to int, so you have to do an explicit cast back to int
 Console.WriteLine(result);
 
-Console.WriteLine(Math.Clamp(50, 0, 100)); // keeps a value in a range*/
+Console.WriteLine(Math.Clamp(50, 0, 100)); // keeps a value in a range
+*/
 
 
 
@@ -521,40 +543,35 @@ Console.WriteLine(Math.Clamp(50, 0, 100)); // keeps a value in a range*/
 // Level 8
 //
 
-
-/*Console.Title = "A new adventure begins...";
-Console.Write("What is your name, human? ");
-var name = Console.ReadLine();
-Console.ForegroundColor = ConsoleColor.Magenta;
-Console.WriteLine(@$"Welcome to the game /\/\ {name} /\/\");*/
-
-/*for (int i = 0; i < 1000; i++)
+// Notes:
+/*
+for (int i = 0; i < 1000; i++)
 {
     Console.ForegroundColor = (ConsoleColor)(i % 16);
     Console.BackgroundColor = (ConsoleColor)(i % 16);
     Console.WriteLine();
     Thread.Sleep(100);
-}*/
+}
 
-/*var x = 5;
+var x = 5;
 Console.WriteLine($@"how to put x in \t {{{x}}}"); // {{ to escape to {
 Console.WriteLine(@"how to put x in \t {{{x}}}"); 
 Console.WriteLine($"how to put x in \t {{{x}}}"); 
 Console.WriteLine("how to put x in \t {{{x}}}"); 
 // @ means no escape chars
-// $ means -> can use {}
-Console.ReadKey(true);*/
+// $ means -> can use {} to evaluate expressions in strings
+Console.ReadKey(true); // ReadKey(true) -> Read a key but don't write it to the console
 
-/*Console.WriteLine($"Formating numbers");
+Console.WriteLine($"Formating numbers");
 Console.WriteLine($"{042.0100}");
 Console.WriteLine($"{042.0100:000.000000}"); // 0's = display digits no matter what
 Console.WriteLine($"{042.0100:###.######}"); // #'s = only display significant digits
 Console.WriteLine($"{042.0100:0.00%}"); // display a decimal as a percent
-Console.ReadKey(true);*/
+Console.ReadKey(true);
+*/
 
 void ColorsAndSounds()
 {
-    // you could create a graphic display program that pints color line by line
     // Create some rainbows
     for (int i = 0; i < 100; i++)
     {
@@ -621,12 +638,15 @@ void TheDefenseOfConsolas()
 // Level 9
 //
 
-/*var t = 1;
+// Notes:
+/*
+var t = 1;
 if (true)
 {
     t = 2;
 }
-Console.WriteLine(t);*/
+Console.WriteLine(t);
+*/
 
 void RepairingTheClocktower()
 {
