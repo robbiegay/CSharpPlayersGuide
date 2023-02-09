@@ -1,12 +1,16 @@
 ﻿using System.Threading.Tasks;
 
+//
 // See https://aka.ms/new-console-template for more information
+// Was just intended to be a HelloWorld program but grew to include several chapters 
+//
+
 // Lets users select which exercise to run:
 var shouldExit = false;
 
 while (!shouldExit) 
 {
-    Console.Title = "C# Player's Guide: chapters 2-9";
+    Console.Title = "C# Player's Guide: levels 2-9";
 
     Console.WriteLine("Press 'e' to exit...\n\nEnter a value to run a program:");
     Console.WriteLine("\t1: HelloWorld");
@@ -16,7 +20,7 @@ while (!shouldExit)
     Console.WriteLine("\t5: TheThingNamer3000");
     Console.WriteLine("\t6: TheVariableShop");
     Console.WriteLine("\t7: TheVariableShopReturns");
-    Console.WriteLine("\t8: Chapter6Notes");
+    Console.WriteLine("\t8: Level6Notes");
     Console.WriteLine("\t9: TheTriangleFarmer");
     Console.WriteLine("\t10: TheFourSistersAndTheDuckbear");
     Console.WriteLine("\t11: TheDominionOfKings");
@@ -72,7 +76,7 @@ while (!shouldExit)
         }
         case "8":
         {
-            Chapter6Notes();
+            Level6Notes();
             break;
         }
         case "9":
@@ -119,6 +123,12 @@ while (!shouldExit)
         Console.Clear();
     }
 }
+
+//
+// Levels 1 and 2
+//
+
+// No exercises
 
 
 //
@@ -305,48 +315,119 @@ void TheVariableShopReturns()
     Console.WriteLine($"isAllOfThem: {isAllOfThem}");
 }
 
-void Chapter6Notes()
+void Level6Notes()
 {
-    Console.WriteLine("Using the range (..) operator:");
-    int[] marks = new int[] {23, 45, 67, 88, 99,
-                            56, 27, 67, 89, 90, 39};
+    Console.WriteLine(@"Reference material: https://csharpplayersguide.com/articles/operators-table" + "\n\n");
 
-    // range struct:
-    var a3 = marks[2..4];
-    Console.Write("\nMarks List 3: ");
-    foreach (var st_3 in a3)
-        Console.Write($" {st_3} ");
-    Console.Write("\n");
+    //
+    // Range structure
+    //
 
-    Console.WriteLine("Using checked and unchecked to either check for (and throw an error) if there is overflow, or to not check (unchecked)");
-    uint a = uint.MaxValue;
+    Console.WriteLine("Using the range (..) structure:");
+
+    Console.ForegroundColor= ConsoleColor.Green;
+    var code = """
+var marks = new int[] { 23, 45, 67, 88, 99, 56, 27, 67, 89, 90, 39 };
+
+// x..y -> inclusive of x, exclusive of y
+var rangeOfMarks = marks[2..5]; 
+Console.Write("Marks 2-4: ");
+foreach (var mark in rangeOfMarks)
+    Console.Write($" {mark} ");
+""";
+    Console.WriteLine(code);
+    Console.ForegroundColor = ConsoleColor.White;
+
+    var marks = new int[] { 23, 45, 67, 88, 99, 56, 27, 67, 89, 90, 39 };
+
+    // x..y -> inclusive of x, exclusive of y
+    var rangeOfMarks = marks[2..5]; 
+    Console.Write("Marks 2-4: ");
+    foreach (var mark in rangeOfMarks)
+        Console.Write($" {mark} ");
+
+    Console.Write("\n\n");
+
+    //
+    // checked/unchecked
+    //
+
+    Console.WriteLine("\n\nChecked/unchecked keywords:");
+
+    Console.ForegroundColor = ConsoleColor.Green;
+    code = """
+uint maxValue = uint.MaxValue;
+
+unchecked
+{
+    // unchecked: overflows without exception
+    // output: 0
+    Console.WriteLine(maxValue + 1);  // output: 0
+}
+
+try
+{
+    checked
+    {
+        // checked: overflows and throws OverflowException
+        Console.WriteLine(maxValue + 1);
+    }
+}
+catch (OverflowException e)
+{
+    Console.WriteLine(e.Message);
+}
+""";
+    Console.WriteLine(code);
+    Console.ForegroundColor = ConsoleColor.White;
+
+    uint maxValue = uint.MaxValue;
 
     unchecked
     {
-        Console.WriteLine(a + 1);  // output: 0
+        // unchecked: overflows without exception
+        // output: 0
+        Console.WriteLine(maxValue + 1);  // output: 0
     }
 
     try
     {
         checked
         {
-            Console.WriteLine(a + 1);
+            // checked: overflows and throws OverflowException
+            Console.WriteLine(maxValue + 1);
         }
     }
     catch (OverflowException e)
     {
-        Console.WriteLine(e.Message);  // output: Arithmetic operation resulted in an overflow.
+        Console.WriteLine(e.Message);
     }
 
-    Console.WriteLine(@"cool reference material: https://csharpplayersguide.com/articles/operators-table");
+    //
+    // Unsafe keyword
+    //
 
-    Console.WriteLine("Using unsafe to allow pointers.\nHad to add <AllowUnsafeBlocks>true</AllowUnsafeBlocks> to .csproj");
+    Console.WriteLine("\n\nUnsafe keyword:\nHad to add <AllowUnsafeBlocks>true</AllowUnsafeBlocks> to .csproj");
+
+    Console.ForegroundColor = ConsoleColor.Green;
+    code = """
+unsafe 
+{
+    int test = 4;
+    int* address = &test; // reference the pointer address
+    Console.WriteLine($"Address cast to int: {(int)address}");
+    Console.WriteLine($"Address via pointer: {*address}");
+}
+""";
+    Console.WriteLine(code);
+    Console.ForegroundColor = ConsoleColor.White;
+
     unsafe 
     {
         int test = 4;
-        int* address = &test;
+        int* address = &test; // reference the pointer address
         Console.WriteLine($"Address cast to int: {(int)address}");
-        Console.WriteLine($"Address via *: {*address}");
+        Console.WriteLine($"Address via pointer: {*address}");
     }
 }
 
@@ -369,7 +450,10 @@ void TheTriangleFarmer()
     Console.WriteLine("Enter a height:");
     double.TryParse(Console.ReadLine(), out height);
     double area = baseValue * height / 2.0;
-    Console.WriteLine($"{area} = {baseValue} * {height} / 2");
+
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.WriteLine($"\n{area} = {baseValue} * {height} / 2");
+    Console.ForegroundColor = ConsoleColor.White;
 }
 
 /*int testInt = short.MinValue;
@@ -392,9 +476,11 @@ void TheFourSistersAndTheDuckbear()
     Console.WriteLine("Enter the number of chocolate eggs laid today:");
     int eggs;
     int.TryParse(Console.ReadLine(), out eggs);
-    Console.WriteLine($"Total eggs: {eggs}");
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.WriteLine($"\nTotal eggs: {eggs}");
     Console.WriteLine($"Each of the 4 sisters will recieve {eggs / 4} eggs");
     Console.WriteLine($"Duckbear will recieve {eggs % 4} eggs");
+    Console.ForegroundColor = ConsoleColor.White;
 }
 
 void TheDominionOfKings()
@@ -411,11 +497,14 @@ void TheDominionOfKings()
         Console.WriteLine($"Enter the number of provinces for {kings[i]}:");
         int provinces;
         int.TryParse(Console.ReadLine(), out provinces);
-        Console.WriteLine($"{kings[i]} has the following points:");
+
+        Console.ForegroundColor= ConsoleColor.Cyan;
+        Console.WriteLine($"\n{kings[i]} has the following points:");
         Console.WriteLine($"estates: {estates} x 1 point = {estates *= 1}");
-        Console.WriteLine($"duchyes: {duchies} x 3 points = {duchies *= 3}");
+        Console.WriteLine($"duchies: {duchies} x 3 points = {duchies *= 3}");
         Console.WriteLine($"provinces: {provinces} x 6 points = {provinces *= 6}");
-        Console.WriteLine($"Total = {estates + duchies + provinces}");
+        Console.WriteLine($"Total = {estates + duchies + provinces}\n");
+        Console.ForegroundColor = ConsoleColor.White;
     }
 }
 
@@ -429,7 +518,7 @@ Console.WriteLine(Math.Clamp(50, 0, 100)); // keeps a value in a range*/
 
 
 //
-// Chapter 8
+// Level 8
 //
 
 
@@ -477,7 +566,6 @@ void ColorsAndSounds()
     }
 
     // make some music
-    Thread.Sleep(500);
     Console.WriteLine();
     Console.BackgroundColor = ConsoleColor.Black;
     Console.Title = "Playing F\u00FCr Elise...";
@@ -517,7 +605,7 @@ void TheDefenseOfConsolas()
     Console.Write("Target Column? ");
     int targetColumn;
     int.TryParse(Console.ReadLine(), out targetColumn);
-    Console.WriteLine("Deploy to:");
+    Console.WriteLine("\nDeploy to:");
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine($"({targetRow}, {targetColumn - 1})");
     Console.WriteLine($"({targetRow - 1}, {targetColumn})");
@@ -530,7 +618,7 @@ void TheDefenseOfConsolas()
 
 
 //
-// Chapter 9
+// Level 9
 //
 
 /*var t = 1;
@@ -554,9 +642,19 @@ void RepairingTheClocktower()
         bool isEven = number % 2 == 0;
 
         if (isEven)
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Blue;
             Console.WriteLine("Tick");
+        }
         else
+        {
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.Green;
             Console.WriteLine("Tock");
+        }
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.BackgroundColor = ConsoleColor.Black;
     }
 }
 
