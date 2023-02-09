@@ -8,8 +8,8 @@ bin
 obj
 packages
 *.vs
-HelloWorld\.vs
 /HelloWorld/.vs/HelloWorld/v17/.suo
 /HelloWorld/.vs/HelloWorld/FileContentIndex/c4874b55-248e-4f85-a3ed-9b840b0475ba.vsidx
 /HelloWorld/.vs/ProjectEvaluation/helloworld.metadata.v5.2
 /HelloWorld/.vs/ProjectEvaluation/helloworld.projects.v5.2
+/HelloWorld/.vs/
