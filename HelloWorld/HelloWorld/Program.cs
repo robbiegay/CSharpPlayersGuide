@@ -28,6 +28,8 @@ while (!shouldExit)
     Console.WriteLine("\t13: TheDefenseOfConsolas");
     Console.WriteLine("\t14: RepairingTheClocktower");
     Console.WriteLine("\t15: Watchtower");
+    Console.WriteLine("\t16: BuyingInventory");
+    Console.WriteLine("\t17: DiscountedInventory");
 
     var input = Console.ReadLine();
     Console.Clear();
@@ -35,85 +37,59 @@ while (!shouldExit)
     switch (input)
     {
         case "e":
-        {
             shouldExit = true;
             break;
-        }
         case "1":
-        {
             HelloWorld();
             break;
-        }
         case "2":
-        {
             WhatComesNext();
             break;
-        }
         case "3":
-        {
             TheMakingsOfAProgrammer();
             break;
-        }
         case "4":
-        {
             ConsolasAndTelim();
             break;
-        }
         case "5":
-        {
             TheThingNamer3000();
             break;
-        }
         case "6":
-        {
             TheVariableShop();
             break;
-        }
         case "7":
-        {
             TheVariableShopReturns();
             break;
-        }
         case "8":
-        {
             Level6Notes();
             break;
-        }
         case "9":
-        {
             TheTriangleFarmer();
             break;
-        }
         case "10":
-        {
             TheFourSistersAndTheDuckbear();
             break;
-        }
         case "11":
-        {
             TheDominionOfKings();
             break;
-        }
         case "12":
-        {
             ColorsAndSounds();
             break;
-        }
         case "13":
-        {
             TheDefenseOfConsolas();
             break;
-        }
         case "14":
-        {
             RepairingTheClocktower();
             break;
-        }
         case "15":
-        {
             Watchtower();
             break;
-        }
+        case "16":
+            BuyingInventory();
+            break;
+        case "17":
+            DiscountedInventory();
+            break;
     }
 
     if (input != "e")
@@ -718,4 +694,45 @@ void Watchtower()
     Console.BackgroundColor = ConsoleColor.Black;
 
     Console.Write("\n\n");
+}
+
+
+
+//
+// Level 10
+//
+
+void BuyingInventory()
+{
+    Console.WriteLine("The following items are available:");
+    var items = new List<(string, int)>() { ("Rope", 10), ("Torches", 15), ("Climbing Equipment", 25), ("Clean Water", 1), ("Machete", 20), ("Canoe", 200), ("Food Supplies", 1), ("I'm not sure I want to sell that unknown item... it will", 1000000) };
+
+    for (int i = 0; i < items.Count; i++)
+        Console.WriteLine($"{i + 1} - {items[i].Item1}");
+
+    Console.Write("What number do you want to see the price of? ");
+    var input = Console.ReadLine();
+    Console.WriteLine();
+
+    (string, int) selectedItem;
+    selectedItem = input switch
+    {
+        "1" => items[0],
+        "2" => items[1],
+        "3" => items[2],
+        "4" => items[3],
+        "5" => items[4],
+        "6" => items[5],
+        "7" => items[6],
+         _  => items[7]
+    };
+
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.WriteLine($"{selectedItem.Item1} cost {selectedItem.Item2} gold.");
+    Console.ForegroundColor = ConsoleColor.White;
+}
+
+void DiscountedInventory()
+{
+    
 }
