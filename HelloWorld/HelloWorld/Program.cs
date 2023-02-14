@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-//
+﻿//
 // See https://aka.ms/new-console-template for more information
 // Was just intended to be a HelloWorld program but grew to include several levels 
 //
@@ -30,6 +28,8 @@ while (!shouldExit)
     Console.WriteLine("\t15: Watchtower");
     Console.WriteLine("\t16: BuyingInventory");
     Console.WriteLine("\t17: DiscountedInventory");
+    Console.WriteLine("\t18: ThePrototype");
+    Console.WriteLine("\t19: TheMagicCannon");
 
     var input = Console.ReadLine();
     Console.Clear();
@@ -89,6 +89,12 @@ while (!shouldExit)
             break;
         case "17":
             DiscountedInventory();
+            break;
+        case "18":
+            ThePrototype();
+            break;
+        case "19":
+            TheMagicCannon();
             break;
     }
 
@@ -438,9 +444,7 @@ void TheTriangleFarmer()
     double.TryParse(Console.ReadLine(), out height);
     double area = baseValue * height / 2.0;
 
-    Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.WriteLine($"\n{area} = {baseValue} * {height} / 2");
-    Console.ForegroundColor = ConsoleColor.White;
+    PrintInColor($"\n{area} = {baseValue} * {height} / 2", 4);
 }
 
 // Notes:
@@ -467,15 +471,13 @@ void TheFourSistersAndTheDuckbear()
     Console.WriteLine("Enter the number of chocolate eggs laid today:");
     int eggs;
     int.TryParse(Console.ReadLine(), out eggs);
-    Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.WriteLine($"\nTotal eggs: {eggs}");
+    PrintInColor($"\nTotal eggs: {eggs}", 4);
     
     var sisterEggs = eggs / 4;
-    Console.WriteLine($"Each of the 4 sisters will recieve {sisterEggs} {(sisterEggs == 1 ? "egg" : "eggs")}");
+    PrintInColor($"Each of the 4 sisters will recieve {sisterEggs} {(sisterEggs == 1 ? "egg" : "eggs")}", 4);
 
     var duckbearEggs = eggs % 4;
-    Console.WriteLine($"Duckbear will recieve {duckbearEggs} {(duckbearEggs == 1 ? "egg" : "eggs")}");
-    Console.ForegroundColor = ConsoleColor.White;
+    PrintInColor($"Duckbear will recieve {duckbearEggs} {(duckbearEggs == 1 ? "egg" : "eggs")}", 4);
 }
 
 void TheDominionOfKings()
@@ -493,13 +495,11 @@ void TheDominionOfKings()
         int provinces;
         int.TryParse(Console.ReadLine(), out provinces);
 
-        Console.ForegroundColor= ConsoleColor.Cyan;
-        Console.WriteLine($"\n{kings[i]} has the following points:");
-        Console.WriteLine($"estates: {estates} x 1 point = {estates *= 1}");
-        Console.WriteLine($"duchies: {duchies} x 3 points = {duchies *= 3}");
-        Console.WriteLine($"provinces: {provinces} x 6 points = {provinces *= 6}");
-        Console.WriteLine($"Total = {estates + duchies + provinces}\n");
-        Console.ForegroundColor = ConsoleColor.White;
+        PrintInColor($"\n{kings[i]} has the following points:", 4);
+        PrintInColor($"estates: {estates} x 1 point = {estates *= 1}", 4);
+        PrintInColor($"duchies: {duchies} x 3 points = {duchies *= 3}", 4);
+        PrintInColor($"provinces: {provinces} x 6 points = {provinces *= 6}", 4);
+        PrintInColor($"Total = {estates + duchies + provinces}\n", 4);
     }
 }
 
@@ -727,9 +727,7 @@ void BuyingInventory()
          _  => items[7]
     };
 
-    Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.WriteLine($"{selectedItem.Item1} cost {selectedItem.Item2} gold.");
-    Console.ForegroundColor = ConsoleColor.White;
+    PrintInColor($"{selectedItem.Item1} cost {selectedItem.Item2} gold.", 4);
 }
 
 void DiscountedInventory()
@@ -741,11 +739,9 @@ void DiscountedInventory()
     var isAFriend = (name == "robbie" || name == "rob") ? true : false;
     Console.WriteLine();
 
-    Console.ForegroundColor = ConsoleColor.Cyan;
     var welcomeMessage = isAFriend ? $"Ahh my friend {name}... for you, a discounted rate." : $"Hmm... {name}... a stranger to these parts...";
     var discount = isAFriend ? 0.5 : 1;
-    Console.WriteLine(welcomeMessage + "\n");
-    Console.ForegroundColor = ConsoleColor.White;
+    PrintInColor(welcomeMessage + "\n", 4);
 
     Console.WriteLine("The following items are available:");
     var items = new List<(string, double)>() { ("Rope", 10), ("Torches", 15), ("Climbing Equipment", 25), ("Clean Water", 1), ("Machete", 20), ("Canoe", 200), ("Food Supplies", 1), ("I'm not sure I want to sell that unknown item... it will", 1000000) };
@@ -770,7 +766,72 @@ void DiscountedInventory()
          _  => items[7]
     };
 
-    Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.WriteLine($"{selectedItem.Item1} cost {selectedItem.Item2 * discount} gold.");
+    PrintInColor($"{selectedItem.Item1} cost {selectedItem.Item2 * discount} gold.", 4);
+}
+
+
+
+//
+// Level 11
+//
+
+void ThePrototype()
+{
+    int airshipLocation;
+
+    do
+    {
+        Console.Write("User 1, enter a number between 0 and 100: ");
+        int.TryParse(Console.ReadLine(), out airshipLocation);
+    }
+    while (airshipLocation < 0 || airshipLocation > 100);
+
+    Console.Clear();
+    Console.WriteLine("User 2, guess the number.");
+
+    var userGuess = -1;
+    while(airshipLocation != userGuess)
+    {
+        Console.Write("What is your next guess? ");
+        int.TryParse(Console.ReadLine(), out userGuess);
+
+        if (userGuess > airshipLocation)
+            PrintInColor($"{userGuess} is too high.", 4);
+        else if (userGuess < airshipLocation)
+            PrintInColor($"{userGuess} is too low.", 4);
+    }
+
+    PrintInColor("\nYou guessed the number!", 4);
+}
+
+void PrintInColor(string message, int color)
+{
+    if (color == 0)
+        Console.ForegroundColor = ConsoleColor.White;
+    else if (color == 1)
+        Console.ForegroundColor = ConsoleColor.Red;
+    else if (color == 2)
+        Console.ForegroundColor = ConsoleColor.Yellow;
+    else if (color == 3)
+        Console.ForegroundColor = ConsoleColor.Blue;
+    else if (color == 4)
+        Console.ForegroundColor = ConsoleColor.Cyan;
+
+    Console.WriteLine(message);
     Console.ForegroundColor = ConsoleColor.White;
+}
+
+void TheMagicCannon()
+{
+    for (int i = 1; i <= 100; i++)
+    {
+        if (i % 3 == 0 && i % 5 == 0)
+            PrintInColor($"{i}: Combined blast", 3);
+        else if (i % 3 == 0)
+            PrintInColor($"{i}: Fire", 1);
+        else if (i % 5 == 0)
+            PrintInColor($"{i}: Electric", 2);
+        else
+            PrintInColor($"{i}: Normal", 0);
+    }
 }
