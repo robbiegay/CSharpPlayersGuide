@@ -56,8 +56,11 @@
 
             for (int i = 0; i < array.Length; i++)
             {
-                Console.Write($"Enter number {i + 1}: ");
-                array[i] = Convert.ToInt32(Console.ReadLine());
+                // Replacing with Level 13 method:
+                // Console.Write($"Enter number {i + 1}: ");
+                // array[i] = Convert.ToInt32(Console.ReadLine());
+
+                array[i] = Level13.AskForNumberInRange($"Enter number 0-100 for position {i + 1}: ", -1, 101);
             }
 
             var replicatedArray = new int[5];

@@ -76,12 +76,20 @@
         public static void TheDefenseOfConsolas()
         {
             Console.Title = "Defense of Consolas";
-            Console.Write("Target Row? ");
-            int targetRow;
-            int.TryParse(Console.ReadLine(), out targetRow);
-            Console.Write("Target Column? ");
-            int targetColumn;
-            int.TryParse(Console.ReadLine(), out targetColumn);
+
+
+            // Replacing with chapter 13 method:
+
+            // Console.Write("Target Row? ");
+            // int targetRow;
+            // int.TryParse(Console.ReadLine(), out targetRow);
+            int targetRow = Level13.AskForNumber("Target Row? ");
+
+            // Console.Write("Target Column? ");
+            // int targetColumn;
+            //int.TryParse(Console.ReadLine(), out targetColumn);
+            int targetColumn = Level13.AskForNumber("Target Column? ");
+
             Console.WriteLine("\nDeploy to:");
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"({targetRow}, {targetColumn - 1})");

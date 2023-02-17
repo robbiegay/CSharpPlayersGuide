@@ -30,6 +30,7 @@ while (!shouldExit)
     Console.WriteLine("\t20: Level12Notes");
     Console.WriteLine("\t21: TheReplicatorOfDTo");
     Console.WriteLine("\t22: TheLawsOfFreach");
+    Console.WriteLine("\t23: Countdown");
 
     var input = Console.ReadLine();
     Console.Clear();
@@ -104,6 +105,9 @@ while (!shouldExit)
             break;
         case "22":
             Level12.TheLawsOfFreach();
+            break;
+        case "23":
+            Level13.Countdown();
             break;
     }
 
