@@ -5,7 +5,7 @@ var shouldExit = false;
 
 while (!shouldExit) 
 {
-    Console.Title = "C# Player's Guide: Levels 2-9";
+    Console.Title = "C# Player's Guide";
 
     Console.WriteLine("Press 'e' to exit...\n\nEnter a value to run a program:");
     Console.WriteLine("\t1: HelloWorld");
