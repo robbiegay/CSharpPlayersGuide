@@ -152,5 +152,175 @@
             s2 = "Not the same lol";
             Console.WriteLine($"strings not equal (currently set to: {s1}, {s2}): {s1 == s2}");
         }
+
+        public static void HuntingTheMantiCore()
+        {
+            Console.Title = "Boss Battle: Hunting the Manticore";
+            Utilities.PrintInColor("\nHunting the Manticore:\n", 2);
+
+            var manticoreHealth = 10;
+            var cityHealth = 15;
+            var round = 1;
+            int manticoreLocation;
+            var previousCannonRanges = new List<(int, int)>(); // 0 = hit, -1 = closer, 1 = further
+
+            var isGameRunning = true;
+
+            manticoreLocation = GetManticoreLocation();
+
+            while (isGameRunning) 
+            {
+                // Display Health and Roung
+                DisplayInfo();
+
+                // Spacing and previous ranges
+                Console.WriteLine("\n\n\n");
+
+                Console.Write("Previous ranges: ");
+                foreach(var range in previousCannonRanges)
+                {
+                    Console.Write($"{range.Item1} ");
+                    if (range.Item2== 0)
+                        Console.Write("(hit) ");
+                    else if (range.Item2 == 1)
+                        Console.Write("(further) ");
+                    else if (range.Item2 == -1)
+                        Console.Write("(closer) ");
+                }
+                Console.WriteLine("\n\n\n");
+
+                // Enter a new range
+                var rangeOfCannonShot = Level13.AskForNumberInRange("Enter range of cannon shot (0-100): ", -1, 101);
+
+                if (rangeOfCannonShot == manticoreLocation)
+                {
+                    previousCannonRanges.Add((rangeOfCannonShot, 0));
+
+                    if (round % 3 == 0 && round % 5 == 0)
+                    {
+                        Utilities.PrintInColor("Direct hit: a mighty fire-electric blast deals 10 damage...", 3);
+                        manticoreHealth -= 10;
+                    }
+                    else if (round % 3 == 0)
+                    {
+                        Utilities.PrintInColor("Direct hit: a fire blast deals 3 damage...", 1);
+                        manticoreHealth -= 3;
+                    }
+                    else if (round % 5 == 0)
+                    { 
+                        Utilities.PrintInColor("Direct hit: an electric blast deals 3 damage...", 2);
+                        manticoreHealth -= 3;
+                    }
+                    else
+                    { 
+                        Utilities.PrintInColor("Direct hit: a normal blast deals 1 damage...", 0);
+                        manticoreHealth--;
+                    }
+                }
+                else
+                {
+                    if (rangeOfCannonShot < manticoreLocation)
+                    {
+                        Utilities.PrintInColor("\nMiss: The Manticore is further away...", 4);
+                        previousCannonRanges.Add((rangeOfCannonShot, 1));
+                    }
+                    else
+                    {
+                        Utilities.PrintInColor("\nMiss: The Manticore is closer than that...", 4);
+                        previousCannonRanges.Add((rangeOfCannonShot, -1));
+                    }
+                }
+
+                // End game conditions:
+                if (manticoreHealth <= 0)
+                {
+                    Console.WriteLine();
+                    Utilities.PrintInColor("\n\n\nThe Manticore has been destoryed!!!");
+                    isGameRunning = false;
+                }
+                else if (cityHealth <= 0)
+                {
+                    Console.WriteLine();
+                    Utilities.PrintInColor("\n\n\nThe city has been destroyed...", 1);
+                    isGameRunning = false;
+                }
+                else
+                {
+                    Utilities.PrintInColor("\nThe Manticore has fired a shot at the city! 1 damage was dealt...", 1);
+                    cityHealth--;
+                }
+
+                if (isGameRunning)
+                {
+                    round++;
+
+                    Utilities.PrintInColor("\nPress any key to advance to the next round", 2);
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                else
+                {
+                    Utilities.PrintInColor("\n\n\nThe battle of Consolas has ended.", 2);
+                }
+            }
+
+            int GetManticoreLocation()
+            {
+                var isValid = false;
+
+                int location = -1;
+                var rnd = new Random();
+
+                while (!isValid) 
+                {
+                    Console.WriteLine("Enter a value of 0-100 for the Manticore location.\nEnter r to randomly generate location.");
+                    var input = Console.ReadLine();
+
+                    if (input == "r")
+                        location = rnd.Next(0, 101);
+                    else
+                        location = Convert.ToInt32(input);
+
+                    if (location >= 0 && location <= 100)
+                        isValid = true;
+                    else
+                        Console.WriteLine($"Location of {location} is not valid. Please try again...\n");
+                }
+
+                Console.Clear();
+                return location;
+            }
+
+            void DisplayInfo()
+            {
+                Console.Write("Manticore: ");
+
+                for (int i = 0; i < 10; i++) 
+                {
+                    if (manticoreHealth > i)
+                        Console.BackgroundColor = ConsoleColor.Green;
+                    else
+                        Console.BackgroundColor = ConsoleColor.Red;
+
+                    Console.Write("||");
+                }
+                Console.BackgroundColor = ConsoleColor.Black;
+
+                Console.Write($"     Round: {round}     ");
+
+                Console.Write("City: ");
+
+                for (int i = 0; i < 15; i++)
+                {
+                    if (cityHealth > i)
+                        Console.BackgroundColor = ConsoleColor.Green;
+                    else
+                        Console.BackgroundColor = ConsoleColor.Red;
+
+                    Console.Write("||");
+                }
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+        }
     }
 }

@@ -32,6 +32,7 @@ while (!shouldExit)
     Console.WriteLine("\t22: TheLawsOfFreach");
     Console.WriteLine("\t23: Countdown");
     Console.WriteLine("\t24: Level14Notes");
+    Console.WriteLine("\t25: HuntingTheMantiCore");
 
     var input = Console.ReadLine();
     Console.Clear();
@@ -112,6 +113,9 @@ while (!shouldExit)
             break;
         case "24":
             Level14.Level14Notes();
+            break;
+        case "25":
+            Level14.HuntingTheMantiCore();
             break;
     }
 

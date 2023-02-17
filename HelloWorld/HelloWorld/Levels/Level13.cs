@@ -34,7 +34,14 @@
             {
                 Console.Write(text);
 
-                number = Convert.ToInt32(Console.ReadLine());
+                try
+                {
+                    number = Convert.ToInt32(Console.ReadLine());
+                }
+                catch
+                {
+                    Utilities.PrintInColor("Invalid input. Please try again.", 1);
+                }
 
                 if (number > min && number < max) 
                     isValidNumber= true;
