@@ -2,7 +2,8 @@
 {
     internal class Utilities
     {
-        public static void PrintInColor(string message, int color)
+        // Make color optional and add a default value of 4
+        public static void PrintInColor(string message, int color = 4)
         {
             if (color == 0)
                 Console.ForegroundColor = ConsoleColor.White;

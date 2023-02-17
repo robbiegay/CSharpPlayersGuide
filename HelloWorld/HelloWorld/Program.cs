@@ -27,6 +27,9 @@ while (!shouldExit)
     Console.WriteLine("\t17: DiscountedInventory");
     Console.WriteLine("\t18: ThePrototype");
     Console.WriteLine("\t19: TheMagicCannon");
+    Console.WriteLine("\t20: Level12Notes");
+    Console.WriteLine("\t21: TheReplicatorOfDTo");
+    Console.WriteLine("\t22: TheLawsOfFreach");
 
     var input = Console.ReadLine();
     Console.Clear();
@@ -92,6 +95,15 @@ while (!shouldExit)
             break;
         case "19":
             Level11.TheMagicCannon();
+            break;
+        case "20":
+            Level12.Level12Notes();
+            break;
+        case "21":
+            Level12.TheReplicatorOfDTo();
+            break;
+        case "22":
+            Level12.TheLawsOfFreach();
             break;
     }
 
