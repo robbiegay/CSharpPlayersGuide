@@ -173,20 +173,12 @@
                 // Display Health and Roung
                 DisplayInfo();
 
+                // Debugging:
+                // Console.WriteLine($"\nmanti: {manticoreHealth} || city: {cityHealth} || location: {manticoreLocation}");
+
                 // Spacing and previous ranges
                 Console.WriteLine("\n\n\n");
-
-                Console.Write("Previous ranges: ");
-                foreach(var range in previousCannonRanges)
-                {
-                    Console.Write($"{range.Item1} ");
-                    if (range.Item2== 0)
-                        Console.Write("(hit) ");
-                    else if (range.Item2 == 1)
-                        Console.Write("(further) ");
-                    else if (range.Item2 == -1)
-                        Console.Write("(closer) ");
-                }
+                DisplayPreviousRanges(previousCannonRanges);
                 Console.WriteLine("\n\n\n");
 
                 // Enter a new range
@@ -198,22 +190,22 @@
 
                     if (round % 3 == 0 && round % 5 == 0)
                     {
-                        Utilities.PrintInColor("Direct hit: a mighty fire-electric blast deals 10 damage...", 3);
+                        Utilities.PrintInColor("\nDirect hit: a mighty fire-electric blast deals 10 damage...", 3);
                         manticoreHealth -= 10;
                     }
                     else if (round % 3 == 0)
                     {
-                        Utilities.PrintInColor("Direct hit: a fire blast deals 3 damage...", 1);
+                        Utilities.PrintInColor("\nDirect hit: a fire blast deals 3 damage...", 1);
                         manticoreHealth -= 3;
                     }
                     else if (round % 5 == 0)
                     { 
-                        Utilities.PrintInColor("Direct hit: an electric blast deals 3 damage...", 2);
+                        Utilities.PrintInColor("\nDirect hit: an electric blast deals 3 damage...", 2);
                         manticoreHealth -= 3;
                     }
                     else
                     { 
-                        Utilities.PrintInColor("Direct hit: a normal blast deals 1 damage...", 0);
+                        Utilities.PrintInColor("\nDirect hit: a normal blast deals 1 damage...", 0);
                         manticoreHealth--;
                     }
                 }
@@ -234,20 +226,20 @@
                 // End game conditions:
                 if (manticoreHealth <= 0)
                 {
-                    Console.WriteLine();
-                    Utilities.PrintInColor("\n\n\nThe Manticore has been destoryed!!!");
+                    DisplayEndScreen(true);
                     isGameRunning = false;
                 }
-                else if (cityHealth <= 0)
-                {
-                    Console.WriteLine();
-                    Utilities.PrintInColor("\n\n\nThe city has been destroyed...", 1);
-                    isGameRunning = false;
-                }
-                else
+
+                if (isGameRunning)
                 {
                     Utilities.PrintInColor("\nThe Manticore has fired a shot at the city! 1 damage was dealt...", 1);
                     cityHealth--;
+                }
+
+                if (isGameRunning && cityHealth <= 0)
+                {
+                    DisplayEndScreen(false);
+                    isGameRunning = false;
                 }
 
                 if (isGameRunning)
@@ -260,8 +252,56 @@
                 }
                 else
                 {
-                    Utilities.PrintInColor("\n\n\nThe battle of Consolas has ended.", 2);
+                    Utilities.PrintInColor("\n\nThe battle of Consolas has ended.", 2);
                 }
+            }
+
+            void DisplayEndScreen(bool didWin)
+            {
+                Console.WriteLine("\n\n");
+                var message = didWin ? "The Manticore has been destoryed!!!" : "The city has fallen... Game over...";
+                var messageIndex = 0;
+
+                // Cycle some winning colors
+                for (int i = 0; i < 9; i++) 
+                {
+                    var offset = 0 + (i % 2);
+
+                    for (int j = 0; j < 45; j++) 
+                    {
+                        var color = (j + offset) % 3;
+
+                        if ((i > 2 && i < 6) && (j > 2 && j < 42))
+                        {
+                            color = 3;
+                        }
+
+                        switch (color)
+                        {
+                            case 0:
+                                Console.BackgroundColor = didWin ? ConsoleColor.DarkYellow : ConsoleColor.DarkRed;
+                                break;
+                            case 1:
+                                Console.BackgroundColor = didWin ? ConsoleColor.Blue : ConsoleColor.Gray;
+                                break;
+                            case 2:
+                                Console.BackgroundColor = didWin ? ConsoleColor.Cyan : ConsoleColor.DarkGreen;
+                                break;
+                            case 3:
+                                Console.BackgroundColor = ConsoleColor.Black;
+                                break;
+                        }
+
+                        if (i == 4 && (j > 4 && j < 40))
+                            Console.Write($"{message[messageIndex++]} ");
+                        else
+                            Console.Write("  ");
+                    }
+
+                    Console.Write("\n");
+                }
+
+                Console.BackgroundColor = ConsoleColor.Black;
             }
 
             int GetManticoreLocation()
@@ -279,7 +319,17 @@
                     if (input == "r")
                         location = rnd.Next(0, 101);
                     else
-                        location = Convert.ToInt32(input);
+                    {
+                        try
+                        {
+                            location = Convert.ToInt32(input);
+                        }
+                        catch
+                        {
+                            // If user input is valid, choose a random location
+                            location = rnd.Next(0, 101);
+                        }
+                    }
 
                     if (location >= 0 && location <= 100)
                         isValid = true;
@@ -320,6 +370,21 @@
                     Console.Write("||");
                 }
                 Console.BackgroundColor = ConsoleColor.Black;
+            }
+
+            void DisplayPreviousRanges(List<(int, int)> ranges)
+            {
+                Console.Write("Previous ranges: ");
+                foreach (var range in ranges)
+                {
+                    Console.Write($"{range.Item1} ");
+                    if (range.Item2 == 0)
+                        Console.Write("(hit) ");
+                    else if (range.Item2 == 1)
+                        Console.Write("(further) ");
+                    else if (range.Item2 == -1)
+                        Console.Write("(closer) ");
+                }
             }
         }
     }
