@@ -1,4 +1,6 @@
-﻿namespace CSharpPlayersGuide.Levels
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace CSharpPlayersGuide.Levels
 {
     internal class Level14
     {
@@ -156,7 +158,14 @@
         public static void HuntingTheMantiCore()
         {
             Console.Title = "Boss Battle: Hunting the Manticore";
-            Utilities.PrintInColor("\nHunting the Manticore:\n", 2);
+            Utilities.PrintInColor("\n\t                                   Hunting the Manticore\n", 4);
+            Utilities.PrintInColor("\tThe Uncoded One’s airship,  the Manticore,  has begun an all-out  attack on the city", 2);
+            Utilities.PrintInColor("\tof Consolas. It must be destroyed, or the city will fall. Only by combining Mylara’s", 2);
+            Utilities.PrintInColor("\tprototype,  Skorin’s cannon,  and your programming skills will  you have a chance to", 2);
+            Utilities.PrintInColor("\twin this fight.  You must build a program that allows one user  —  the pilot of  the", 2);
+            Utilities.PrintInColor("\tManticore  —  to enter the airship’s  range from the  city and a second user   — the", 2);
+            Utilities.PrintInColor("\tcity’s defenses  — to attempt to find what distance the airship is at and destroy it", 2);
+            Utilities.PrintInColor("\tbefore it can lay waste to the town.\n", 2);
 
             var manticoreHealth = 10;
             var cityHealth = 15;
@@ -259,7 +268,7 @@
             void DisplayEndScreen(bool didWin)
             {
                 Console.WriteLine("\n\n");
-                var message = didWin ? "The Manticore has been destoryed!!!" : "The city has fallen... Game over...";
+                var message = didWin ? "The Manticore has been destroyed!!!" : "The city has fallen... Game over...";
                 var messageIndex = 0;
 
                 // Cycle some winning colors
@@ -313,7 +322,7 @@
 
                 while (!isValid) 
                 {
-                    Console.WriteLine("Enter a value of 0-100 for the Manticore location.\nEnter r to randomly generate location.");
+                    Console.WriteLine("Pilot:\n\nEnter a value of 0-100 for the Manticore location.\nEnter r to randomly generate a location.");
                     var input = Console.ReadLine();
 
                     if (input == "r")
