@@ -15,6 +15,8 @@
                 Console.ForegroundColor = ConsoleColor.Blue;
             else if (color == 4)
                 Console.ForegroundColor = ConsoleColor.Cyan;
+            else if (color == 5)
+                Console.ForegroundColor = ConsoleColor.DarkGray;
 
             Console.WriteLine(message);
             Console.ForegroundColor = ConsoleColor.White;

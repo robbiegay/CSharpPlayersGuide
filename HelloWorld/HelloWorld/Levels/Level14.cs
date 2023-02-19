@@ -198,7 +198,7 @@ namespace CSharpPlayersGuide.Levels
                     }
                     else
                     {
-                        gameMessages.Add(("\nDirect hit: a normal blast deals 1 damage...", 0));
+                        gameMessages.Add(("\nDirect hit: a normal blast deals 1 damage...", 5));
                         manticoreHealth--;
                     }
                 }
@@ -342,7 +342,7 @@ namespace CSharpPlayersGuide.Levels
 
                 Console.WriteLine("\n\n\n");
                 DisplayPreviousRanges(previousCannonRanges);
-                Console.WriteLine("\n\n\n");
+                Console.WriteLine("\n");
 
                 if (gameMessages != null)
                 {
@@ -376,6 +376,8 @@ namespace CSharpPlayersGuide.Levels
                 for (int i = 0; i < 9; i++)
                 {
                     var offset = 0 + (i % 2);
+
+                    Console.Write("\t");
 
                     for (int j = 0; j < 45; j++)
                     {
