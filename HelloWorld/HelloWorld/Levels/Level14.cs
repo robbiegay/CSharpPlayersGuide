@@ -166,7 +166,7 @@ namespace CSharpPlayersGuide.Levels
             var previousCannonRanges = new List<(int, int)>(); // 0 = hit, -1 = closer, 1 = further
             var isGameRunning = true;
 
-            int manticoreLocation = GetManticoreLocation();
+            int manticoreLocation = SetManticoreLocation();
 
             while (isGameRunning) 
             {
@@ -183,22 +183,22 @@ namespace CSharpPlayersGuide.Levels
 
                     if (round % 3 == 0 && round % 5 == 0)
                     {
-                        gameMessages.Add(("\nDirect hit: a mighty fire-electric blast deals 10 damage...", 3));
+                        gameMessages.Add(("Direct hit: a mighty fire-electric blast deals 10 damage...", 3));
                         manticoreHealth -= 10;
                     }
                     else if (round % 3 == 0)
                     {
-                        gameMessages.Add(("\nDirect hit: a fire blast deals 3 damage...", 1));
+                        gameMessages.Add(("Direct hit: a fire blast deals 3 damage...", 1));
                         manticoreHealth -= 3;
                     }
                     else if (round % 5 == 0)
                     {
-                        gameMessages.Add(("\nDirect hit: an electric blast deals 3 damage...", 2));
+                        gameMessages.Add(("Direct hit: an electric blast deals 3 damage...", 2));
                         manticoreHealth -= 3;
                     }
                     else
                     {
-                        gameMessages.Add(("\nDirect hit: a normal blast deals 1 damage...", 5));
+                        gameMessages.Add(("Direct hit: a normal blast deals 1 damage...", 5));
                         manticoreHealth--;
                     }
                 }
@@ -206,12 +206,12 @@ namespace CSharpPlayersGuide.Levels
                 {
                     if (rangeOfCannonShot < manticoreLocation)
                     {
-                        gameMessages.Add(("\nMiss: The Manticore is further away...", 4));
+                        gameMessages.Add(("Miss: The Manticore is further away...", 4));
                         previousCannonRanges.Add((rangeOfCannonShot, 1));
                     }
                     else
                     {
-                        gameMessages.Add(("\nMiss: The Manticore is closer than that...", 4));
+                        gameMessages.Add(("Miss: The Manticore is closer than that...", 4));
                         previousCannonRanges.Add((rangeOfCannonShot, -1));
                     }
                 }
@@ -249,6 +249,7 @@ namespace CSharpPlayersGuide.Levels
                     round++;
 
                     Utilities.PrintInColor("\nPress any key to advance to the next round", 2);
+                    Console.Write("\n> ");
                     Console.ReadKey();
                     Console.Clear();
                 }
@@ -270,7 +271,7 @@ namespace CSharpPlayersGuide.Levels
                 Utilities.PrintInColor("\tbefore it can lay waste to the town.\n", 2);
             }
 
-            int GetManticoreLocation()
+            int SetManticoreLocation()
             {
                 var isValid = false;
 
@@ -279,7 +280,10 @@ namespace CSharpPlayersGuide.Levels
 
                 while (!isValid) 
                 {
-                    Console.WriteLine("Pilot:\n\nEnter a value of 0-100 for the Manticore location.\nEnter r to randomly generate a location.");
+                    Utilities.PrintInColor("Pilot:", 1);
+
+                    Console.WriteLine("\n\tEnter a value of 0-100 for the Manticore location.\n\tEnter r to randomly generate a location.");
+                    Console.Write("\t> ");
                     var input = Console.ReadLine();
 
                     if (input == "r")
@@ -354,21 +358,34 @@ namespace CSharpPlayersGuide.Levels
             void DisplayPreviousRanges(List<(int, int)> ranges)
             {
                 Console.Write("Previous ranges: ");
-                foreach (var range in ranges)
+
+                if (ranges.Count == 0)
                 {
+                    Utilities.PrintInColor("(none)", 5, true);
+                }
+
+                for (int i = 0; i < ranges.Count; i++)
+                {
+                    var range = ranges[i];
+
                     Console.Write($"{range.Item1} ");
                     if (range.Item2 == 0)
-                        Console.Write("(hit) ");
+                        Console.Write("(hit)");
                     else if (range.Item2 == 1)
-                        Console.Write("(further) ");
+                        Console.Write("(further)");
                     else if (range.Item2 == -1)
-                        Console.Write("(closer) ");
+                        Console.Write("(closer)");
+
+                    if (i < ranges.Count - 1)
+                        Console.Write(", ");
+                    else
+                        Console.Write(" ");
                 }
             }
 
             void DisplayEndScreen(bool didWin)
             {
-                Console.WriteLine("\n\n");
+                Console.WriteLine("\n");
                 var message = didWin ? "The Manticore has been destroyed!!!" : "The city has fallen... Game over...";
                 var messageIndex = 0;
 

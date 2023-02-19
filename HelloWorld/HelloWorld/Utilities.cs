@@ -3,7 +3,7 @@
     internal class Utilities
     {
         // Make color optional and add a default value of 4
-        public static void PrintInColor(string message, int color = 4)
+        public static void PrintInColor(string message, int color = 4, bool writeToOneLine = false)
         {
             if (color == 0)
                 Console.ForegroundColor = ConsoleColor.White;
@@ -18,7 +18,11 @@
             else if (color == 5)
                 Console.ForegroundColor = ConsoleColor.DarkGray;
 
-            Console.WriteLine(message);
+            if (!writeToOneLine)
+                Console.WriteLine(message);
+            else
+                Console.Write(message);
+
             Console.ForegroundColor = ConsoleColor.White;
         }
     }

@@ -34,6 +34,7 @@ while (!shouldExit)
     Console.WriteLine("\t24: Level14Notes");
     Console.WriteLine("\t25: HuntingTheMantiCore");
 
+    Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
 
