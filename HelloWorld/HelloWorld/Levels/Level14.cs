@@ -158,63 +158,47 @@ namespace CSharpPlayersGuide.Levels
         public static void HuntingTheMantiCore()
         {
             Console.Title = "Boss Battle: Hunting the Manticore";
-            Utilities.PrintInColor("\n\t                                   Hunting the Manticore\n", 4);
-            Utilities.PrintInColor("\tThe Uncoded One’s airship,  the Manticore,  has begun an all-out  attack on the city", 2);
-            Utilities.PrintInColor("\tof Consolas. It must be destroyed, or the city will fall. Only by combining Mylara’s", 2);
-            Utilities.PrintInColor("\tprototype,  Skorin’s cannon,  and your programming skills will  you have a chance to", 2);
-            Utilities.PrintInColor("\twin this fight.  You must build a program that allows one user  —  the pilot of  the", 2);
-            Utilities.PrintInColor("\tManticore  —  to enter the airship’s  range from the  city and a second user   — the", 2);
-            Utilities.PrintInColor("\tcity’s defenses  — to attempt to find what distance the airship is at and destroy it", 2);
-            Utilities.PrintInColor("\tbefore it can lay waste to the town.\n", 2);
+            DisplayIntro();
 
             var manticoreHealth = 10;
             var cityHealth = 15;
             var round = 1;
-            int manticoreLocation;
             var previousCannonRanges = new List<(int, int)>(); // 0 = hit, -1 = closer, 1 = further
-
             var isGameRunning = true;
 
-            manticoreLocation = GetManticoreLocation();
+            int manticoreLocation = GetManticoreLocation();
 
             while (isGameRunning) 
             {
-                // Display Health and Roung
-                DisplayInfo();
-
-                // Debugging:
-                // Console.WriteLine($"\nmanti: {manticoreHealth} || city: {cityHealth} || location: {manticoreLocation}");
-
-                // Spacing and previous ranges
-                Console.WriteLine("\n\n\n");
-                DisplayPreviousRanges(previousCannonRanges);
-                Console.WriteLine("\n\n\n");
+                DisplayGameInfo(previousCannonRanges, null, false);
+                var gameMessages = new List<(string, int)>();
 
                 // Enter a new range
                 var rangeOfCannonShot = Level13.AskForNumberInRange("Enter range of cannon shot (0-100): ", -1, 101);
 
+                // Hit or miss the manticore
                 if (rangeOfCannonShot == manticoreLocation)
                 {
                     previousCannonRanges.Add((rangeOfCannonShot, 0));
 
                     if (round % 3 == 0 && round % 5 == 0)
                     {
-                        Utilities.PrintInColor("\nDirect hit: a mighty fire-electric blast deals 10 damage...", 3);
+                        gameMessages.Add(("\nDirect hit: a mighty fire-electric blast deals 10 damage...", 3));
                         manticoreHealth -= 10;
                     }
                     else if (round % 3 == 0)
                     {
-                        Utilities.PrintInColor("\nDirect hit: a fire blast deals 3 damage...", 1);
+                        gameMessages.Add(("\nDirect hit: a fire blast deals 3 damage...", 1));
                         manticoreHealth -= 3;
                     }
                     else if (round % 5 == 0)
-                    { 
-                        Utilities.PrintInColor("\nDirect hit: an electric blast deals 3 damage...", 2);
+                    {
+                        gameMessages.Add(("\nDirect hit: an electric blast deals 3 damage...", 2));
                         manticoreHealth -= 3;
                     }
                     else
-                    { 
-                        Utilities.PrintInColor("\nDirect hit: a normal blast deals 1 damage...", 0);
+                    {
+                        gameMessages.Add(("\nDirect hit: a normal blast deals 1 damage...", 0));
                         manticoreHealth--;
                     }
                 }
@@ -222,35 +206,44 @@ namespace CSharpPlayersGuide.Levels
                 {
                     if (rangeOfCannonShot < manticoreLocation)
                     {
-                        Utilities.PrintInColor("\nMiss: The Manticore is further away...", 4);
+                        gameMessages.Add(("\nMiss: The Manticore is further away...", 4));
                         previousCannonRanges.Add((rangeOfCannonShot, 1));
                     }
                     else
                     {
-                        Utilities.PrintInColor("\nMiss: The Manticore is closer than that...", 4);
+                        gameMessages.Add(("\nMiss: The Manticore is closer than that...", 4));
                         previousCannonRanges.Add((rangeOfCannonShot, -1));
                     }
                 }
 
-                // End game conditions:
+                // Check if the Manticore still has health
                 if (manticoreHealth <= 0)
                 {
+                    Console.Clear();
+                    DisplayGameInfo(previousCannonRanges, gameMessages, false);
+
                     DisplayEndScreen(true);
                     isGameRunning = false;
                 }
 
+                // Deal manticore damage
                 if (isGameRunning)
                 {
-                    Utilities.PrintInColor("\nThe Manticore has fired a shot at the city! 1 damage was dealt...", 1);
                     cityHealth--;
+                    gameMessages.Add(("\nThe Manticore has fired a shot at the city! 1 damage was dealt...", 1));
+
+                    Console.Clear();
+                    DisplayGameInfo(previousCannonRanges, gameMessages, false);
                 }
 
+                // Check if city still has health
                 if (isGameRunning && cityHealth <= 0)
                 {
                     DisplayEndScreen(false);
                     isGameRunning = false;
                 }
 
+                // Advance to the next found or end the game
                 if (isGameRunning)
                 {
                     round++;
@@ -265,52 +258,16 @@ namespace CSharpPlayersGuide.Levels
                 }
             }
 
-            void DisplayEndScreen(bool didWin)
+            static void DisplayIntro()
             {
-                Console.WriteLine("\n\n");
-                var message = didWin ? "The Manticore has been destroyed!!!" : "The city has fallen... Game over...";
-                var messageIndex = 0;
-
-                // Cycle some winning colors
-                for (int i = 0; i < 9; i++) 
-                {
-                    var offset = 0 + (i % 2);
-
-                    for (int j = 0; j < 45; j++) 
-                    {
-                        var color = (j + offset) % 3;
-
-                        if ((i > 2 && i < 6) && (j > 2 && j < 42))
-                        {
-                            color = 3;
-                        }
-
-                        switch (color)
-                        {
-                            case 0:
-                                Console.BackgroundColor = didWin ? ConsoleColor.DarkYellow : ConsoleColor.DarkRed;
-                                break;
-                            case 1:
-                                Console.BackgroundColor = didWin ? ConsoleColor.Blue : ConsoleColor.Gray;
-                                break;
-                            case 2:
-                                Console.BackgroundColor = didWin ? ConsoleColor.Cyan : ConsoleColor.DarkGreen;
-                                break;
-                            case 3:
-                                Console.BackgroundColor = ConsoleColor.Black;
-                                break;
-                        }
-
-                        if (i == 4 && (j > 4 && j < 40))
-                            Console.Write($"{message[messageIndex++]} ");
-                        else
-                            Console.Write("  ");
-                    }
-
-                    Console.Write("\n");
-                }
-
-                Console.BackgroundColor = ConsoleColor.Black;
+                Utilities.PrintInColor("\n\t                                   Hunting the Manticore\n", 4);
+                Utilities.PrintInColor("\tThe Uncoded One’s airship,  the Manticore,  has begun an all-out  attack on the city", 2);
+                Utilities.PrintInColor("\tof Consolas. It must be destroyed, or the city will fall. Only by combining Mylara’s", 2);
+                Utilities.PrintInColor("\tprototype,  Skorin’s cannon,  and your programming skills will  you have a chance to", 2);
+                Utilities.PrintInColor("\twin this fight.  You must build a program that allows one user  —  the pilot of  the", 2);
+                Utilities.PrintInColor("\tManticore  —  to enter the airship’s  range from the  city and a second user   — the", 2);
+                Utilities.PrintInColor("\tcity’s defenses  — to attempt to find what distance the airship is at and destroy it", 2);
+                Utilities.PrintInColor("\tbefore it can lay waste to the town.\n", 2);
             }
 
             int GetManticoreLocation()
@@ -350,7 +307,7 @@ namespace CSharpPlayersGuide.Levels
                 return location;
             }
 
-            void DisplayInfo()
+            void DisplayGameInfo(List<(int, int)> previousCannonRanges, List<(string, int)> gameMessages, bool isDebugging)
             {
                 Console.Write("Manticore: ");
 
@@ -379,6 +336,19 @@ namespace CSharpPlayersGuide.Levels
                     Console.Write("||");
                 }
                 Console.BackgroundColor = ConsoleColor.Black;
+
+                if (isDebugging)
+                    Console.WriteLine($"\nmanticore: {manticoreHealth} || city: {cityHealth} || location: {manticoreLocation}");
+
+                Console.WriteLine("\n\n\n");
+                DisplayPreviousRanges(previousCannonRanges);
+                Console.WriteLine("\n\n\n");
+
+                if (gameMessages != null)
+                {
+                    foreach (var message in gameMessages)
+                        Utilities.PrintInColor(message.Item1, message.Item2);
+                }
             }
 
             void DisplayPreviousRanges(List<(int, int)> ranges)
@@ -394,6 +364,54 @@ namespace CSharpPlayersGuide.Levels
                     else if (range.Item2 == -1)
                         Console.Write("(closer) ");
                 }
+            }
+
+            void DisplayEndScreen(bool didWin)
+            {
+                Console.WriteLine("\n\n");
+                var message = didWin ? "The Manticore has been destroyed!!!" : "The city has fallen... Game over...";
+                var messageIndex = 0;
+
+                // Cycle some winning colors
+                for (int i = 0; i < 9; i++)
+                {
+                    var offset = 0 + (i % 2);
+
+                    for (int j = 0; j < 45; j++)
+                    {
+                        var color = (j + offset) % 3;
+
+                        if ((i > 2 && i < 6) && (j > 2 && j < 42))
+                        {
+                            color = 3;
+                        }
+
+                        switch (color)
+                        {
+                            case 0:
+                                Console.BackgroundColor = didWin ? ConsoleColor.DarkYellow : ConsoleColor.DarkRed;
+                                break;
+                            case 1:
+                                Console.BackgroundColor = didWin ? ConsoleColor.Blue : ConsoleColor.Gray;
+                                break;
+                            case 2:
+                                Console.BackgroundColor = didWin ? ConsoleColor.Cyan : ConsoleColor.DarkGreen;
+                                break;
+                            case 3:
+                                Console.BackgroundColor = ConsoleColor.Black;
+                                break;
+                        }
+
+                        if (i == 4 && (j > 4 && j < 40))
+                            Console.Write($"{message[messageIndex++]} ");
+                        else
+                            Console.Write("  ");
+                    }
+
+                    Console.Write("\n");
+                }
+
+                Console.BackgroundColor = ConsoleColor.Black;
             }
         }
     }
