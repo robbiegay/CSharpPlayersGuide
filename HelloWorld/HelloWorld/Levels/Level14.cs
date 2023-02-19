@@ -174,7 +174,7 @@ namespace CSharpPlayersGuide.Levels
                 var gameMessages = new List<(string, int)>();
 
                 // Enter a new range
-                var rangeOfCannonShot = Level13.AskForNumberInRange("Enter range of cannon shot (0-100): ", -1, 101);
+                var rangeOfCannonShot = Level13.AskForNumberInRange("Enter a value for the cannon shot (0-100): ", -1, 101);
 
                 // Hit or miss the manticore
                 if (rangeOfCannonShot == manticoreLocation)
