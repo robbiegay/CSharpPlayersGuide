@@ -33,6 +33,7 @@ while (!shouldExit)
     Console.WriteLine("\t23: Countdown");
     Console.WriteLine("\t24: Level14Notes");
     Console.WriteLine("\t25: HuntingTheMantiCore");
+    Console.WriteLine("\t26: SimulasTest");
 
     Console.Write("> ");
     var input = Console.ReadLine();
@@ -117,6 +118,9 @@ while (!shouldExit)
             break;
         case "25":
             Level14.HuntingTheMantiCore();
+            break;
+        case "26":
+            Level16.SimulasTest();
             break;
     }
 
