@@ -107,13 +107,13 @@ namespace CSharpPlayersGuide.Levels
             var mainIngredient = Console.ReadLine();
 
             if (mainIngredient == "1")
-                return MainIngredient.Mushrooms;
+                return MainIngredient.Mushroom;
             else if (mainIngredient == "2")
                 return MainIngredient.Chicken;
             else if (mainIngredient == "3")
-                return MainIngredient.Carrots;
+                return MainIngredient.Carrot;
             else if (mainIngredient == "4")
-                return MainIngredient.Potatoes;
+                return MainIngredient.Potato;
             else
             {
                 Utilities.PrintInColor($"'{mainIngredient}' is not a valid choice, please try again...", 1);
