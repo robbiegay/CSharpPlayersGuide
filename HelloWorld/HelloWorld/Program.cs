@@ -34,6 +34,8 @@ while (!shouldExit)
     Console.WriteLine("\t24: Level14Notes");
     Console.WriteLine("\t25: HuntingTheMantiCore");
     Console.WriteLine("\t26: SimulasTest");
+    Console.WriteLine("\t27: Level17Notes");
+    Console.WriteLine("\t28: SimulasSoup");
 
     Console.Write("> ");
     var input = Console.ReadLine();
@@ -121,6 +123,12 @@ while (!shouldExit)
             break;
         case "26":
             Level16.SimulasTest();
+            break;
+        case "27":
+            Level17.Level17Notes();
+            break;
+        case "28":
+            Level17.SimulasSoup();
             break;
     }
 

@@ -17,6 +17,10 @@
                 Console.ForegroundColor = ConsoleColor.Cyan;
             else if (color == 5)
                 Console.ForegroundColor = ConsoleColor.DarkGray;
+            else if (color == 6)
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+            else if (color == 7)
+                Console.ForegroundColor = ConsoleColor.Green;
 
             if (!writeToOneLine)
                 Console.WriteLine(message);
