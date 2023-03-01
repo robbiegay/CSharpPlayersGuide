@@ -36,6 +36,9 @@ while (!shouldExit)
     Console.WriteLine("\t26: SimulasTest");
     Console.WriteLine("\t27: Level17Notes");
     Console.WriteLine("\t28: SimulasSoup");
+    Console.WriteLine("\t29: Level18Notes");
+    Console.WriteLine("\t30: TellMeTheFiveObjectOrientedPrinciples");
+    Console.WriteLine("\t31: VinFletchersArrows");
 
     Console.Write("> ");
     var input = Console.ReadLine();
@@ -129,6 +132,15 @@ while (!shouldExit)
             break;
         case "28":
             Level17.SimulasSoup();
+            break;
+        case "29":
+            Level18.Level18Notes();
+            break;
+        case "30":
+            Level18.TellMeTheFiveObjectOrientedPrinciples();
+            break;
+        case "31":
+            Level18.VinFletchersArrows();
             break;
     }
 
