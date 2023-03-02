@@ -1,4 +1,5 @@
-﻿using CSharpPlayersGuide.Levels;
+﻿using CSharpPlayersGuide;
+using CSharpPlayersGuide.Levels;
 
 // Lets users select which exercise to run:
 var shouldExit = false;
@@ -8,37 +9,74 @@ while (!shouldExit)
     Console.Title = "C# Player's Guide";
 
     Console.WriteLine("Press 'e' to exit...\n\nEnter a value to run a program:");
+    PrintLevel(1, true);
+
+    PrintLevel(2, true);
+
+    PrintLevel(3);
     Console.WriteLine("\t1: HelloWorld");
     Console.WriteLine("\t2: WhatComesNext");
     Console.WriteLine("\t3: TheMakingsOfAProgrammer");
     Console.WriteLine("\t4: ConsolasAndTelim");
+
+    PrintLevel(4);
     Console.WriteLine("\t5: TheThingNamer3000");
+
+    PrintLevel(5, true);
+
+    PrintLevel(6);
     Console.WriteLine("\t6: TheVariableShop");
     Console.WriteLine("\t7: TheVariableShopReturns");
     Console.WriteLine("\t8: Level6Notes");
+
+    PrintLevel(7);
     Console.WriteLine("\t9: TheTriangleFarmer");
     Console.WriteLine("\t10: TheFourSistersAndTheDuckbear");
     Console.WriteLine("\t11: TheDominionOfKings");
+
+    PrintLevel(8);
     Console.WriteLine("\t12: ColorsAndSounds");
     Console.WriteLine("\t13: TheDefenseOfConsolas");
+
+    PrintLevel(9);
     Console.WriteLine("\t14: RepairingTheClocktower");
     Console.WriteLine("\t15: Watchtower");
+
+    PrintLevel(10);
     Console.WriteLine("\t16: BuyingInventory");
     Console.WriteLine("\t17: DiscountedInventory");
+
+    PrintLevel(11);
     Console.WriteLine("\t18: ThePrototype");
     Console.WriteLine("\t19: TheMagicCannon");
+
+    PrintLevel(12);
     Console.WriteLine("\t20: Level12Notes");
     Console.WriteLine("\t21: TheReplicatorOfDTo");
     Console.WriteLine("\t22: TheLawsOfFreach");
+
+    PrintLevel(13);
     Console.WriteLine("\t23: Countdown");
+
+    PrintLevel(14);
     Console.WriteLine("\t24: Level14Notes");
     Console.WriteLine("\t25: HuntingTheMantiCore");
+
+    PrintLevel(15, true);
+
+    PrintLevel(16);
     Console.WriteLine("\t26: SimulasTest");
+
+    PrintLevel(17);
     Console.WriteLine("\t27: Level17Notes");
     Console.WriteLine("\t28: SimulasSoup");
+
+    PrintLevel(18);
     Console.WriteLine("\t29: Level18Notes");
     Console.WriteLine("\t30: TellMeTheFiveObjectOrientedPrinciples");
     Console.WriteLine("\t31: VinFletchersArrows");
+
+    //PrintChapter(19);
 
     Console.Write("> ");
     var input = Console.ReadLine();
@@ -150,4 +188,14 @@ while (!shouldExit)
         Console.ReadKey(true);
         Console.Clear();
     }
+}
+
+void PrintLevel(int level, bool hasNoExercises = false)
+{
+    Console.WriteLine();
+
+    Utilities.PrintInColor($"\t~~ Level {level} ~~", 2);
+
+    if (hasNoExercises)
+        Utilities.PrintInColor($"\t[Level {level} has no exercises]", 5);
 }
