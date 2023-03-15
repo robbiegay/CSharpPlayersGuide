@@ -27,7 +27,7 @@ while (!shouldExit)
     PrintLevel(6);
     Console.WriteLine("\t6: TheVariableShop");
     Console.WriteLine("\t7: TheVariableShopReturns");
-    Console.WriteLine("\t8: Level6Notes");
+    Console.WriteLine("\t8: Notes");
 
     PrintLevel(7);
     Console.WriteLine("\t9: TheTriangleFarmer");
@@ -51,7 +51,7 @@ while (!shouldExit)
     Console.WriteLine("\t19: TheMagicCannon");
 
     PrintLevel(12);
-    Console.WriteLine("\t20: Level12Notes");
+    Console.WriteLine("\t20: Notes");
     Console.WriteLine("\t21: TheReplicatorOfDTo");
     Console.WriteLine("\t22: TheLawsOfFreach");
 
@@ -59,7 +59,7 @@ while (!shouldExit)
     Console.WriteLine("\t23: Countdown");
 
     PrintLevel(14);
-    Console.WriteLine("\t24: Level14Notes");
+    Console.WriteLine("\t24: Notes");
     Console.WriteLine("\t25: HuntingTheMantiCore");
 
     PrintLevel(15, true);
@@ -68,15 +68,17 @@ while (!shouldExit)
     Console.WriteLine("\t26: SimulasTest");
 
     PrintLevel(17);
-    Console.WriteLine("\t27: Level17Notes");
+    Console.WriteLine("\t27: Notes");
     Console.WriteLine("\t28: SimulasSoup");
 
     PrintLevel(18);
-    Console.WriteLine("\t29: Level18Notes");
+    Console.WriteLine("\t29: Notes");
     Console.WriteLine("\t30: TellMeTheFiveObjectOrientedPrinciples");
     Console.WriteLine("\t31: VinFletchersArrows");
 
-    //PrintChapter(19);
+    PrintLevel(19);
+    Console.WriteLine("\t32: Notes");
+    Console.WriteLine("\t33: VinsTrouble");
 
     Console.Write("> ");
     var input = Console.ReadLine();
@@ -109,7 +111,7 @@ while (!shouldExit)
             Level6.TheVariableShopReturns();
             break;
         case "8":
-            Level6.Level6Notes();
+            Level6.Notes();
             break;
         case "9":
             Level7.TheTriangleFarmer();
@@ -145,7 +147,7 @@ while (!shouldExit)
             Level11.TheMagicCannon();
             break;
         case "20":
-            Level12.Level12Notes();
+            Level12.Notes();
             break;
         case "21":
             Level12.TheReplicatorOfDTo();
@@ -157,7 +159,7 @@ while (!shouldExit)
             Level13.Countdown();
             break;
         case "24":
-            Level14.Level14Notes();
+            Level14.Notes();
             break;
         case "25":
             Level14.HuntingTheMantiCore();
@@ -166,19 +168,25 @@ while (!shouldExit)
             Level16.SimulasTest();
             break;
         case "27":
-            Level17.Level17Notes();
+            Level17.Notes();
             break;
         case "28":
             Level17.SimulasSoup();
             break;
         case "29":
-            Level18.Level18Notes();
+            Level18.Notes();
             break;
         case "30":
             Level18.TellMeTheFiveObjectOrientedPrinciples();
             break;
         case "31":
             Level18.VinFletchersArrows();
+            break;
+        case "32":
+            Level19.Notes();
+            break;
+        case "33":
+            Level19.VinsTrouble();
             break;
     }
 

@@ -2,7 +2,7 @@
 {
     internal class Level12
     {
-        public static void Level12Notes()
+        public static void Notes()
         {
             // Collection initalizer syntax: { ...values... }
             // Can ommit the size and type if it is obvious:

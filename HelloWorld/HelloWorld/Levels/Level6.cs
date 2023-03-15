@@ -119,7 +119,7 @@
             Console.WriteLine($"isABool: {isABool}");
         }
 
-        public static void Level6Notes()
+        public static void Notes()
         {
             Console.WriteLine(@"Reference material: https://csharpplayersguide.com/articles/operators-table" + "\n\n");
 

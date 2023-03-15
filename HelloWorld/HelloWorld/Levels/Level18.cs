@@ -4,13 +4,10 @@
     {
         public static void TellMeTheFiveObjectOrientedPrinciples()
         {
-            Utilities.PrintInColor("The 5 Object-Oriented Principles:\n", 4);
-            Utilities.PrintInColor("1: Encapsulation -- Combining data (fields) and the operations on that data (methods) into a well-defined unit (like a class).", 2);
-
-            Utilities.PrintInColor("TODO: Add the remaining principles...", 1);
+            Utilities.PrintObjectOrientedPrinciples();
         }
 
-        public static void VinFletchersArrows()
+        public static void VinFletchersArrows(bool isLevel19 = false)
         {
             Utilities.PrintInColor("Create a custom arrow:\n", 0);
 
@@ -57,14 +54,25 @@
 
             Utilities.PrintInColor("\nCreating your arrow...\n", 2);
 
-            Arrow arrow = new(arrowHead, length, fletching);
-
             Utilities.PrintInColor($"Your arrow is done!", 2);
-            Utilities.PrintInColor($"\t- Arrow Head: {arrow.arrowHead}\n\t- Length: {arrow.length}\n\t- Fletching: {arrow.fletching}", 2);
-            Utilities.PrintInColor($"Your arrow is done! It will cost you {arrow.GetCost()}!", 2);
+
+            if (isLevel19)
+            {
+                Level19.ImprovedArrow arrow = new(arrowHead, length, fletching);
+
+                Utilities.PrintInColor($"\t- Arrow Head: {arrow.GetArrowHead()}\n\t- Length: {arrow.GetLength()}\n\t- Fletching: {arrow.GetFletching()}", 2);
+                Utilities.PrintInColor($"Your arrow is done! It will cost you {arrow.GetCost()}!", 2);
+            }
+            else
+            {
+                Arrow arrow = new(arrowHead, length, fletching);
+
+                Utilities.PrintInColor($"\t- Arrow Head: {arrow.arrowHead}\n\t- Length: {arrow.length}\n\t- Fletching: {arrow.fletching}", 2);
+                Utilities.PrintInColor($"Your arrow is done! It will cost you {arrow.GetCost()}!", 2);
+            }
         }
 
-        private class Arrow
+        internal class Arrow
         {
             public ArrowHead arrowHead;
             public int length;
@@ -116,21 +124,21 @@
             }
         }
 
-        private enum ArrowHead
+        internal enum ArrowHead
         {
             Steel,
             Wood,
             Obsidian
         }
 
-        private enum Fletching
+        internal enum Fletching
         {
             Plastic,
             TurkeyFeathers,
             GooseFeathers
         }
 
-        public static void Level18Notes()
+        public static void Notes()
         {
             // Instances of a class are created via the 'new' keyword
             // Fields hold data - also known as instance variables

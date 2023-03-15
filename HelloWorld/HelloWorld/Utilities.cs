@@ -50,5 +50,23 @@
 
             Console.ForegroundColor = ConsoleColor.White;
         }
+
+        // Moved this to Utilities class because it spans multiple levels
+        public static void PrintObjectOrientedPrinciples()
+        {
+            PrintInColor("The 5 Object-Oriented Principles:\n", 4);
+
+            PrintInColor("1: Encapsulation\tCombining data (fields) and the operations on that", 2);
+            PrintInColor("\t\t\tdata (methods) into a well-defined unit (like a class).", 2);
+            Console.WriteLine();
+            PrintInColor("2: Information Hiding\tOnly the object itself should directly access the data.", 2);
+            Console.WriteLine();
+            PrintInColor("3: Abstraction\t\tThe outside world does not need to know about the inner workings", 2);
+            PrintInColor("\t\t\tof a class or object, but rather interacts through its public interface.", 2);
+            PrintInColor("\t\t\tThis allows the public workings of the class to change without affecting anything else.", 2);
+            Console.WriteLine();
+
+            PrintInColor("TODO: Add the remaining principles...", 1);
+        }
     }
 }

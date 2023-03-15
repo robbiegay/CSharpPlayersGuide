@@ -9,7 +9,7 @@ namespace CSharpPlayersGuide.Levels
 {
     internal class Level17
     {
-        public static void Level17Notes()
+        public static void Notes()
         {
             Utilities.PrintInColor("\nTuples:\n\n", 3);
             var tuple1 = (Name: "Robbie", Home: "KY", FavNumber: 7, "random-value-lol");

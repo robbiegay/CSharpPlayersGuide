@@ -111,7 +111,7 @@ namespace CSharpPlayersGuide.Levels
             Console.WriteLine(obj);
         }*/
 
-        public static void Level14Notes()
+        public static void Notes()
         {
             Console.WriteLine("Create two values of types: int, int[], string\n");
             int i1;
