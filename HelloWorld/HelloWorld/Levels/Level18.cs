@@ -7,7 +7,7 @@
             Utilities.PrintObjectOrientedPrinciples();
         }
 
-        public static void VinFletchersArrows(bool isLevel19 = false)
+        public static void VinFletchersArrows(bool isLevel19 = false, bool isLevel20 = false)
         {
             Utilities.PrintInColor("Create a custom arrow:\n", 0);
 
@@ -62,6 +62,13 @@
 
                 Utilities.PrintInColor($"\t- Arrow Head: {arrow.GetArrowHead()}\n\t- Length: {arrow.GetLength()}\n\t- Fletching: {arrow.GetFletching()}", 2);
                 Utilities.PrintInColor($"Your arrow is done! It will cost you {arrow.GetCost()}!", 2);
+            }
+            else if (isLevel19)
+            {
+                Level20.ImprovedArrowV2 arrow = new(arrowHead, length, fletching);
+
+                Utilities.PrintInColor($"\t- Arrow Head: {arrow.ArrowHead}\n\t- Length: {arrow.Length}\n\t- Fletching: {arrow.Fletching}", 2);
+                Utilities.PrintInColor($"Your arrow is done! It will cost you {arrow.Cost}!", 2);
             }
             else
             {

@@ -80,6 +80,10 @@ while (!shouldExit)
     Console.WriteLine("\t32: Notes");
     Console.WriteLine("\t33: VinsTrouble");
 
+    PrintLevel(20);
+    Console.WriteLine("\t34: Notes");
+    Console.WriteLine("\t35: ThePropertiesOfArrows");
+
     Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
@@ -187,6 +191,12 @@ while (!shouldExit)
             break;
         case "33":
             Level19.VinsTrouble();
+            break;
+        case "34":
+            Level20.Notes();
+            break;
+        case "35":
+            Level20.ThePropertiesOfArrows();
             break;
     }
 
