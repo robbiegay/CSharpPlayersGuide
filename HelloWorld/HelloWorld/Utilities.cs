@@ -1,7 +1,13 @@
 ﻿namespace CSharpPlayersGuide
 {
-    internal class Utilities
+    internal static class Utilities
     {
+        public static void PrintCode(string message, bool writeToOneLine = false) =>
+            PrintInColor(message, 6, writeToOneLine);
+
+        public static void PrintNotesTitle(int level) =>
+            PrintInColor($"Level {level} Notes:\n", 3, false);
+
         /// <summary>
         /// Prints in a message in color.
         /// </summary>

@@ -90,7 +90,6 @@ while (!shouldExit)
 
     PrintLevel(22);
     Console.WriteLine("\t38: Notes");
-    Console.WriteLine("\t39: ...");
 
     Console.Write("> ");
     var input = Console.ReadLine();
@@ -213,10 +212,7 @@ while (!shouldExit)
             Level21.ArrowFactories();
             break;
         case "38":
-            ;
-            break;
-        case "39":
-            
+            Level22.Notes();
             break;
     }
 
