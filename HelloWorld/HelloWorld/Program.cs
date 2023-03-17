@@ -84,6 +84,14 @@ while (!shouldExit)
     Console.WriteLine("\t34: Notes");
     Console.WriteLine("\t35: ThePropertiesOfArrows");
 
+    PrintLevel(21);
+    Console.WriteLine("\t36: Notes");
+    Console.WriteLine("\t37: ArrowFactories");
+
+    PrintLevel(22);
+    Console.WriteLine("\t38: Notes");
+    Console.WriteLine("\t39: ...");
+
     Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
@@ -197,6 +205,18 @@ while (!shouldExit)
             break;
         case "35":
             Level20.ThePropertiesOfArrows();
+            break;
+        case "36":
+            Level21.Notes();
+            break;
+        case "37":
+            Level21.ArrowFactories();
+            break;
+        case "38":
+            ;
+            break;
+        case "39":
+            
             break;
     }
 

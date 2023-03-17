@@ -7,68 +7,114 @@
             Utilities.PrintObjectOrientedPrinciples();
         }
 
-        public static void VinFletchersArrows(bool isLevel19 = false, bool isLevel20 = false)
+        public static void VinFletchersArrows(int level = 18)
         {
-            Utilities.PrintInColor("Create a custom arrow:\n", 0);
+            Arrow? level21Arrow = new Arrow();
+            bool isCustom = false;
 
-            Utilities.PrintInColor("Select an arrowhead:", 0);
-            Utilities.PrintInColor("\t1 - Steel", 3);
-            Utilities.PrintInColor("\t2 - Wood", 3);
-            Utilities.PrintInColor("\t3 - Obsidian\n", 3);
-            Utilities.PrintInColor("> ", 0, true);
-
-            var arrowHeadSelection = Console.ReadKey().KeyChar;
-            Utilities.PrintInColor("\n", 0);
-
-            ArrowHead arrowHead = arrowHeadSelection switch
+            if (level == 21)
             {
-                '1' => ArrowHead.Steel,
-                '2' => ArrowHead.Wood,
-                '3' => ArrowHead.Obsidian,
-                _ => ArrowHead.Wood
-            };
+                Utilities.PrintInColor("Select an arrow to make:", 0);
+                Utilities.PrintInColor("\t1 - Elite", 3);
+                Utilities.PrintInColor("\t2 - Beginner", 3);
+                Utilities.PrintInColor("\t3 - Marksman", 3);
+                Utilities.PrintInColor("\t4 - Custom\n", 3);
+                Utilities.PrintInColor("> ", 0, true);
 
-            Utilities.PrintInColor("Select an arrow length (60 - 100cm):", 0);
-            Utilities.PrintInColor("> ", 0, true);
+                var arrowSelection = Console.ReadKey().KeyChar;
+                Utilities.PrintInColor("\n", 0);
 
-            var arrowLengthSelection = Console.ReadLine();
+                isCustom = arrowSelection == '4';
 
-            int.TryParse(arrowLengthSelection, out var length);
+                level21Arrow = arrowSelection switch
+                {
+                    '1' => Arrow.MakeEliteArrow(),
+                    '2' => Arrow.MakeBeginnerArrow(),
+                    '3' => Arrow.MakeMarksmanArrow(),
+                    _ => null
+                };
+            }
 
-            Utilities.PrintInColor("\nSelect an arrow fletching:", 0);
-            Utilities.PrintInColor("\t1 - Plastic", 3);
-            Utilities.PrintInColor("\t2 - Turkey Feathers", 3);
-            Utilities.PrintInColor("\t3 - Goose Feathers\n", 3);
-            Utilities.PrintInColor("> ", 0, true);
+            ArrowHead arrowHead = ArrowHead.Wood;
+            int length = 0;
+            Fletching fletching = Fletching.Plastic;
+            
 
-            var arrowFletchingSelection = Console.ReadKey().KeyChar;
-            Utilities.PrintInColor("\n", 0);
-
-            Fletching fletching = arrowFletchingSelection switch
+            if (level != 21 || isCustom)
             {
-                '1' => Fletching.Plastic,
-                '2' => Fletching.TurkeyFeathers,
-                '3' => Fletching.GooseFeathers,
-                _ => Fletching.Plastic
-            };
+                Utilities.PrintInColor("Create a custom arrow:\n", 0);
+
+                Utilities.PrintInColor("Select an arrowhead:", 0);
+                Utilities.PrintInColor("\t1 - Steel", 3);
+                Utilities.PrintInColor("\t2 - Wood", 3);
+                Utilities.PrintInColor("\t3 - Obsidian\n", 3);
+                Utilities.PrintInColor("> ", 0, true);
+
+                var arrowHeadSelection = Console.ReadKey().KeyChar;
+                Utilities.PrintInColor("\n", 0);
+
+                arrowHead = arrowHeadSelection switch
+                {
+                    '1' => ArrowHead.Steel,
+                    '2' => ArrowHead.Wood,
+                    '3' => ArrowHead.Obsidian,
+                    _ => ArrowHead.Wood
+                };
+
+                Utilities.PrintInColor("Select an arrow length (60 - 100cm):", 0);
+                Utilities.PrintInColor("> ", 0, true);
+
+                var arrowLengthSelection = Console.ReadLine();
+
+                int.TryParse(arrowLengthSelection, out length);
+
+                Utilities.PrintInColor("\nSelect an arrow fletching:", 0);
+                Utilities.PrintInColor("\t1 - Plastic", 3);
+                Utilities.PrintInColor("\t2 - Turkey Feathers", 3);
+                Utilities.PrintInColor("\t3 - Goose Feathers\n", 3);
+                Utilities.PrintInColor("> ", 0, true);
+
+                var arrowFletchingSelection = Console.ReadKey().KeyChar;
+                Utilities.PrintInColor("\n", 0);
+
+                fletching = arrowFletchingSelection switch
+                {
+                    '1' => Fletching.Plastic,
+                    '2' => Fletching.TurkeyFeathers,
+                    '3' => Fletching.GooseFeathers,
+                    _ => Fletching.Plastic
+                };
+            }
 
             Utilities.PrintInColor("\nCreating your arrow...\n", 2);
 
             Utilities.PrintInColor($"Your arrow is done!", 2);
 
-            if (isLevel19)
+            if (level == 19)
             {
                 Level19.ImprovedArrow arrow = new(arrowHead, length, fletching);
 
                 Utilities.PrintInColor($"\t- Arrow Head: {arrow.GetArrowHead()}\n\t- Length: {arrow.GetLength()}\n\t- Fletching: {arrow.GetFletching()}", 2);
                 Utilities.PrintInColor($"Your arrow is done! It will cost you {arrow.GetCost()}!", 2);
             }
-            else if (isLevel19)
+            else if (level == 20)
             {
                 Level20.ImprovedArrowV2 arrow = new(arrowHead, length, fletching);
 
                 Utilities.PrintInColor($"\t- Arrow Head: {arrow.ArrowHead}\n\t- Length: {arrow.Length}\n\t- Fletching: {arrow.Fletching}", 2);
                 Utilities.PrintInColor($"Your arrow is done! It will cost you {arrow.Cost}!", 2);
+            }
+            else if (level == 21)
+            {
+                Arrow arrow;
+
+                if (isCustom)
+                    arrow = new(arrowHead, length, fletching);
+                else
+                    arrow = level21Arrow ?? new Arrow();
+
+                Utilities.PrintInColor($"\t- Arrow Head: {arrow.arrowHead}\n\t- Length: {arrow.length}\n\t- Fletching: {arrow.fletching}", 2);
+                Utilities.PrintInColor($"Your arrow is done! It will cost you {arrow.GetCost()}!", 2);
             }
             else
             {
@@ -88,9 +134,13 @@
             private int minLength = 60;
             private int maxLength = 100;
 
+            public static Arrow MakeEliteArrow() => new (ArrowHead.Steel, 95, Fletching.Plastic);
+            public static Arrow MakeBeginnerArrow() => new (ArrowHead.Wood, 75, Fletching.GooseFeathers);
+            public static Arrow MakeMarksmanArrow() => new (ArrowHead.Steel, 65, Fletching.GooseFeathers);
+
             public Arrow() : this(ArrowHead.Wood, 80, Fletching.Plastic)
             {
-
+                //
             }
 
             public Arrow(ArrowHead arrowHead, int length, Fletching fletching)

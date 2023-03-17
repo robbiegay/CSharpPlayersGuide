@@ -32,7 +32,7 @@ namespace CSharpPlayersGuide.Levels
 
         public static void VinsTrouble()
         {
-            Level18.VinFletchersArrows(true);
+            Level18.VinFletchersArrows(level: 19);
         }
 
         internal class ImprovedArrow

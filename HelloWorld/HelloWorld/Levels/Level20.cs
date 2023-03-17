@@ -25,7 +25,7 @@ namespace CSharpPlayersGuide.Levels
 
         public static void Notes()
         {
-            Utilities.PrintInColor("Level 20 Notes:", 4);
+            Utilities.PrintInColor("Level 20 Notes:", 3);
             Console.WriteLine("");
             Console.WriteLine("You can replace dedicated Get...() and Set...() methods with properties:");
             Console.WriteLine("");
@@ -114,7 +114,7 @@ namespace CSharpPlayersGuide.Levels
 
         public static void ThePropertiesOfArrows()
         {
-            Level18.VinFletchersArrows(false, true);
+            Level18.VinFletchersArrows(level: 20);
         }
 
         internal class ImprovedArrowV2
