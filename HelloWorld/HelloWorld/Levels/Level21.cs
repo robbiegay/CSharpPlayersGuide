@@ -49,6 +49,76 @@
             Console.WriteLine("can be useful for initalizing values in the class. Static constructors");
             Console.WriteLine("cannot have access modifiers (public/private) or parameters.");
             Console.WriteLine("");
+            Utilities.PrintInColor("-------------------------------------------", 10);
+            Console.WriteLine("");
+            Console.WriteLine("I think that one of the most interesting aspects of this chapter is:");
+            Console.WriteLine("\t1: How static is used in the Program class");
+            Console.WriteLine("\t2: How to use static to create a Singleton");
+            Console.WriteLine("");
+            Console.WriteLine("The Program class (I assume) is used in ASP.NET as a 'code by convention',");
+            Console.WriteLine("meaning that ASP.NET expects for there to be a static Program class:");
+            Utilities.PrintInColor("public static class Program", 6);
+            Console.WriteLine("");
+            Console.WriteLine("It further expects that the program class has a static method called Main:");
+            Utilities.PrintInColor("static void Main(string[] args)", 6);
+            Console.WriteLine("");
+            Console.WriteLine("Finally, somewhere in ASP.NET, the Program.Main(args) method is called:");
+            Utilities.PrintInColor("Somewhere in ASP.NET -> ", 2, true);
+            Utilities.PrintInColor("Program.Main(args);", 6, true);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("This then acts as the entry point of your program.");
+            Console.WriteLine("");
+            Utilities.PrintInColor("-------------------------------------------", 10);
+            Console.WriteLine("");
+            Console.WriteLine("The 'static' keyword can be used to create a singleton:");
+            Console.WriteLine("");
+            Utilities.PrintInColor(
+"""
+void Main()
+{
+    var s1 = Singleton.Create();
+    s1.Value = 5;
+    var s2 = Singleton.Create();
+    s2.Value = 10;
+    var s3 = Singleton.Create();
+    s3.Value = 15;
+
+    s1.Dump();
+    s2.Dump();
+    s3.Dump();
+}
+
+internal class Singleton
+{
+    private static Singleton singleton;
+    private static readonly object singletonLock = new object();
+
+    // If the singleton works, an instance variable should be the same for all objects
+    public int Value;
+
+    public static Singleton Create()
+    {
+        if (singleton is null)
+        {
+            lock(singletonLock)
+            {
+                if (singleton is null)
+                {
+                	singleton = new Singleton();
+                }
+            }
+        }
+
+        return singleton;
+    }
+
+    private Singleton()
+    {
+        //
+    }
+}
+""", 6);
         }
 
         // Interesting that a static class can have a non-static subclass
