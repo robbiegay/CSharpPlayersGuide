@@ -91,6 +91,12 @@ while (!shouldExit)
     PrintLevel(22);
     Console.WriteLine("\t38: Notes");
 
+    PrintLevel(23);
+    Console.WriteLine("\t39: Notes");
+
+    //PrintLevel(24);
+    //Console.WriteLine("\t38: Notes");
+
     Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
@@ -213,6 +219,9 @@ while (!shouldExit)
             break;
         case "38":
             Level22.Notes();
+            break;
+        case "39":
+            Level23.Notes();
             break;
     }
 
