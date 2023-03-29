@@ -94,8 +94,8 @@ while (!shouldExit)
     PrintLevel(23);
     Console.WriteLine("\t39: Notes");
 
-    //PrintLevel(24);
-    //Console.WriteLine("\t38: Notes");
+    PrintLevel(24);
+    Console.WriteLine("\t40: BossBattles");
 
     Console.Write("> ");
     var input = Console.ReadLine();
@@ -220,8 +220,8 @@ while (!shouldExit)
         case "38":
             Level22.Notes();
             break;
-        case "39":
-            Level23.Notes();
+        case "40":
+            Level24.BossBattles();
             break;
     }
 
