@@ -220,6 +220,9 @@ while (!shouldExit)
         case "38":
             Level22.Notes();
             break;
+        case "39":
+            Level23.Notes();
+            break;
         case "40":
             Level24.BossBattles();
             break;

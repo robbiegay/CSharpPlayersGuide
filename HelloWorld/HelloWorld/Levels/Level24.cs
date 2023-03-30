@@ -46,6 +46,30 @@ namespace CSharpPlayersGuide.Levels
                 input = Console.ReadLine();
             }
             Console.WriteLine("");
+            Utilities.PrintInColor("The Password Validator", 4);
+            Console.WriteLine("");
+            Utilities.PrintInColor("Rules:\n\t- Length: >= 6 and <= 13\n\t- Must have: 1 upper, 1 lower, 1 number\n\t- Cannot have: capital T, ampersand (&)", 2);
+            Console.WriteLine("");
+
+            var endPasswordLoop = "";
+
+            while (endPasswordLoop != "e")
+            {
+                Console.WriteLine("Enter a password:");
+                var password = Console.ReadLine();
+
+                var isValid = PasswordValidator.IsValid(password);
+
+                if (isValid)
+                    Utilities.PrintInColor($"The password '{password}' is valid!", 7);
+                else
+                    Utilities.PrintInColor($"The password '{password}' is not valid!", 1);
+
+                Console.WriteLine("Enter 'e' to exit");
+                endPasswordLoop = Console.ReadLine();
+            }
+
+            
 
         }
     }
@@ -388,6 +412,41 @@ namespace CSharpPlayersGuide.Levels
                 else
                     Utilities.PrintInColor("Unknown input: " + input, 1);
             }
+        }
+    }
+
+    internal class PasswordValidator
+    {
+        public static bool IsValid(string password)
+        {
+            if (password.Length < 6 || password.Length > 13)
+                return false;
+
+            var hasUpper = false;
+            var hasLower = false;
+            var hasNumber = false;
+            var hasT = false;
+            var hasAmpersand = false;
+
+            foreach (var ch in password)
+            {
+                if (char.IsUpper(ch))
+                    hasUpper = true;
+                if (char.IsLower(ch))
+                    hasLower = true;
+                if (char.IsDigit(ch))
+                    hasNumber = true;
+
+                if (ch == 'T')
+                    hasT= true;
+                if (ch == '&')
+                    hasAmpersand = true;
+            }
+
+            if (!hasUpper || !hasLower || !hasNumber || hasT || hasAmpersand)
+                return false;
+
+            return true;
         }
     }
 }
