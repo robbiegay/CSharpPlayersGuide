@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace CSharpPlayersGuide.Levels
+﻿namespace CSharpPlayersGuide.Levels
 {
     internal static class Level22
     {
