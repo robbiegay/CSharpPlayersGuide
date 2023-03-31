@@ -69,8 +69,58 @@ namespace CSharpPlayersGuide.Levels
                 endPasswordLoop = Console.ReadLine();
             }
 
-            
+            Console.WriteLine("");
+            Utilities.PrintInColor("Rock, Paper, Scissors", 4);
+            Console.WriteLine("");
+            var rpsDesignNotes =
+"""
+ Rock, Paper Scissors Design Reqs:
+- Two human players
+- 3 possible moves: Rock, Paper, Scissors
+- A way to determine outcome: Win, Lost, Tie
+- 3 possible outcomes: Win, Lose, Tie
+- Display: who won
+- Round Records
 
+-------------------------------
+
+Player Class:
+- Name
+
+Move Enum:
+- Rock
+- Paper
+- Scissors
+
+Result Enum:
+- Win
+- Lose
+- Draw
+
+ Game Class:
+- Run() -> loops the game until asked to end
+- Play() -> asks for user names, asks for user inputs, returns a game record
+- Record
+    - PlayerOneOutcome
+    - PlayerTwoOutcome
+
+- Outcome
+    - Player
+    - Result
+
+    -> Some stuff that came up during implementation:
+    - DetermineWinner() -> later decided to just include this logic in 'Play()'
+    - PrintResults()
+    - Changed 'Record' to have each player and their results as I thought that made more sense
+
+Overall:
+- I felt like my initial design got me about 80% there, and working through the implmentation resulted in changes to the remaining 20%.
+- For a bigger project that this, doing a 'mock implementation' on a white board would probably help flesh out these changes while still being much faster that actual code.
+""";
+            Console.WriteLine(rpsDesignNotes);
+            Console.WriteLine("");
+            var game = new Game();
+            game.Run();
         }
     }
 
@@ -91,6 +141,7 @@ namespace CSharpPlayersGuide.Levels
             Y = 0;
         }
     }
+
     internal class Color
     {
         public static Color White => new Color(255, 255, 255);
@@ -106,9 +157,9 @@ namespace CSharpPlayersGuide.Levels
         private int _green;
         private int _blue;
 
-        public int R 
-        { 
-            get => _red; 
+        public int R
+        {
+            get => _red;
             init
             {
                 if (value < 0)
@@ -121,8 +172,8 @@ namespace CSharpPlayersGuide.Levels
         }
 
         public int G
-        { 
-            get => _green; 
+        {
+            get => _green;
             init
             {
                 if (value < 0)
@@ -133,7 +184,7 @@ namespace CSharpPlayersGuide.Levels
                     _green = value;
             }
         }
-        public int B 
+        public int B
         {
             get => _blue;
             init
@@ -186,8 +237,8 @@ namespace CSharpPlayersGuide.Levels
         private CardColor _color;
         private CardRank _rank;
 
-        public CardColor Color 
-        { 
+        public CardColor Color
+        {
             get
             {
                 return _color;
@@ -302,8 +353,8 @@ namespace CSharpPlayersGuide.Levels
             }
         }
 
-        public DoorState State 
-        { 
+        public DoorState State
+        {
             get => _state;
         }
 
@@ -438,7 +489,7 @@ namespace CSharpPlayersGuide.Levels
                     hasNumber = true;
 
                 if (ch == 'T')
-                    hasT= true;
+                    hasT = true;
                 if (ch == '&')
                     hasAmpersand = true;
             }
@@ -449,4 +500,139 @@ namespace CSharpPlayersGuide.Levels
             return true;
         }
     }
+
+    internal class Player
+    {
+        public string Name { get; set; }
+
+        public Player(string name)
+        {
+            Name = name;
+        }
+    }
+
+    internal enum Move
+    {
+        Rock,
+        Paper,
+        Scissors
+    }
+
+    internal enum Result
+    {
+        Win,
+        Lose,
+        Draw
+    }
+
+    internal class Game
+    {
+        public void Run()
+        {
+            Console.WriteLine("");
+            Utilities.PrintInColor("-----------------------------------------------------", 14);
+            Utilities.PrintInColor("--------------- Rock, Paper, Scissors ---------------", 7);
+            Utilities.PrintInColor("-----------------------------------------------------", 14);
+            Console.WriteLine("");
+            var input = "";
+
+            var gameRecords = new GameRecords();
+
+            while (input != "e")
+            {
+                gameRecords.Records.Add(Play());
+                PrintResults(gameRecords);
+
+                Console.WriteLine("");
+                Utilities.PrintInColor("Type 'e' to exit or any other key to play again!", 12);
+                input = Console.ReadLine();
+            }
+        }
+
+        private GameRecord Play()
+        {
+            Console.WriteLine("Player 1, enter your name:");
+            var p1Name = Console.ReadLine();
+            var p1 = new Player(p1Name);
+
+            Console.WriteLine("Player 2, enter your name:");
+            var p2Name = Console.ReadLine();
+            var p2 = new Player(p2Name);
+
+            var selection = "1 = Rock, 2 = Paper, 3 = Scissors";
+            Console.WriteLine($"{p1.Name}, enter your selection: {selection}:");
+            var p1Selection = Console.ReadLine();
+
+            Move p1Move = p1Selection switch
+            {
+                "1" => Move.Rock,
+                "2" => Move.Paper,
+                "3" => Move.Scissors,
+                _ => Move.Rock // Default
+            };
+
+            Console.WriteLine($"{p2.Name}, enter your {selection}:");
+            var p2Selection = Console.ReadLine();
+
+            Move p2Move = p2Selection switch
+            {
+                "1" => Move.Rock,
+                "2" => Move.Paper,
+                "3" => Move.Scissors,
+                _ => Move.Rock // Default
+            };
+
+            var record = new GameRecord();
+            record.PlayerOne = p1;
+            record.PlayerTwo = p2;
+
+            if ((p1Move == Move.Rock && p2Move == Move.Rock) || (p1Move == Move.Paper && p2Move == Move.Paper) || (p1Move == Move.Scissors && p2Move == Move.Scissors))
+            {
+                record.PlayerOneResult = Result.Draw;
+                record.PlayerTwoResult = Result.Draw;
+            }
+            else if ((p1Move == Move.Rock && p2Move == Move.Scissors) || (p1Move == Move.Paper && p2Move == Move.Rock) || (p1Move == Move.Scissors && p2Move == Move.Paper))
+            {
+                record.PlayerOneResult = Result.Win;
+                record.PlayerTwoResult = Result.Lose;
+            }
+            else if ((p1Move == Move.Rock && p2Move == Move.Paper) || (p1Move == Move.Paper && p2Move == Move.Scissors) || (p1Move == Move.Scissors && p2Move == Move.Rock))
+            {
+                record.PlayerOneResult = Result.Lose;
+                record.PlayerTwoResult = Result.Win;
+            }
+
+            return record;
+        }
+
+        private void PrintResults(GameRecords records)
+        {
+            for (int i = 0; i < records.Records.Count; i++)
+            {
+                var record = records.Records[i];
+
+                Utilities.PrintInColor($"Game {i + 1}: {record.PlayerOne.Name} ({record.PlayerOneResult}) vs {record.PlayerTwo.Name} ({record.PlayerTwoResult})", 2);
+            }
+        }
+
+        private class GameRecord
+        {
+            public Player PlayerOne { get; set; }
+            public Result PlayerOneResult { get; set; }
+            public Player PlayerTwo { get; set; }
+            public Result PlayerTwoResult { get; set; }
+        }
+
+        private class GameRecords
+        {
+            public List<GameRecord> Records;
+
+            public GameRecords()
+            {
+                Records = new List<GameRecord>();
+            }
+        }
+    }
+
+
 }
