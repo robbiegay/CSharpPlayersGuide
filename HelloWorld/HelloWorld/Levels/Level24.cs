@@ -1,4 +1,5 @@
 ﻿using System.Reflection.Metadata.Ecma335;
+using System.Runtime.ExceptionServices;
 
 namespace CSharpPlayersGuide.Levels
 {
@@ -6,74 +7,79 @@ namespace CSharpPlayersGuide.Levels
     {
         public static void BossBattles()
         {
-            Utilities.PrintInColor("Level 24 Boss Battles:", 2);
-            Console.WriteLine("");
-            Utilities.PrintInColor("The Point:", 4);
-            var p1 = new Point(2, 3);
-            var p2 = new Point(-4, 0);
-            Console.WriteLine($"Point 1: X:{p1.X}, Y:{p1.Y}");
-            Console.WriteLine($"Point 2: X:{p2.X}, Y:{p2.Y}");
-            Console.WriteLine("X and Y are immutable because the design requierments did not say that they need to be changed: YAGNI");
-            Console.WriteLine("");
-            Utilities.PrintInColor("The Color:", 4);
-            var c1 = new Color(-1, 256, 128); // Should change -1 to 0 and 256 to 255
-            var c2 = Color.Purple;
-            Console.WriteLine($"Color 1: red: {c1.R}, green: {c1.G}, blue: {c1.B}");
-            Console.WriteLine($"Color 2: red: {c2.R}, green: {c2.G}, blue: {c2.B}");
-            Console.WriteLine("");
-            Utilities.PrintInColor("The Card", 4);
-            Console.WriteLine("");
-            var deck = new Deck();
-            deck.CreateDeck();
-            deck.ReadDeck();
-            Console.WriteLine("");
-            Console.WriteLine("We made color enum's in this challenge because color was limited to 4 options.");
-            Console.WriteLine("In 'The Color' challenge, each of the 3 color channels had 256 possible values");
-            Console.WriteLine("meaning that though we do technically have a finite set of possible colors,");
-            Console.WriteLine("that set is 16 million in size so we probably don't want to use enums. That said,");
-            Console.WriteLine("we did create a few static values for commonly used colors.");
-            Console.WriteLine("");
-            Utilities.PrintInColor("The Locked Door", 4);
-            Console.WriteLine("");
-            var door = new Door();
-            var input = "";
-
-            while (input != "e")
+            Console.WriteLine("Enter 't' to skip to tic-tac-toe or any other key to continue:");
+            var skip = Console.ReadLine();
+            if (skip != "t")
             {
-                door.ChangeDoorState();
 
-                Console.WriteLine("Type 'e' to exit");
-                input = Console.ReadLine();
-            }
-            Console.WriteLine("");
-            Utilities.PrintInColor("The Password Validator", 4);
-            Console.WriteLine("");
-            Utilities.PrintInColor("Rules:\n\t- Length: >= 6 and <= 13\n\t- Must have: 1 upper, 1 lower, 1 number\n\t- Cannot have: capital T, ampersand (&)", 2);
-            Console.WriteLine("");
+                Utilities.PrintInColor("Level 24 Boss Battles:", 2);
+                Console.WriteLine("");
+                Utilities.PrintInColor("The Point:", 4);
+                var p1 = new Point(2, 3);
+                var p2 = new Point(-4, 0);
+                Console.WriteLine($"Point 1: X:{p1.X}, Y:{p1.Y}");
+                Console.WriteLine($"Point 2: X:{p2.X}, Y:{p2.Y}");
+                Console.WriteLine("X and Y are immutable because the design requierments did not say that they need to be changed: YAGNI");
+                Console.WriteLine("");
+                Utilities.PrintInColor("The Color:", 4);
+                var c1 = new Color(-1, 256, 128); // Should change -1 to 0 and 256 to 255
+                var c2 = Color.Purple;
+                Console.WriteLine($"Color 1: red: {c1.R}, green: {c1.G}, blue: {c1.B}");
+                Console.WriteLine($"Color 2: red: {c2.R}, green: {c2.G}, blue: {c2.B}");
+                Console.WriteLine("");
+                Utilities.PrintInColor("The Card", 4);
+                Console.WriteLine("");
+                var deck = new Deck();
+                deck.CreateDeck();
+                deck.ReadDeck();
+                Console.WriteLine("");
+                Console.WriteLine("We made color enum's in this challenge because color was limited to 4 options.");
+                Console.WriteLine("In 'The Color' challenge, each of the 3 color channels had 256 possible values");
+                Console.WriteLine("meaning that though we do technically have a finite set of possible colors,");
+                Console.WriteLine("that set is 16 million in size so we probably don't want to use enums. That said,");
+                Console.WriteLine("we did create a few static values for commonly used colors.");
+                Console.WriteLine("");
+                Utilities.PrintInColor("The Locked Door", 4);
+                Console.WriteLine("");
+                var door = new Door();
+                var input = "";
 
-            var endPasswordLoop = "";
+                while (input != "e")
+                {
+                    door.ChangeDoorState();
 
-            while (endPasswordLoop != "e")
-            {
-                Console.WriteLine("Enter a password:");
-                var password = Console.ReadLine();
+                    Console.WriteLine("Type 'e' to exit");
+                    input = Console.ReadLine();
+                }
+                Console.WriteLine("");
+                Utilities.PrintInColor("The Password Validator", 4);
+                Console.WriteLine("");
+                Utilities.PrintInColor("Rules:\n\t- Length: >= 6 and <= 13\n\t- Must have: 1 upper, 1 lower, 1 number\n\t- Cannot have: capital T, ampersand (&)", 2);
+                Console.WriteLine("");
 
-                var isValid = PasswordValidator.IsValid(password);
+                var endPasswordLoop = "";
 
-                if (isValid)
-                    Utilities.PrintInColor($"The password '{password}' is valid!", 7);
-                else
-                    Utilities.PrintInColor($"The password '{password}' is not valid!", 1);
+                while (endPasswordLoop != "e")
+                {
+                    Console.WriteLine("Enter a password:");
+                    var password = Console.ReadLine();
 
-                Console.WriteLine("Enter 'e' to exit");
-                endPasswordLoop = Console.ReadLine();
-            }
+                    var isValid = PasswordValidator.IsValid(password);
 
-            Console.WriteLine("");
-            Utilities.PrintInColor("Rock, Paper, Scissors", 4);
-            Console.WriteLine("");
-            var rpsDesignNotes =
-"""
+                    if (isValid)
+                        Utilities.PrintInColor($"The password '{password}' is valid!", 7);
+                    else
+                        Utilities.PrintInColor($"The password '{password}' is not valid!", 1);
+
+                    Console.WriteLine("Enter 'e' to exit");
+                    endPasswordLoop = Console.ReadLine();
+                }
+
+                Console.WriteLine("");
+                Utilities.PrintInColor("Rock, Paper, Scissors", 4);
+                Console.WriteLine("");
+                var rpsDesignNotes =
+    """
  Rock, Paper Scissors Design Reqs:
 - Two human players
 - 3 possible moves: Rock, Paper, Scissors
@@ -117,10 +123,303 @@ Overall:
 - I felt like my initial design got me about 80% there, and working through the implmentation resulted in changes to the remaining 20%.
 - For a bigger project that this, doing a 'mock implementation' on a white board would probably help flesh out these changes while still being much faster that actual code.
 """;
-            Console.WriteLine(rpsDesignNotes);
+                Console.WriteLine(rpsDesignNotes);
+                Console.WriteLine("");
+                var game = new Game();
+                game.Run();
+
+                Console.WriteLine("");
+                Utilities.PrintInColor("15-Puzzle", 4);
+                Console.WriteLine("");
+                var fpDesignNotes =
+    """
+15-Puzzle Reqs:
+- Board: 16 tiles (one blank, the other numbered 1-15)
+- Display current state to user
+- Detect and tell user if puzzle has been solved
+- Generate random puzzles
+- Track and display how many moves have been taken
+
+- Display class: takes in a list of tile objects a displays them on the screen in a grid
+- Tile objects: has a property for number. If number is 0, displays a blank tile
+- CheckWin(): After a move, checks if the tiles are in order. If so, displays a "you win" message.
+- CreateRandomPuzzle(): Randomly orders to tiles
+- Game class:
+    - Loops the game until the user exits
+    - Allows a move to be taken
+    - Runs the Display class after each move
+    - Runs the checkWin() after each move
+    - Keeps track of moves taken
+
+Q: The design would not need to change much for a 3x3 or 5x5 board -- just adjust some class parameters.
+""";
+                Console.WriteLine(fpDesignNotes);
+
+                Console.WriteLine("");
+                Utilities.PrintInColor("Hangman", 4);
+                Console.WriteLine("");
+
+                var hmDesignNotes =
+    """
+Hangman Reqs:
+- Program generates a random (secret) word for the user to guess
+- The display is shown as follows: Word: I M M U T A _ L E | Remaining: 2 | Incorrect: OSR | Guess: b
+- Player can pick a letter and must pick again if letter is already guessed
+- Can check for win/lose conditions
+
+- Game class:
+    - Loops until the user exits
+    - Keeps track of global state object
+    - Runs the following in order: UserGuess(), UpdateState() CheckWin(), UpdateDisplay()
+- Gapeplay state: properties for: random word, user guesses, guesses remaining, user guess (the impartially complete word), didUserWin
+- (bool, char) UserGuess(string[] guesses, string word): propts user until given an unguessed char. If user guess is correct, returns (true, guessChar), if not false
+- UpdateState(): adds guess to correct or incorrect letters/word
+- CheckWin(): check if the user won
+- UpdateDisplay(): updates the display
+""";
+                Console.WriteLine(hmDesignNotes);
+
+                Console.WriteLine("");
+                Utilities.PrintInColor("Tic-Tac-Toe", 4);
+                Console.WriteLine("");
+
+                var tttDesignNotes =
+    """
+Tic-Tac-Toe Reqs:
+- Players take turns
+- User numberpad to select where to play
+- Players are propmpted for input until they select a valid tile
+- Game must detect win or draw (full board)
+- Outcome is displayed to players
+- Board is rendered on screen
+
+- Board class:
+    - 2D array for board
+- Game Class:
+    - Run: loops
+    - UserMove: Loops until a valid input is given. Input: board, output: board
+    - CheckWin(): reutrns win, draw, continue (enum of game state)
+    - RenderDisplay(bool GameState)
+""";
+                Console.WriteLine(tttDesignNotes);
+
+                Console.WriteLine("Press any key to continue to tic-tac-toe...");
+                Console.ReadKey();
+            }
+
+            var ticTacToe = new TicTacToe();
+            ticTacToe.Play();
+        }
+    }
+
+    internal class TicTacToe
+    {
+        public TicTacToeBoard Board { get; set; }
+        private bool isXTurn = true;
+
+        public TicTacToe()
+        {
+            Board = new TicTacToeBoard();
+        }
+
+        public void Play()
+        {
+            RenderGame(Board);
+
+            while (true)
+            {
+                Board = GetUserInput(Board, isXTurn);
+                isXTurn = !isXTurn;
+
+                RenderGame(Board);
+
+                if (CheckWin(Board, 'X') || CheckWin(Board, 'O'))
+                {
+                    break;
+                }
+            }
+        }
+
+        public TicTacToeBoard GetUserInput(TicTacToeBoard board, bool isXTurn)
+        {
+            var grid = board.Grid;
+
+            var isValidMove = false;
+
+            while(!isValidMove)
+            {
+                Console.WriteLine($"Player {(isXTurn ? "X" : "O")}: Enter a move");
+                var move = Console.ReadLine();
+
+                switch (move) 
+                {
+                    case "1":
+                        if (grid[2,0] == '1')
+                        {
+                            grid[2, 0] = (isXTurn ? 'X' : 'O');
+                            isValidMove = true;
+                        }
+                        break;
+                    case "2":
+                        if (grid[2, 1] == '2')
+                        {
+                            grid[2, 1] = (isXTurn ? 'X' : 'O');
+                            isValidMove = true;
+                        }
+                        break;
+                    case "3":
+                        if (grid[2, 2] == '3')
+                        {
+                            grid[2, 2] = (isXTurn ? 'X' : 'O');
+                            isValidMove = true;
+                        }
+                        break;
+                    case "4":
+                        if (grid[1, 0] == '4')
+                        {
+                            grid[1, 0] = (isXTurn ? 'X' : 'O');
+                            isValidMove = true;
+                        }
+                        break;
+                    case "5":
+                        if (grid[1, 1] == '5')
+                        {
+                            grid[1, 1] = (isXTurn ? 'X' : 'O');
+                            isValidMove = true;
+                        }
+                        break;
+                    case "6":
+                        if (grid[1, 2] == '6')
+                        {
+                            grid[1, 2] = (isXTurn ? 'X' : 'O');
+                            isValidMove = true;
+                        }
+                        break;
+                    case "7":
+                        if (grid[0, 0] == '7')
+                        {
+                            grid[0, 0] = (isXTurn ? 'X' : 'O');
+                            isValidMove = true;
+                        }
+                        break;
+                    case "8":
+                        if (grid[0, 1] == '8')
+                        {
+                            grid[0, 1] = (isXTurn ? 'X' : 'O');
+                            isValidMove = true;
+                        }
+                        break;
+                    case "9":
+                        if (grid[0, 2] == '9')
+                        {
+                            grid[0, 2] = (isXTurn ? 'X' : 'O');
+                            isValidMove = true;
+                        }
+                        break;
+                }
+            }
+
+            return Board;
+        }
+
+        public void RenderGame(TicTacToeBoard board)
+        {
+            Console.Clear();
+
+            Utilities.PrintInColor("Tic-Tac-Toe", 2);
             Console.WriteLine("");
-            var game = new Game();
-            game.Run();
+            Console.WriteLine("");
+            
+            for (int i = 0; i < 3; i++)
+            {
+                var grid = board.Grid;
+
+                var n1 = grid[i, 0];
+                var n2 = grid[i, 1];
+                var n3 = grid[i, 2];
+
+                if (char.IsDigit(n1))
+                    Utilities.PrintInColor($" {n1} ", 5, true);
+                else if (n1 == 'X')
+                    Utilities.PrintInColor($" {n1} ", 3, true);
+                else if (n1 =='O')
+                    Utilities.PrintInColor($" {n1} ", 1, true);
+
+                Utilities.PrintInColor("|", 7, true);
+
+                if (char.IsDigit(n2))
+                    Utilities.PrintInColor($" {n2} ", 5, true);
+                else if (n2 == 'X')
+                    Utilities.PrintInColor($" {n2} ", 3, true);
+                else if (n2 == 'O')
+                    Utilities.PrintInColor($" {n2} ", 1, true);
+
+                Utilities.PrintInColor("|", 7, true);
+
+                if (char.IsDigit(n3))
+                    Utilities.PrintInColor($" {n3} ", 5, true);
+                else if (n3 == 'X')
+                    Utilities.PrintInColor($" {n3} ", 3, true);
+                else if (n3 == 'O')
+                    Utilities.PrintInColor($" {n3} ", 1, true);
+
+                Console.WriteLine("");
+
+                if (i < 2)
+                    Utilities.PrintInColor("---+---+---", 7);
+            }
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+        }
+
+        public bool CheckWin(TicTacToeBoard board, char WinChar)
+        {
+            var grid = board.Grid;
+            bool boardIsFull = true;
+
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (char.IsDigit(grid[i, j]))
+                    {
+                        boardIsFull = false;
+                    }
+                }
+            }
+
+            if (    (grid[0, 0] == WinChar && grid[0, 1] == WinChar && grid[0, 2] == WinChar) ||
+                    (grid[1, 0] == WinChar && grid[1, 1] == WinChar && grid[1, 2] == WinChar) || 
+                    (grid[2, 0] == WinChar && grid[2, 1] == WinChar && grid[2, 2] == WinChar) ||
+
+                    (grid[0, 0] == WinChar && grid[1, 0] == WinChar && grid[2, 0] == WinChar) ||
+                    (grid[0, 1] == WinChar && grid[1, 1] == WinChar && grid[2, 1] == WinChar) ||
+                    (grid[0, 2] == WinChar && grid[1, 2] == WinChar && grid[2, 2] == WinChar) ||
+
+                    (grid[0, 0] == WinChar && grid[1, 1] == WinChar && grid[2, 2] == WinChar) ||
+                    (grid[2, 0] == WinChar && grid[1, 1] == WinChar && grid[0, 2] == WinChar))
+            {
+                Utilities.PrintInColor($"Player {WinChar} has won the game!!", 2);
+                return true;
+            }
+            else if (boardIsFull)
+            {
+                Utilities.PrintInColor($"TIE: The board is full!", 2);
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+    internal class TicTacToeBoard
+    {
+        public char[,] Grid { get; set; }
+
+        public TicTacToeBoard()
+        {
+            Grid = new char[,] { { '7', '8', '9' }, { '4', '5', '6' }, { '1', '2', '3' } };
         }
     }
 
