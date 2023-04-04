@@ -7,79 +7,107 @@ namespace CSharpPlayersGuide.Levels
     {
         public static void BossBattles()
         {
-            Console.WriteLine("Enter 't' to skip to tic-tac-toe or any other key to continue:");
-            var skip = Console.ReadLine();
-            if (skip != "t")
-            {
+            var selectionInput = "";
 
+            while (selectionInput != "e")
+            {
                 Utilities.PrintInColor("Level 24 Boss Battles:", 2);
                 Console.WriteLine("");
-                Utilities.PrintInColor("The Point:", 4);
-                var p1 = new Point(2, 3);
-                var p2 = new Point(-4, 0);
-                Console.WriteLine($"Point 1: X:{p1.X}, Y:{p1.Y}");
-                Console.WriteLine($"Point 2: X:{p2.X}, Y:{p2.Y}");
-                Console.WriteLine("X and Y are immutable because the design requierments did not say that they need to be changed: YAGNI");
-                Console.WriteLine("");
-                Utilities.PrintInColor("The Color:", 4);
-                var c1 = new Color(-1, 256, 128); // Should change -1 to 0 and 256 to 255
-                var c2 = Color.Purple;
-                Console.WriteLine($"Color 1: red: {c1.R}, green: {c1.G}, blue: {c1.B}");
-                Console.WriteLine($"Color 2: red: {c2.R}, green: {c2.G}, blue: {c2.B}");
-                Console.WriteLine("");
-                Utilities.PrintInColor("The Card", 4);
-                Console.WriteLine("");
-                var deck = new Deck();
-                deck.CreateDeck();
-                deck.ReadDeck();
-                Console.WriteLine("");
-                Console.WriteLine("We made color enum's in this challenge because color was limited to 4 options.");
-                Console.WriteLine("In 'The Color' challenge, each of the 3 color channels had 256 possible values");
-                Console.WriteLine("meaning that though we do technically have a finite set of possible colors,");
-                Console.WriteLine("that set is 16 million in size so we probably don't want to use enums. That said,");
-                Console.WriteLine("we did create a few static values for commonly used colors.");
-                Console.WriteLine("");
-                Utilities.PrintInColor("The Locked Door", 4);
-                Console.WriteLine("");
-                var door = new Door();
-                var input = "";
+                Console.WriteLine("Select a Boss Battle:");
+                Console.WriteLine("\t1 - The Point");
+                Console.WriteLine("\t2 - The Color");
+                Console.WriteLine("\t3 - The Card");
+                Console.WriteLine("\t4 - The Locked Door");
+                Console.WriteLine("\t5 - The Password Validator");
+                Console.WriteLine("\t6 - Rock, Paper, Scissors");
+                Console.WriteLine("\t7 - 15-Puzzle");
+                Console.WriteLine("\t8 - Hangman");
+                Console.WriteLine("\t9 - Tic-Tac-Toe");
+                Console.WriteLine("\te - Exit");
 
-                while (input != "e")
+                selectionInput = Console.ReadLine();
+
+                Console.Clear();
+
+                if (selectionInput == "1")
                 {
-                    door.ChangeDoorState();
-
-                    Console.WriteLine("Type 'e' to exit");
-                    input = Console.ReadLine();
+                    Utilities.PrintInColor("The Point:", 4);
+                    var p1 = new Point(2, 3);
+                    var p2 = new Point(-4, 0);
+                    Console.WriteLine($"Point 1: X:{p1.X}, Y:{p1.Y}");
+                    Console.WriteLine($"Point 2: X:{p2.X}, Y:{p2.Y}");
+                    Console.WriteLine("X and Y are immutable because the design requierments did not say that they need to be changed: YAGNI");
                 }
-                Console.WriteLine("");
-                Utilities.PrintInColor("The Password Validator", 4);
-                Console.WriteLine("");
-                Utilities.PrintInColor("Rules:\n\t- Length: >= 6 and <= 13\n\t- Must have: 1 upper, 1 lower, 1 number\n\t- Cannot have: capital T, ampersand (&)", 2);
-                Console.WriteLine("");
-
-                var endPasswordLoop = "";
-
-                while (endPasswordLoop != "e")
+                else if (selectionInput == "2")
                 {
-                    Console.WriteLine("Enter a password:");
-                    var password = Console.ReadLine();
-
-                    var isValid = PasswordValidator.IsValid(password);
-
-                    if (isValid)
-                        Utilities.PrintInColor($"The password '{password}' is valid!", 7);
-                    else
-                        Utilities.PrintInColor($"The password '{password}' is not valid!", 1);
-
-                    Console.WriteLine("Enter 'e' to exit");
-                    endPasswordLoop = Console.ReadLine();
+                    Utilities.PrintInColor("The Color:", 4);
+                    var c1 = new Color(-1, 256, 128); // Should change -1 to 0 and 256 to 255
+                    var c2 = Color.Purple;
+                    Console.WriteLine($"Color 1: red: {c1.R}, green: {c1.G}, blue: {c1.B}");
+                    Console.WriteLine($"Color 2: red: {c2.R}, green: {c2.G}, blue: {c2.B}");
                 }
+                else if (selectionInput == "3")
+                {
+                    Utilities.PrintInColor("The Card", 4);
+                    Console.WriteLine("");
+                    var deck = new Deck();
+                    deck.CreateDeck();
+                    deck.ReadDeck();
+                    Console.WriteLine("");
+                    Console.WriteLine("We made color enum's in this challenge because color was limited to 4 options.");
+                    Console.WriteLine("In 'The Color' challenge, each of the 3 color channels had 256 possible values");
+                    Console.WriteLine("meaning that though we do technically have a finite set of possible colors,");
+                    Console.WriteLine("that set is 16 million in size so we probably don't want to use enums. That said,");
+                    Console.WriteLine("we did create a few static values for commonly used colors.");
+                }
+                else if (selectionInput == "4")
+                {
+                    Utilities.PrintInColor("The Locked Door", 4);
+                    Console.WriteLine("");
+                    var door = new Door();
+                    var input = "";
 
-                Console.WriteLine("");
-                Utilities.PrintInColor("Rock, Paper, Scissors", 4);
-                Console.WriteLine("");
-                var rpsDesignNotes =
-    """
+                    while (input != "e")
+                    {
+                        door.ChangeDoorState();
+
+                        Console.WriteLine("Type 'e' to exit");
+                        input = Console.ReadLine();
+                    }
+
+                }
+                else if (selectionInput == "5")
+                {
+                    Utilities.PrintInColor("The Password Validator", 4);
+                    Console.WriteLine("");
+                    Utilities.PrintInColor("Rules:\n\t- Length: >= 6 and <= 13\n\t- Must have: 1 upper, 1 lower, 1 number\n\t- Cannot have: capital T, ampersand (&)", 2);
+                    Console.WriteLine("");
+
+                    var endPasswordLoop = "";
+
+                    while (endPasswordLoop != "e")
+                    {
+                        Console.WriteLine("Enter a password:");
+                        var password = Console.ReadLine();
+
+                        var isValid = PasswordValidator.IsValid(password);
+
+                        if (isValid)
+                            Utilities.PrintInColor($"The password '{password}' is valid!", 7);
+                        else
+                            Utilities.PrintInColor($"The password '{password}' is not valid!", 1);
+
+                        Console.WriteLine("Enter 'e' to exit");
+                        endPasswordLoop = Console.ReadLine();
+                    }
+
+                }
+                else if (selectionInput == "6")
+                {
+                    Utilities.PrintInColor("Rock, Paper, Scissors", 4);
+                    Console.WriteLine("");
+                    var rpsDesignNotes =
+        """
  Rock, Paper Scissors Design Reqs:
 - Two human players
 - 3 possible moves: Rock, Paper, Scissors
@@ -123,16 +151,18 @@ Overall:
 - I felt like my initial design got me about 80% there, and working through the implmentation resulted in changes to the remaining 20%.
 - For a bigger project that this, doing a 'mock implementation' on a white board would probably help flesh out these changes while still being much faster that actual code.
 """;
-                Console.WriteLine(rpsDesignNotes);
-                Console.WriteLine("");
-                var game = new Game();
-                game.Run();
+                    Console.WriteLine(rpsDesignNotes);
+                    Console.WriteLine("");
+                    var game = new Game();
+                    game.Run();
 
-                Console.WriteLine("");
-                Utilities.PrintInColor("15-Puzzle", 4);
-                Console.WriteLine("");
-                var fpDesignNotes =
-    """
+                }
+                else if (selectionInput == "7")
+                {
+                    Utilities.PrintInColor("15-Puzzle", 4);
+                    Console.WriteLine("");
+                    var fpDesignNotes =
+        """
 15-Puzzle Reqs:
 - Board: 16 tiles (one blank, the other numbered 1-15)
 - Display current state to user
@@ -153,14 +183,16 @@ Overall:
 
 Q: The design would not need to change much for a 3x3 or 5x5 board -- just adjust some class parameters.
 """;
-                Console.WriteLine(fpDesignNotes);
+                    Console.WriteLine(fpDesignNotes);
 
-                Console.WriteLine("");
-                Utilities.PrintInColor("Hangman", 4);
-                Console.WriteLine("");
+                }
+                else if (selectionInput == "8")
+                {
+                    Utilities.PrintInColor("Hangman", 4);
+                    Console.WriteLine("");
 
-                var hmDesignNotes =
-    """
+                    var hmDesignNotes =
+        """
 Hangman Reqs:
 - Program generates a random (secret) word for the user to guess
 - The display is shown as follows: Word: I M M U T A _ L E | Remaining: 2 | Incorrect: OSR | Guess: b
@@ -177,14 +209,16 @@ Hangman Reqs:
 - CheckWin(): check if the user won
 - UpdateDisplay(): updates the display
 """;
-                Console.WriteLine(hmDesignNotes);
+                    Console.WriteLine(hmDesignNotes);
 
-                Console.WriteLine("");
-                Utilities.PrintInColor("Tic-Tac-Toe", 4);
-                Console.WriteLine("");
+                }
+                else if (selectionInput == "9")
+                {
+                    Utilities.PrintInColor("Tic-Tac-Toe", 4);
+                    Console.WriteLine("");
 
-                var tttDesignNotes =
-    """
+                    var tttDesignNotes =
+        """
 Tic-Tac-Toe Reqs:
 - Players take turns
 - User numberpad to select where to play
@@ -200,15 +234,28 @@ Tic-Tac-Toe Reqs:
     - UserMove: Loops until a valid input is given. Input: board, output: board
     - CheckWin(): reutrns win, draw, continue (enum of game state)
     - RenderDisplay(bool GameState)
+
+    Q: Running multiple rounds would require a loop and a variable in the TictacToe class to track game history (winners and losers).
 """;
-                Console.WriteLine(tttDesignNotes);
+                    Console.WriteLine(tttDesignNotes);
 
-                Console.WriteLine("Press any key to continue to tic-tac-toe...");
-                Console.ReadKey();
+                    Utilities.PrintInColor("\n\nPress any key to continue to tic-tac-toe...", 2);
+                    Console.ReadKey();
+
+                    var ticTacToe = new TicTacToe();
+                    ticTacToe.Play();
+                }
+
+
+                if (selectionInput != "4" && selectionInput != "5" && selectionInput != "6")
+                {
+                    Console.WriteLine("\n\n\n\nEnter 'e' to exit or any other key to run again");
+
+                    selectionInput = Console.ReadLine();
+                }
+
+                Console.Clear();
             }
-
-            var ticTacToe = new TicTacToe();
-            ticTacToe.Play();
         }
     }
 
