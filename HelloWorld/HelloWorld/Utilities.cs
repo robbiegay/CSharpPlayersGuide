@@ -74,5 +74,28 @@
 
             PrintInColor("TODO: Add the remaining principles...", 1);
         }
+
+        public static void TypewriterType(string message, int delay = 100, int displayTime = 2000, bool shouldErase = false, bool shouldAddNewline = true)
+        {
+            for (int i = 0; i < message.Length; i++) 
+            {
+                Console.Write(message[i]);
+                Thread.Sleep(delay);
+            }
+
+            if (shouldErase)
+            {
+                Thread.Sleep(displayTime);
+
+                for (int i = 0; i < message.Length; i++)
+                {
+                    Console.Write("\b \b"); // Go back 1, overwrite with 'space', go back 1
+                    Thread.Sleep(delay);
+                }
+            }
+
+            if (shouldAddNewline)
+                Console.Write("\n");
+        }
     }
 }

@@ -97,6 +97,10 @@ while (!shouldExit)
     PrintLevel(24);
     Console.WriteLine("\t40: BossBattles");
 
+    PrintLevel(25);
+    Console.WriteLine("\t41: Notes");
+    Console.WriteLine("\t42: PackingInventory");
+
     Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
@@ -225,6 +229,12 @@ while (!shouldExit)
             break;
         case "40":
             Level24.BossBattles();
+            break;
+        case "41":
+            Level25.Notes();
+            break;
+        case "42":
+            Level25.PackingInventory();
             break;
     }
 
