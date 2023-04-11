@@ -71,8 +71,13 @@
             PrintInColor("\t\t\tof a class or object, but rather interacts through its public interface.", 2);
             PrintInColor("\t\t\tThis allows the public workings of the class to change without affecting anything else.", 2);
             Console.WriteLine();
-
-            PrintInColor("TODO: Add the remaining principles...", 1);
+            PrintInColor("4: Inheritance\t\tBasing one class on another, retaining the original class’s", 2);
+            PrintInColor("\t\t\tfunctionality while extending the new class with additional capabilities.", 2);
+            Console.WriteLine();
+            PrintInColor("5: [name]\t\t", 2);
+            PrintInColor("\t\t\t", 2);
+            PrintInColor("\t\t\t", 2);
+            Console.WriteLine();
         }
 
         public static void TypewriterType(string message, int delay = 100, int displayTime = 2000, bool shouldErase = false, bool shouldAddNewline = true)
