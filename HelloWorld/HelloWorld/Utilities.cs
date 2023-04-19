@@ -74,9 +74,9 @@
             PrintInColor("4: Inheritance\t\tBasing one class on another, retaining the original class’s", 2);
             PrintInColor("\t\t\tfunctionality while extending the new class with additional capabilities.", 2);
             Console.WriteLine();
-            PrintInColor("5: [name]\t\t", 2);
-            PrintInColor("\t\t\t", 2);
-            PrintInColor("\t\t\t", 2);
+            PrintInColor("5: Polymorphism\t\tDerived classes can override methodsfrom the base class.", 2);
+            PrintInColor("\t\t\tThe correct version is determined at runtime, so you will get different", 2);
+            PrintInColor("\t\t\tbehavior depending on the object’s class.", 2);
             Console.WriteLine();
         }
 
