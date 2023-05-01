@@ -106,6 +106,10 @@ while (!shouldExit)
     Console.WriteLine("\t44: LabelingInventory");
     Console.WriteLine("\t45: TheOldRobot");
 
+    PrintLevel(27);
+    Console.WriteLine("\t46: Notes");
+    Console.WriteLine("\t47: RoboticInterface");
+
     Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
@@ -249,6 +253,12 @@ while (!shouldExit)
             break;
         case "45":
             Level26.TheOldRobot();
+            break;
+        case "46":
+            Level27.Notes();
+            break;
+        case "47":
+            Level27.RoboticInterface();
             break;
     }
 
