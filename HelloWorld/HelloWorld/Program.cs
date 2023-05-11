@@ -6,6 +6,8 @@ var shouldExit = false;
 
 while (!shouldExit) 
 {
+    var code = 0;
+
     Console.Title = "C# Player's Guide";
 
     Console.WriteLine("Press 'e' to exit...\n\nEnter a value to run a program:");
@@ -14,101 +16,105 @@ while (!shouldExit)
     PrintLevel(2, true);
 
     PrintLevel(3);
-    Console.WriteLine("\t1: HelloWorld");
-    Console.WriteLine("\t2: WhatComesNext");
-    Console.WriteLine("\t3: TheMakingsOfAProgrammer");
-    Console.WriteLine("\t4: ConsolasAndTelim");
+    PrintProgram(ref code, "HelloWorld");
+    PrintProgram(ref code, "WhatComesNext");
+    PrintProgram(ref code, "TheMakingsOfAProgrammer");
+    PrintProgram(ref code, "ConsolasAndTelim");
 
     PrintLevel(4);
-    Console.WriteLine("\t5: TheThingNamer3000");
+    PrintProgram(ref code, "TheThingNamer3000");
 
     PrintLevel(5, true);
 
     PrintLevel(6);
-    Console.WriteLine("\t6: TheVariableShop");
-    Console.WriteLine("\t7: TheVariableShopReturns");
-    Console.WriteLine("\t8: Notes");
+    PrintProgram(ref code, "TheVariableShop");
+    PrintProgram(ref code, "TheVariableShopReturns");
+    PrintProgram(ref code, "Notes");
 
     PrintLevel(7);
-    Console.WriteLine("\t9: TheTriangleFarmer");
-    Console.WriteLine("\t10: TheFourSistersAndTheDuckbear");
-    Console.WriteLine("\t11: TheDominionOfKings");
+    PrintProgram(ref code, "TheTriangleFarmer");
+    PrintProgram(ref code, "TheFourSistersAndTheDuckbear");
+    PrintProgram(ref code, "TheDominionOfKings");
 
     PrintLevel(8);
-    Console.WriteLine("\t12: ColorsAndSounds");
-    Console.WriteLine("\t13: TheDefenseOfConsolas");
+    PrintProgram(ref code, "ColorsAndSounds");
+    PrintProgram(ref code, "TheDefenseOfConsolas");
 
     PrintLevel(9);
-    Console.WriteLine("\t14: RepairingTheClocktower");
-    Console.WriteLine("\t15: Watchtower");
+    PrintProgram(ref code, "RepairingTheClocktower");
+    PrintProgram(ref code, "Watchtower");
 
     PrintLevel(10);
-    Console.WriteLine("\t16: BuyingInventory");
-    Console.WriteLine("\t17: DiscountedInventory");
+    PrintProgram(ref code, "BuyingInventory");
+    PrintProgram(ref code, "DiscountedInventory");
 
     PrintLevel(11);
-    Console.WriteLine("\t18: ThePrototype");
-    Console.WriteLine("\t19: TheMagicCannon");
+    PrintProgram(ref code, "ThePrototype");
+    PrintProgram(ref code, "TheMagicCannon");
 
     PrintLevel(12);
-    Console.WriteLine("\t20: Notes");
-    Console.WriteLine("\t21: TheReplicatorOfDTo");
-    Console.WriteLine("\t22: TheLawsOfFreach");
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "TheReplicatorOfDTo");
+    PrintProgram(ref code, "TheLawsOfFreach");
 
     PrintLevel(13);
-    Console.WriteLine("\t23: Countdown");
+    PrintProgram(ref code, "Countdown");
 
     PrintLevel(14);
-    Console.WriteLine("\t24: Notes");
-    Console.WriteLine("\t25: HuntingTheMantiCore");
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "HuntingTheMantiCore");
 
     PrintLevel(15, true);
 
     PrintLevel(16);
-    Console.WriteLine("\t26: SimulasTest");
+    PrintProgram(ref code, "SimulasTest");
 
     PrintLevel(17);
-    Console.WriteLine("\t27: Notes");
-    Console.WriteLine("\t28: SimulasSoup");
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "SimulasSoup");
 
     PrintLevel(18);
-    Console.WriteLine("\t29: Notes");
-    Console.WriteLine("\t30: TellMeTheFiveObjectOrientedPrinciples");
-    Console.WriteLine("\t31: VinFletchersArrows");
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "TellMeTheFiveObjectOrientedPrinciples");
+    PrintProgram(ref code, "VinFletchersArrows");
 
     PrintLevel(19);
-    Console.WriteLine("\t32: Notes");
-    Console.WriteLine("\t33: VinsTrouble");
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "VinsTrouble");
 
     PrintLevel(20);
-    Console.WriteLine("\t34: Notes");
-    Console.WriteLine("\t35: ThePropertiesOfArrows");
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "ThePropertiesOfArrows");
 
     PrintLevel(21);
-    Console.WriteLine("\t36: Notes");
-    Console.WriteLine("\t37: ArrowFactories");
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "ArrowFactories");
 
     PrintLevel(22);
-    Console.WriteLine("\t38: Notes");
+    PrintProgram(ref code, "Notes");
 
     PrintLevel(23);
-    Console.WriteLine("\t39: Notes");
+    PrintProgram(ref code, "Notes");
 
     PrintLevel(24);
-    Console.WriteLine("\t40: BossBattles");
+    PrintProgram(ref code, "BossBattles");
 
     PrintLevel(25);
-    Console.WriteLine("\t41: Notes");
-    Console.WriteLine("\t42: PackingInventory");
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "PackingInventory");
 
     PrintLevel(26);
-    Console.WriteLine("\t43: Notes");
-    Console.WriteLine("\t44: LabelingInventory");
-    Console.WriteLine("\t45: TheOldRobot");
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "LabelingInventory");
+    PrintProgram(ref code, "TheOldRobot");
 
     PrintLevel(27);
-    Console.WriteLine("\t46: Notes");
-    Console.WriteLine("\t47: RoboticInterface");
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "RoboticInterface");
+
+    PrintLevel(28);
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "RoomCoordinates");
 
     Console.Write("> ");
     var input = Console.ReadLine();
@@ -260,6 +266,12 @@ while (!shouldExit)
         case "47":
             Level27.RoboticInterface();
             break;
+        case "48":
+            Level28.Notes();
+            break;
+        case "49":
+            Level28.RoomCoordinates();
+            break;
     }
 
     if (input != "e")
@@ -278,4 +290,11 @@ void PrintLevel(int level, bool hasNoExercises = false)
 
     if (hasNoExercises)
         Utilities.PrintInColor($"\t[Level {level} has no exercises]", 5);
+}
+
+void PrintProgram(ref int code, string program)
+{
+    code++;
+
+    Console.WriteLine($"\t{code}: {program}");
 }
