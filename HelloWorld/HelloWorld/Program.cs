@@ -116,6 +116,10 @@ while (!shouldExit)
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "RoomCoordinates");
 
+    PrintLevel(29);
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "WarPreparations");
+
     Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
@@ -271,6 +275,12 @@ while (!shouldExit)
             break;
         case "49":
             Level28.RoomCoordinates();
+            break;
+        case "50":
+            Level29.Notes();
+            break;
+        case "51":
+            Level29.WarPreparations();
             break;
     }
 
