@@ -120,6 +120,10 @@ while (!shouldExit)
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "WarPreparations");
 
+    PrintLevel(30);
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "X");
+
     Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
@@ -281,6 +285,12 @@ while (!shouldExit)
             break;
         case "51":
             Level29.WarPreparations();
+            break;
+        case "52":
+            Level30.Notes();
+            break;
+        case "53":
+            Level30.X();
             break;
     }
 
