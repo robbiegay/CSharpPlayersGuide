@@ -5,7 +5,7 @@
         internal static void Notes()
         {
             Utilities.PrintNotesTitle(30);
-            Console.WriteLine("Generics make your classes and methods more reusabe by allowing you to use multiple types in a single class/method.");
+            Console.WriteLine("Generics make your classes and methods more reusabe by allowing you to use multiple types in a single class/method!");
             Console.WriteLine("This can greatly reduce code duplication.");
             Console.WriteLine("");
             Console.WriteLine("As an example, imagine you are creating your own List class (dynamically sized array)");
@@ -101,16 +101,65 @@ myGenericList.Add(3);
                 var item = myGenericList.Get(i);
                 Utilities.PrintInColor($"Item {i}: {item} (Type: {item.GetType()})", 2);
             }
+            Console.WriteLine("");
+            Console.WriteLine("You can use inheritence with generics:");
+            Console.WriteLine("\t- Open -- Pass the generic variable between classes: class Child<T> : Parent<T>");
+            Console.WriteLine("\t- Open -- Add a new generic variable: class Child<T> : Parent");
+            Console.WriteLine("\t- Closed -- remove the generic variable: class Child : Parent<T>");
+            Console.WriteLine("");
+            Console.WriteLine("In many cases, you might use generics on a method that is inside a class without generics.");
+            Console.WriteLine("");
+            Console.WriteLine("Generic constraints: can place limits on what type can be used: ");
+            Console.WriteLine("\t- Can specify types: where T : class");
+            Console.WriteLine("\t- Or that the type has a parameterless ctor: new()");
+            Console.WriteLine("\t  This is useful because it allows you to use: default");
+            Console.WriteLine("\t  Default: int = 0, bool = false, etc");
+            Console.WriteLine("");
+            //Test.Print<int>(); // throws compiler error
+            Utilities.PrintCode(
+"""
+public static T Print<T>() where T : class, new() 
+{
+    T item = new();
+    item = default; // Create default value. Ex: int = 0, bool = false
 
+    return item;
+}
 
-
-
-
+//Test.Print<int>(); // throws compiler error
+""");
         }
 
-        internal static void X()
+        internal static void ColoredItems()
         {
+            var blueSword = new ColoredItem<Sword>();
+            var redBow = new ColoredItem<Bow>();
+            var greenAxe = new ColoredItem<Axe>();
 
+            blueSword.Color = ConsoleColor.Blue;
+            redBow.Color = ConsoleColor.Red;
+            greenAxe.Color = ConsoleColor.Green;
+
+            blueSword.Display();
+            redBow.Display();
+            greenAxe.Display();
+        }
+
+        private record Sword { }
+        private record Bow { }
+        private record Axe { }
+
+        private class ColoredItem<T> where T : new()
+        {
+            public T Item { get; set; } = new();
+            public ConsoleColor Color { get; set; } = ConsoleColor.White;
+
+            public void Display()
+            {
+                Console.ForegroundColor = Color;
+                Console.WriteLine($"The {nameof(Item)}: {Item?.ToString()}");
+                Console.ResetColor();
+            }
         }
 
         // --------------------------------------------------------------
@@ -184,7 +233,7 @@ myGenericList.Add(3);
         private class MoreComplex<T> : Simple { } // Can add generics to a non-generic base class
         private class Test
         {
-            public T Print<T>() where T : new() // Generic constraint -> this ensures a parameterless ctor
+            public static T Print<T>() where T : class, new() // Generic constraint -> this ensures a class type and parameterless ctor
             {
                 T item = new();
                 item = default; // Create default value. Ex: int = 0, bool = false
