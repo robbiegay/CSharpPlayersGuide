@@ -122,7 +122,11 @@ while (!shouldExit)
 
     PrintLevel(30);
     PrintProgram(ref code, "Notes");
-    PrintProgram(ref code, "X");
+    PrintProgram(ref code, "ColoredItems");
+
+    PrintLevel(31);
+    PrintProgram(ref code, "DesignNotes");
+    PrintProgram(ref code, "TheFountainOfObjects");
 
     Console.Write("> ");
     var input = Console.ReadLine();
@@ -290,7 +294,13 @@ while (!shouldExit)
             Level30.Notes();
             break;
         case "53":
-            Level30.X();
+            Level30.ColoredItems();
+            break;
+        case "54":
+            Level31.DesignNotes();
+            break;
+        case "55":
+            Level31.TheFountainOfObjects();
             break;
     }
 
