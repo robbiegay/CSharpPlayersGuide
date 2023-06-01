@@ -23,17 +23,30 @@ I think that the game should have a UI. That is optional but would be a lot more
 Could have an option to play in the dark or view objects
 
 
-
 GameObject
 - name
 - message
+
+Did the following:
+- base game
+- size expansion
+- pits expansion
 """);
         }
 
         public static void TheFountainOfObjects()
         {
-            var size = 4;
-            var gameConfig = new GameConfig();
+            var size = 0;
+
+            while (size < 2 || size > 10)
+            {
+                Console.WriteLine("Enter a size (must be > 1 and <= 10):");
+                var sizeInput = Console.ReadLine();
+                int.TryParse(sizeInput, out size);
+                Console.Clear();
+            }
+
+            var gameConfig = new GameConfig(size);
 
             var gameBoard = new GameObject[size, size];
 
@@ -51,30 +64,34 @@ GameObject
             var entrance = gameConfig.EntranceLocation;
             var fountain = gameConfig.FountainLocation;
 
-            gameBoard[entrance.Item1, entrance.Item2] = new GameObject(GameObjectType.Entrance);
-            gameBoard[fountain.Item1, fountain.Item2] = new GameObject(GameObjectType.Fountain);
-            gameBoard[player.Item1, player.Item2].IsPlayerHere = true;
+            gameBoard[entrance.Row, entrance.Col] = new GameObject(GameObjectType.Entrance);
+            gameBoard[fountain.Row, fountain.Col] = new GameObject(GameObjectType.Fountain);
+
+            foreach (var pit in gameConfig.PitLocations)
+            {
+                gameBoard[pit.Row, pit.Col] = new GameObject(GameObjectType.Pit);
+            }
 
             RunGame(gameBoard, gameConfig);
         }
 
-        private class GameConfig
-        {
-            public (int, int) PlayerLocation { get; set; } = (0, 0);
-            public (int, int) EntranceLocation { get; set; } = (0, 0);
-            public (int, int) FountainLocation { get; set; } = (2, 2);
-        }
 
         private static void RunGame(GameObject[,] board, GameConfig gameConfig)
         {
             // todo: add exit ability
-            while (true)
+            while (!gameConfig.isGameOver)
             {
                 Console.Clear();
 
-                PrintGame(board);
+                PrintGame(board, gameConfig);
 
+                Console.WriteLine();
                 Console.WriteLine("Enter a command:");
+                Console.WriteLine("\t- move [north,east,south,west]");
+                Console.WriteLine("\t- enable fountain");
+                Console.WriteLine("\t- exit -> leave the cavern");
+                Console.WriteLine("\t- end game -> quit the game");
+                Console.WriteLine("\t- toggle dark mode -> turn on the lights!");
                 var cmd = Console.ReadLine();
 
                 if (cmd.Contains("move"))
@@ -111,7 +128,23 @@ GameObject
                 }
                 else if (cmd == "end game")
                 {
-                    break;
+                    Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("You have opted to end the game...");
+                    Console.ResetColor();
+
+                    gameConfig.isGameOver = true;
+                }
+                else if (cmd == "toggle dark mode")
+                {
+                    gameConfig.isDarkMode = !gameConfig.isDarkMode;
+
+                    Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine($"Dark mode has been turned {(gameConfig.isDarkMode ? "on" : "off")}\nPress any key to continue...");
+                    Console.ResetColor();
+
+                    Console.ReadKey();
                 }
             }
         }
@@ -127,28 +160,27 @@ GameObject
         private static void MovePlayer(GameObject[,] board, GameConfig gameConfig, Direction direction)
         {
             var player = gameConfig.PlayerLocation;
-            var oldLocation = board[player.Item1, player.Item2];
+            var oldLocation = board[player.Row, player.Col];
 
-
-            if (direction == Direction.North && player.Item1 > 0)
+            if (direction == Direction.North && player.Row > 0)
             {
-                board[player.Item1 - 1, player.Item2].IsPlayerHere = true;
-                oldLocation.IsPlayerHere = false;
+                gameConfig.PlayerLocation.Row = player.Row - 1;
+                gameConfig.PlayerLocation.Col = player.Col;
             }
-            else if (direction == Direction.East && player.Item2 < board.GetLength(1) - 1)
+            else if (direction == Direction.East && player.Col < board.GetLength(1) - 1)
             {
-                board[player.Item1, player.Item2 + 1].IsPlayerHere = true;
-                oldLocation.IsPlayerHere = false;
+                gameConfig.PlayerLocation.Row = player.Row;
+                gameConfig.PlayerLocation.Col = player.Col + 1;
             }
-            else if (direction == Direction.South && player.Item1 < board.GetLength(0) - 1)
+            else if (direction == Direction.South && player.Row < board.GetLength(0) - 1)
             {
-                board[player.Item1 + 1, player.Item2].IsPlayerHere = true;
-                oldLocation.IsPlayerHere = false;
+                gameConfig.PlayerLocation.Row = player.Row + 1;
+                gameConfig.PlayerLocation.Col = player.Col;
             }
-            else if (direction == Direction.West && player.Item2 > 0)
+            else if (direction == Direction.West && player.Col > 0)
             {
-                board[player.Item1, player.Item2 - 1].IsPlayerHere = true;
-                oldLocation.IsPlayerHere = false;
+                gameConfig.PlayerLocation.Row = player.Row;
+                gameConfig.PlayerLocation.Col = player.Col - 1;
             }
             else
             {
@@ -158,70 +190,87 @@ GameObject
                 Console.ResetColor();
                 Console.ReadKey();
             }
+
+            // Check for pits
+            var currentPlayerLocation = gameConfig.PlayerLocation;
+            foreach (var pit in gameConfig.PitLocations)
+            {
+                if (currentPlayerLocation.Row == pit.Row && currentPlayerLocation.Col == pit.Col)
+                {
+                    Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("You fell into a pit! Game over...");
+                    Console.ResetColor();
+
+                    gameConfig.isGameOver = true;
+                }
+            }
         }
 
         private static void EnableFountain(GameObject[,] board, GameConfig gameConfig)
         {
-            for (int i = 0; i < board.GetLength(0); i++)
+            var player = gameConfig.PlayerLocation;
+            var fountain = gameConfig.FountainLocation;
+
+            if (player.Col == fountain.Col && player.Row == fountain.Row)
             {
-                for (int j = 0; j < board.GetLength(1); j++)
-                {
-                    var gameObject = board[i, j];
+                gameConfig.isFountainEnabled = true;
 
-                    if (gameObject.IsPlayerHere)
-                    {
-                        if (gameObject.Type == GameObjectType.Fountain) 
-                        {
-                            gameObject.IsEnabled = true;
-
-                            Console.WriteLine();
-                            Console.ForegroundColor = ConsoleColor.Cyan;
-                            Console.WriteLine("Fountain enabled!\nPress any key to continue...");
-                            Console.ResetColor();
-                            Console.ReadLine();
-                        }
-                        else
-                        {
-                            Console.WriteLine();
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("You still need to find the fountain...\nPress any key to continue...");
-                            Console.ResetColor();
-                            Console.ReadLine();
-                        }
-
-                        return;
-                    }
-                }
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("Fountain enabled!\nPress any key to continue...");
+                Console.ResetColor();
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("You still need to find the fountain...\nPress any key to continue...");
+                Console.ResetColor();
+                Console.ReadLine();
             }
         }
 
         private static void CheckForWin(GameObject[,] board, GameConfig gameConfig)
         {
-            for (int i = 0; i < board.GetLength(0); i++)
+            var player = gameConfig.PlayerLocation;
+            var entrance = gameConfig.EntranceLocation;
+
+            if (!gameConfig.isFountainEnabled)
             {
-                for (int j = 0; j < board.GetLength(1); j++)
-                {
-                    var gameObject = board[i, j];
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("You still need to turn on the fountain...\nPress any key to continue...");
+                Console.ResetColor();
+                Console.ReadLine();
 
-                    if (gameObject.IsPlayerHere)
-                    {
-                        if (gameObject.Type == GameObjectType.Entrance)
-                        {
-                            //
-                        }
-                        else
-                        {
-                            //
-                        }    
-
-                        return;
-                    }
-                }
+                return;
             }
+
+            if (!(player.Row == entrance.Row && player.Col == entrance.Col))
+            {
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("The fountain is on, but you still need to find the exit...\nPress any key to continue...");
+                Console.ResetColor();
+                Console.ReadLine();
+
+                return;
+            }
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("You made your escape! The island has been restored!\nPress any key to continue...");
+            Console.ResetColor();
+
+            gameConfig.isGameOver = true;
         }
 
-        private static void PrintGame(GameObject[,] board)
+        private static void PrintGame(GameObject[,] board, GameConfig gameConfig)
         {
+            var gameMessages = "";
+
             var edgeColor = ConsoleColor.Gray;
             var edgeTextColor = ConsoleColor.Black;
             var tileSize = 5;
@@ -259,12 +308,81 @@ GameObject
                         GameObjectType.Empty => ConsoleColor.Black,
                         GameObjectType.Entrance => ConsoleColor.Yellow,
                         GameObjectType.Fountain => gameObject.IsEnabled ? ConsoleColor.Blue : ConsoleColor.DarkBlue,
+                        GameObjectType.Pit => ConsoleColor.Magenta,
                         _ => ConsoleColor.Red
                     };
 
-                    if (gameObject.IsPlayerHere)
+                    var player = gameConfig.PlayerLocation;
+                    if (i == player.Row && j == player.Col)
                     {
                         color = ConsoleColor.Green;
+
+                        // Add game messages
+
+                        // NW
+                        gameMessages += "To the northwest... ";
+                        if (i > 0 && j > 0)
+                            gameMessages += board[i - 1, j - 1].Message;
+                        else
+                            gameMessages += "nothing";
+                        gameMessages += "\n";
+                        // N
+                        gameMessages += "To the north... ";
+                        if (i > 0)
+                            gameMessages += board[i - 1, j].Message;
+                        else
+                            gameMessages += "nothing";
+                        gameMessages += "\n";
+                        // NE
+                        gameMessages += "To the northeast... ";
+                        if (i > 0 && j < board.GetLength(1) - 1)
+                            gameMessages += board[i - 1, j + 1].Message;
+                        else
+                            gameMessages += "nothing";
+                        gameMessages += "\n";
+                        // W
+                        gameMessages += "To the west... ";
+                        if (j > 0)
+                            gameMessages += board[i, j - 1].Message;
+                        else
+                            gameMessages += "nothing";
+                        gameMessages += "\n";
+                        // Current location
+                        gameMessages += "At your location... ";
+                        gameMessages += board[i, j].Message;
+                        gameMessages += "\n";
+                        // E
+                        gameMessages += "To the east... ";
+                        if (j < board.GetLength(1) - 1)
+                            gameMessages += board[i, j + 1].Message;
+                        else
+                            gameMessages += "nothing";
+                        gameMessages += "\n";
+                        // SW
+                        gameMessages += "To the southwest... ";
+                        if (i < board.GetLength(0) - 1 && j > 0)
+                            gameMessages += board[i + 1, j - 1].Message;
+                        else
+                            gameMessages += "nothing";
+                        gameMessages += "\n";
+                        // S
+                        gameMessages += "To the south... ";
+                        if (i < board.GetLength(0) - 1)
+                            gameMessages += board[i + 1, j].Message;
+                        else
+                            gameMessages += "nothing";
+                        gameMessages += "\n";
+                        // SE
+                        gameMessages += "To the southeast... ";
+                        if (i < board.GetLength(0) - 1 && j < board.GetLength(1) - 1)
+                            gameMessages += board[i + 1, j + 1].Message;
+                        else
+                            gameMessages += "nothing";
+                        gameMessages += "\n";
+                    }
+                    else if (gameConfig.isDarkMode)
+                    {
+                        color = ConsoleColor.Black;
                     }
 
                     Console.BackgroundColor = color;
@@ -293,48 +411,41 @@ GameObject
             Console.Write("\n");
 
             Console.WriteLine("\n\n");
+
+            // Add item messages
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write(gameMessages);
+            Console.ResetColor();
         }
 
+        //
+        // Game objects
+        //
         private class GameObject
         {
             public GameObjectType Type { get; init; } = GameObjectType.Empty;
-            public bool IsPlayerHere { get; set; } = false;
             public string Message { 
                 get
                 {
                     return Type switch
                     {
-                        GameObjectType.Empty => "",
+                        GameObjectType.Empty => "You hear the sound of flat, empty space",
                         GameObjectType.Entrance => "You see light in this room coming from outside the cavern. This is the entrance.",
                         GameObjectType.Fountain => IsEnabled ? "You hear the water rushing from the Fountain of Objects. It has been reactivated!" : "You hear water dripping in this room. The Fountain of Objects is here!",
+                        GameObjectType.Pit => "You feel a draft. There is a pit in a nearby room",
                         _ => ""
                     };
                 }
             }
             // Violation of ISP: not all objects need an IsEnabled prop
             public bool IsEnabled {  get; set; }
-            //{ 
-            //    get
-            //    {
-            //        if (Type == GameObjectType.Fountain)
-            //            return IsEnabled;
-            //        else
-            //            return false;
-            //    }
-
-            //    set
-            //    {
-            //        if (Type == GameObjectType.Fountain)
-            //            IsEnabled = value;
-            //    }
-            //}
 
             public GameObject(GameObjectType type)
             {
                 Type = type;
             }
         }
-
+        
         private enum GameObjectType
         {
             Empty,
@@ -344,5 +455,69 @@ GameObject
             Maelstrom,
             Amarok
         }
+        
+        private class GameConfig
+        {
+            public Position PlayerLocation { get; set; } = new Position(0, 0);
+            public Position EntranceLocation { get; set; } = new Position(0, 0);
+            public Position FountainLocation { get; set; }
+            public List<Position> PitLocations { get; set; } = new List<Position>();
+            public bool isFountainEnabled { get; set; } = false;
+            public bool isGameOver { get; set; } = false;
+            public bool isDarkMode { get; set; } = true;
+
+            public GameConfig(int size)
+            {
+                var rnd = new Random();
+
+                var row = 0;
+                var col = 0;
+                while (row == 0 && col == 0)
+                {
+                    row = rnd.Next(0, size);
+                    col = rnd.Next(0, size);
+                }
+                FountainLocation = new Position(row, col);
+
+                // Add pits
+                var maxPits = size / 3;
+                while (PitLocations.Count < maxPits)
+                {
+                    var pitRow = 0;
+                    var pitCol = 0;
+
+                    // Dont put a pit at the enterance or fountain
+                    while (
+                        (pitRow == 0 && pitCol == 0) || 
+                        (pitRow == FountainLocation.Row && pitCol == FountainLocation.Col)
+                    )
+                    {
+                        // don't allow duplicates
+                        do
+                        {
+                            pitRow = rnd.Next(0, size);
+                            pitCol = rnd.Next(0, size);
+                        }
+                        while (PitLocations.Where(p => p.Row == pitRow && p.Col == pitCol).Count() > 0);
+                    }
+
+                    // check for dupes
+                    PitLocations.Add(new Position(pitRow, pitCol));
+                }
+            }
+        }
+
+        private class Position
+        {
+            public int Row { get; set; }
+            public int Col { get; set; }
+
+            public Position(int row, int col)
+            {
+                Row = row;
+                Col = col;
+            }
+        }
+
     }
 }
