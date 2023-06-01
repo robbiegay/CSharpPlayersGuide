@@ -259,9 +259,59 @@ Did the following:
                 return;
             }
 
-            Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("You made your escape! The island has been restored!\nPress any key to continue...");
+            Console.Clear();
+
+            var colors = new ConsoleColor[6]
+                {
+                ConsoleColor.Red,
+                ConsoleColor.Yellow,
+                ConsoleColor.Green,
+                ConsoleColor.Cyan,
+                ConsoleColor.Blue,
+                ConsoleColor.DarkCyan
+                };
+            var timeInMilliseconds = 250;
+
+            for (int i = 25; i > 0; i--)
+            {
+                Console.Clear();
+
+                Console.ForegroundColor = colors[(i + 0) % 6];
+                Console.WriteLine("----------------------------------------");
+                Console.ForegroundColor = colors[(i + 1) % 6];
+                Console.WriteLine("----------------------------------------");
+                Console.ForegroundColor = colors[(i + 2) % 6];
+                Console.WriteLine("----------------------------------------");
+                Console.ForegroundColor = colors[(i + 3) % 6];
+                Console.WriteLine("----------------------------------------");
+                Console.ForegroundColor = colors[(i + 4) % 6];
+                Console.WriteLine("----------------------------------------");
+                Console.ForegroundColor = colors[(i + 5) % 6];
+                Console.WriteLine("----------------------------------------");
+
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("You made your escape! The island has been restored!");
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine($"Animation will exit in {(i * timeInMilliseconds) / 1000} seconds...");
+                Console.WriteLine();
+
+                Console.ForegroundColor = colors[(i + 0) % 6];
+                Console.WriteLine("----------------------------------------");
+                Console.ForegroundColor = colors[(i + 1) % 6];
+                Console.WriteLine("----------------------------------------");
+                Console.ForegroundColor = colors[(i + 2) % 6];
+                Console.WriteLine("----------------------------------------");
+                Console.ForegroundColor = colors[(i + 3) % 6];
+                Console.WriteLine("----------------------------------------");
+                Console.ForegroundColor = colors[(i + 4) % 6];
+                Console.WriteLine("----------------------------------------");
+                Console.ForegroundColor = colors[(i + 5) % 6];
+                Console.WriteLine("----------------------------------------");
+
+                Thread.Sleep(timeInMilliseconds);
+            }
+
             Console.ResetColor();
 
             gameConfig.isGameOver = true;
@@ -275,8 +325,7 @@ Did the following:
             var edgeTextColor = ConsoleColor.Black;
             var tileSize = 5;
 
-            Console.WriteLine("The Fountain of Objects");
-            Console.WriteLine("\n\n");
+            Console.Title = "The Fountain of Objects";
 
             // Top:
             Console.Write("     ");
