@@ -11,7 +11,7 @@ namespace CSharpPlayersGuide.Levels
 """
 Design Notes:
 
-Create a text bases game using a grid.
+Create a text-based game using a grid.
 The grid will be 4x4 but size should not be tightly coupled.
 
 The grid should hold game objects: empty, enterance, fountain, monster, etc.
