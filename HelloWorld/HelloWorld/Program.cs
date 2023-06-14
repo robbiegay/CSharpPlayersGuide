@@ -128,6 +128,10 @@ while (!shouldExit)
     PrintProgram(ref code, "DesignNotes");
     PrintProgram(ref code, "TheFountainOfObjects");
 
+    PrintLevel(32);
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "---");
+
     Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
@@ -301,6 +305,12 @@ while (!shouldExit)
             break;
         case "55":
             Level31.TheFountainOfObjects();
+            break;
+        case "56":
+            Level32.Notes();
+            break;
+        case "57":
+            //Level32.
             break;
     }
 

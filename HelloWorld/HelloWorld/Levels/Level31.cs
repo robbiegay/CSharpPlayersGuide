@@ -78,7 +78,8 @@ Did the following:
 
         private static void RunGame(GameObject[,] board, GameConfig gameConfig)
         {
-            // todo: add exit ability
+            var startTime = DateTime.Now;
+
             while (!gameConfig.isGameOver)
             {
                 Console.Clear();
@@ -147,6 +148,19 @@ Did the following:
                     Console.ReadKey();
                 }
             }
+
+            var endTime = DateTime.Now;
+            var timeInCaven = endTime - startTime;
+
+            Console.WriteLine();
+            Utilities.PrintInColor("You spent ", 5, true);
+            Utilities.PrintInColor($"{timeInCaven.Minutes} ", 14, true);
+            Utilities.PrintInColor("minutes, ", 5, true);
+            Utilities.PrintInColor($"{timeInCaven.Seconds} ", 14, true);
+            Utilities.PrintInColor("seconds, and ", 5, true);
+            Utilities.PrintInColor($"{timeInCaven.Milliseconds} ", 14, true);
+            Utilities.PrintInColor("milliseconds in the cavern.", 5, true);
+            Console.WriteLine();
         }
 
         private enum Direction

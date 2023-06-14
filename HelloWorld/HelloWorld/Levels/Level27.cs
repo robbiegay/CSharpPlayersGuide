@@ -27,7 +27,8 @@
             while (true)
             {
                 Console.WriteLine("Enter a robot command:");
-                Console.WriteLine("\tx - exit");
+                Console.WriteLine("\t! - exit program");
+                Console.WriteLine("\tx - stop adding commands");
                 Console.WriteLine("\t0 - power off");
                 Console.WriteLine("\t1 - power on");
                 Console.WriteLine("\tn - north");
@@ -35,33 +36,37 @@
                 Console.WriteLine("\ts - east");
                 Console.WriteLine("\tw - west");
 
+                var keepAddingCommands = true;
 
-                for (int i = 0; i < 3; i++)
+                while (keepAddingCommands)
                 {
                     var input = Console.ReadKey().KeyChar;
                     Console.WriteLine("");
 
                     switch (input)
                     {
+                        case '!':
+                            return; // exit program
                         case 'x':
-                            return;
+                            keepAddingCommands = false;
+                            break;
                         case '0':
-                            robot.Commands[i] = new OffCommand();
+                            robot.Commands.Add(new OffCommand());
                             break;
                         case '1':
-                            robot.Commands[i] = new OnCommand();
+                            robot.Commands.Add(new OnCommand());
                             break;
                         case 'n':
-                            robot.Commands[i] = new NorthCommand();
+                            robot.Commands.Add(new NorthCommand());
                             break;
                         case 'e':
-                            robot.Commands[i] = new EastCommand();
+                            robot.Commands.Add(new EastCommand());
                             break;
                         case 's':
-                            robot.Commands[i] = new SouthCommand();
+                            robot.Commands.Add(new SouthCommand());
                             break;
                         case 'w':
-                            robot.Commands[i] = new WestCommand();
+                            robot.Commands.Add(new WestCommand());
                             break;
                     }
                 }
@@ -76,7 +81,7 @@
             public int X { get; set; }
             public int Y { get; set; }
             public bool IsPowered { get; set; }
-            public IRobotCommand?[] Commands { get; } = new IRobotCommand?[3];
+            public List<IRobotCommand> Commands { get; } = new List<IRobotCommand>();
             public void Run()
             {
                 foreach (IRobotCommand? command in Commands)
