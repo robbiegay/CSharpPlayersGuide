@@ -130,7 +130,6 @@ while (!shouldExit)
 
     PrintLevel(32);
     PrintProgram(ref code, "Notes");
-    PrintProgram(ref code, "---");
 
     Console.Write("> ");
     var input = Console.ReadLine();
@@ -308,9 +307,6 @@ while (!shouldExit)
             break;
         case "56":
             Level32.Notes();
-            break;
-        case "57":
-            //Level32.
             break;
     }
 
