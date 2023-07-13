@@ -131,6 +131,11 @@ while (!shouldExit)
     PrintLevel(32);
     PrintProgram(ref code, "Notes");
 
+    PrintLevel(33);
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "TheFeud");
+    PrintProgram(ref code, "DuelingTraditions");
+
     Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
@@ -307,6 +312,15 @@ while (!shouldExit)
             break;
         case "56":
             Level32.Notes();
+            break;
+        case "57":
+            Level33.Notes();
+            break;
+        case "58":
+            Level33.TheFeud();
+            break;
+        case "59":
+            Level33.DuelingTraditions();
             break;
     }
 
