@@ -136,6 +136,11 @@ while (!shouldExit)
     PrintProgram(ref code, "TheFeud");
     PrintProgram(ref code, "DuelingTraditions");
 
+    PrintLevel(34);
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "SaferNumberCrunching");
+    PrintProgram(ref code, "BetterRandom");
+
     Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
@@ -321,6 +326,15 @@ while (!shouldExit)
             break;
         case "59":
             Level33.DuelingTraditions();
+            break;
+        case "60":
+            Level34.Notes();
+            break;
+        case "61":
+            Level34.SaferNumberCrunching();
+            break;
+        case "62":
+            Level34.BetterRandom();
             break;
     }
 
