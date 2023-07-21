@@ -291,6 +291,9 @@ Quiz:
                     Console.WriteLine(r.CoinFlip(probabilityOfHeads));
                 }
             }
+
+            Console.WriteLine("");
+            Console.WriteLine("Would it be better to make an AdvancedRandom class instead: I would say no. These extend the random functionality and splitting them to a different class means that users would have to remember which random class to use.");
         }
     }
 }
