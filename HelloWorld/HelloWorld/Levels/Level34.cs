@@ -1,5 +1,5 @@
-﻿using System.Runtime.CompilerServices;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using CSharpPlayersGuide.Extensions;
+using System.Globalization;
 
 namespace CSharpPlayersGuide.Levels
 {
@@ -142,12 +142,37 @@ Console.WriteLine($"Test5: {y}"); // 10_000
             // -----------------------------------------------------
             //
 
-            // TODO: extension methods notes
+            Console.WriteLine("You can add extenson methods like this:");
+            Utilities.PrintCode(
+"""
+// Typically, put them in a file call [Type]Extensions.cs
+
+internal static class StringExtensions // must be in a static class
+{
+    public static string ChangeToRob(this string text, bool makeRobbie = false) // must be a static method, with first (and only first param calling 'this'
+    {
+        if (makeRobbie)
+            return "Robbie";
+
+        return "Rob";
+    }
+}
+
+var test = "test string";
+Console.WriteLine($"Test: {test}");
+Console.WriteLine($"Test.ChangeToRob(): {test.ChangeToRob()}");
+Console.WriteLine($"Test.ChangeToRob(makeRobbie: true): {test.ChangeToRob(makeRobbie: true)}");
+""");
+            var test = "test string";
+            Console.WriteLine($"Test: {test}");
+            Console.WriteLine($"Test.ChangeToRob(): {test.ChangeToRob()}");
+            Console.WriteLine($"Test.ChangeToRob(makeRobbie: true): {test.ChangeToRob(makeRobbie: true)}");
 
             //
             // -----------------------------------------------------
             //
 
+            Console.WriteLine("");
             Console.WriteLine(
 """
 Quiz: 
@@ -219,7 +244,53 @@ Quiz:
 
         public static void BetterRandom()
         {
-            // TODO: extension method notes and better random
+            Console.WriteLine("Random.NextDouble() only returns a value between 0 and 1");
+            var r = new Random();
+
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine(r.NextDouble());
+            }
+
+            Console.WriteLine("");
+            Console.WriteLine("Added an extension method that lets you set a max value for NextDouble()");
+            int maxValue = 10;
+            Console.WriteLine($"Max Value = {maxValue}");
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine(r.NextDouble(maxValue));
+            }
+
+            Console.WriteLine("");
+            Console.WriteLine("Create an extension method for passing in strings and randomly selecting one.");
+            var input = new string[] { "up", "down", "left", "right" };
+            Console.Write("Input: ");
+            foreach (var i in input) 
+            {
+                Console.Write(i + " ");
+            }
+            Console.WriteLine();
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine(r.NextString(input));
+            }
+
+            Console.WriteLine("");
+            Console.WriteLine("Added a CoidToss() extension with an optional parameter for the probabilityOfHeads");
+            Console.WriteLine("Default 50% coin toss:");
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine(r.CoinFlip());
+            }
+
+            for (double probabilityOfHeads = 0.0; probabilityOfHeads <= 1; probabilityOfHeads += 0.25)
+            {
+                Console.WriteLine($"{probabilityOfHeads}% chance of heads");
+                for (int i = 0; i < 10; i++)
+                {
+                    Console.WriteLine(r.CoinFlip(probabilityOfHeads));
+                }
+            }
         }
     }
 }
