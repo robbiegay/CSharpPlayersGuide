@@ -141,6 +141,11 @@ while (!shouldExit)
     PrintProgram(ref code, "SaferNumberCrunching");
     PrintProgram(ref code, "BetterRandom");
 
+    PrintLevel(35);
+    PrintProgram(ref code, "Notes");
+    //PrintProgram(ref code, "SaferNumberCrunching");
+    //PrintProgram(ref code, "BetterRandom");
+
     Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
@@ -335,6 +340,9 @@ while (!shouldExit)
             break;
         case "62":
             Level34.BetterRandom();
+            break;
+        case "63":
+            Level35.Notes();
             break;
     }
 
