@@ -143,8 +143,7 @@ while (!shouldExit)
 
     PrintLevel(35);
     PrintProgram(ref code, "Notes");
-    //PrintProgram(ref code, "SaferNumberCrunching");
-    //PrintProgram(ref code, "BetterRandom");
+    PrintProgram(ref code, "ExeptisGame");
 
     Console.Write("> ");
     var input = Console.ReadLine();
@@ -343,6 +342,9 @@ while (!shouldExit)
             break;
         case "63":
             Level35.Notes();
+            break;
+        case "64":
+            Level35.ExeptisGame();
             break;
     }
 
