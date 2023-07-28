@@ -145,6 +145,10 @@ while (!shouldExit)
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "ExeptisGame");
 
+    PrintLevel(36);
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "TheSieve");
+
     Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
@@ -345,6 +349,12 @@ while (!shouldExit)
             break;
         case "64":
             Level35.ExeptisGame();
+            break;
+        case "65":
+            Level36.Notes();
+            break;
+        case "66":
+            Level36.TheSieve();
             break;
     }
 
