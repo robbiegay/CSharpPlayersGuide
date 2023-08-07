@@ -1,4 +1,6 @@
-﻿namespace CSharpPlayersGuide.Levels
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace CSharpPlayersGuide.Levels
 {
     internal class Level36 : ILevel
     {
@@ -118,11 +120,11 @@ private static int[] ChangeArray(int[] arr, MathOperation operation)
             PrintMessage(message: SayHi);
             PrintMessage(messageName: SayHiToSomeone, name: "Rob");
             PrintMessage(messageAge: SayHiToSomeoneWhoIsAge, name: "Tim", age: 25);
-            Console.WriteLine($"Expected: true, Result: {NumberTest(IsEven, -2)}");
-            Console.WriteLine($"Expected: false, Result: {NumberTest(IsEven, -1)}");
-            Console.WriteLine($"Expected: true, Result: {NumberTest(IsEven, 0)}");
-            Console.WriteLine($"Expected: false, Result: {NumberTest(IsEven, 1)}");
-            Console.WriteLine($"Expected: true, Result: {NumberTest(IsEven, 2)}");
+            Console.WriteLine($"Expected: true, Result: {NumberTest(IsEvenTest, -2)}");
+            Console.WriteLine($"Expected: false, Result: {NumberTest(IsEvenTest, -1)}");
+            Console.WriteLine($"Expected: true, Result: {NumberTest(IsEvenTest, 0)}");
+            Console.WriteLine($"Expected: false, Result: {NumberTest(IsEvenTest, 1)}");
+            Console.WriteLine($"Expected: true, Result: {NumberTest(IsEvenTest, 2)}");
             Console.WriteLine($"Expected: false, Result: {NumberTest(IsGreaterThanZero, -2)}");
             Console.WriteLine($"Expected: false, Result: {NumberTest(IsGreaterThanZero, -1)}");
             Console.WriteLine($"Expected: false, Result: {NumberTest(IsGreaterThanZero, 0)}");
@@ -171,7 +173,7 @@ myAction();
             return condition(x);
         }
 
-        private static bool IsEven(int x) => x % 2 == 0;
+        private static bool IsEvenTest(int x) => x % 2 == 0;
         private static bool IsGreaterThanZero(int x) => x > 0;
 
         // Action Test:
@@ -271,7 +273,54 @@ myAction();
 
         public static void TheSieve()
         {
+            Console.WriteLine("Select the sieve condition:");
+            Console.WriteLine("\t1 - Even numbers");
+            Console.WriteLine("\t2 - Positive numbers");
+            Console.WriteLine("\t3 - Multiples of 10");
+            var input = Console.ReadLine();
 
+            Func<int, bool> condition = null;
+            if (input == "1")
+                condition = IsEven;
+            else if (input == "2")
+                condition = IsPositive;
+            else if (input == "3")
+                condition = IsMultipleOfTen;
+
+            var sieve = new Sieve(condition);
+
+            while (true)
+            {
+                Console.WriteLine("Enter a number to test ('e' to exit):");
+                var numberInput = Console.ReadLine();
+                if (numberInput == "e") break;
+                int.TryParse(numberInput, out var number);
+                Console.WriteLine($"Sieve result: {sieve.IsGood(number)}");
+            }
+
+            // Answer to question: How could you solve this with Polymorphism and Inheritance?
+            // You could create a class that has an abstract method and override it one three different classes
+            // and then call IsGood on a class that is from the parent type ISieve.
         }
+
+
+        public class Sieve
+        {
+            private readonly Func<int, bool> _condition;
+
+            public Sieve(Func<int, bool> condition)
+            {
+                _condition = condition;
+            }
+
+            public bool IsGood(int number)
+            {
+                return _condition(number);
+            }
+        }
+
+        private static bool IsEven(int number) => number % 2 == 0;
+        private static bool IsPositive(int number) => number >= 0;
+        private static bool IsMultipleOfTen(int number) => number % 10 == 0;
     }
 }
