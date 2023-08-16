@@ -153,6 +153,10 @@ while (!shouldExit)
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "CharberryTrees");
 
+    PrintLevel(38);
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "TheLambdaSieve");
+
     Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
@@ -365,6 +369,12 @@ while (!shouldExit)
             break;
         case "68":
             Level37.CharberryTrees();
+            break;
+        case "69":
+            Level38.Notes();
+            break;
+        case "70":
+            Level38.TheLambdaSieve();
             break;
     }
 

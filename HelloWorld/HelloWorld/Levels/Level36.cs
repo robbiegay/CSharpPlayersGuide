@@ -298,9 +298,10 @@ myAction();
                 Console.WriteLine($"Sieve result: {sieve.IsGood(number)}");
             }
 
-            // Answer to question: How could you solve this with Polymorphism and Inheritance?
-            // You could create a class that has an abstract method and override it one three different classes
-            // and then call IsGood on a class that is from the parent type ISieve.
+            Console.WriteLine("Quiz:");
+            Console.WriteLine("Answer to question: How could you solve this with Polymorphism and Inheritance?");
+            Console.WriteLine("You could create a class that has an abstract method and override it one three different classes");
+            Console.WriteLine("and then call IsGood on a class that is from the parent type ISieve.");
         }
 
 
