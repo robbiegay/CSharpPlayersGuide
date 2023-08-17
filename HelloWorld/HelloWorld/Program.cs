@@ -157,6 +157,12 @@ while (!shouldExit)
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "TheLambdaSieve");
 
+    PrintLevel(39);
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "MessageInABottle");
+    PrintProgram(ref code, "HighScores");
+    PrintProgram(ref code, "TheLongGame");
+
     Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
@@ -375,6 +381,18 @@ while (!shouldExit)
             break;
         case "70":
             Level38.TheLambdaSieve();
+            break;
+        case "71":
+            Level39.Notes();
+            break;
+        case "72":
+            Level39.MessageInABottle();
+            break;
+        case "73":
+            Level39.HighScores();
+            break;
+        case "74":
+            Level39.TheLongGame();
             break;
     }
 

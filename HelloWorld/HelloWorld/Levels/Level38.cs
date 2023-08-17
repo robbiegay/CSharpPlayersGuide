@@ -104,8 +104,6 @@ Quiz:
             Console.WriteLine("Answer to question: Does this change make the program easier to read or harder?");
             Console.WriteLine("Easier to read.");
         }
-
-
         public class Sieve
         {
             private readonly Func<int, bool> _condition;
