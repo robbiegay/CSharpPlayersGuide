@@ -137,32 +137,41 @@ namespace CSharpPlayersGuide.Levels
             Utilities.PrintInColor("Enter your name:", 3);
             var name = Console.ReadLine();
 
-            var path = $"Socre/{name}.txt";
+            var path = $"Score/{name}.txt";
             var score = 0;
+
             if (File.Exists(path))
             {
                 var s = File.ReadAllText(path);
-                var userScore = int.Parse(s);
+                score = int.Parse(s);
                 Utilities.PrintInColor($"Found previous score of {score}.\n", 9);
             }
 
             while (true)
             {
+                Utilities.PrintInColor($"Name: {name} | Score: {score}", 12);
+
                 var key = Console.ReadKey();
 
                 if (key.Key == ConsoleKey.Enter) 
                 {
-                    // Exit
-                    return;
+                    break;
                 }
                 else
                 {
                     score++;
                 }
 
-                Utilities.PrintInColor($"Name: {name} | Score: {score}", 12);
                 Console.Clear();
             }
+
+            // Save score to file
+            var dirName = Path.GetDirectoryName(path);
+            if (!Path.Exists(dirName))
+            {
+                Directory.CreateDirectory(dirName);
+            }
+            File.WriteAllText(path, $"{score}");
         }
     }
 }
