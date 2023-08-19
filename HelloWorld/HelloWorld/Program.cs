@@ -163,6 +163,10 @@ while (!shouldExit)
     PrintProgram(ref code, "HighScores");
     PrintProgram(ref code, "TheLongGame");
 
+    PrintLevel(40);
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "ThePotionMastersOfPattren");
+
     Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
@@ -393,6 +397,12 @@ while (!shouldExit)
             break;
         case "74":
             Level39.TheLongGame();
+            break;
+        case "75":
+            Level40.Notes();
+            break;
+        case "76":
+            Level40.ThePotionMastersOfPattren();
             break;
     }
 
