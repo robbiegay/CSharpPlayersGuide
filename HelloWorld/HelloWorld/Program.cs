@@ -167,6 +167,12 @@ while (!shouldExit)
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "ThePotionMastersOfPattren");
 
+    PrintLevel(41);
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "NavigatingOperandCity");
+    PrintProgram(ref code, "IndexingOperandCity");
+    PrintProgram(ref code, "ConvertingDirectionsToOffsets");
+
     Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
@@ -403,6 +409,18 @@ while (!shouldExit)
             break;
         case "76":
             Level40.ThePotionMastersOfPattren();
+            break;
+        case "77":
+            Level41.Notes();
+            break;
+        case "78":
+            Level41.NavigatingOperandCity();
+            break;
+        case "79":
+            Level41.IndexingOperandCity();
+            break;
+        case "80":
+            Level41.ConvertingDirectionsToOffsets();
             break;
     }
 
