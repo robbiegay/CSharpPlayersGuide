@@ -1,4 +1,8 @@
-﻿namespace CSharpPlayersGuide.Levels
+﻿using System.Numerics;
+using System.Reflection.Emit;
+using System.Reflection.Metadata.Ecma335;
+
+namespace CSharpPlayersGuide.Levels
 {
     internal class Level41 : ILevel
     {
@@ -43,9 +47,74 @@
 
         public static void NavigatingOperandCity()
         {
-            throw new NotImplementedException();
+            var position = new BlockCoordinate(0, 0);
+
+            while (true)
+            {
+                Utilities.PrintInColor("Current position:", 3);
+                Utilities.PrintInColor($"Row: {position.Row}, Column: {position.Column}", 7);
+
+                Console.WriteLine();
+                Console.WriteLine("Enter a command:");
+                Utilities.PrintInColor("\t- 1. Move: North", 2);
+                Utilities.PrintInColor("\t- 2. Move: East", 2);
+                Utilities.PrintInColor("\t- 3. Move: South", 2);
+                Utilities.PrintInColor("\t- 4. Move: West", 2);
+                Utilities.PrintInColor("\t- 5. Input block offset", 2);
+                Utilities.PrintInColor("\t- e: Exit", 2);
+                Console.WriteLine();
+
+                var input = Console.ReadLine();
+
+                if (input == "e")
+                    return;
+
+                _ = input switch
+                {
+                    "1" => position += Direction.North,
+                    "2" => position += Direction.East,
+                    "3" => position += Direction.South,
+                    "4" => position += Direction.West,
+                    _ => null
+                };
+
+                if (input == "5")
+                {
+                    Console.WriteLine("Enter row offset:");
+                    int.TryParse(Console.ReadLine(), out int row);
+                    Console.WriteLine("Enter column offset:");
+                    int.TryParse(Console.ReadLine(), out int column);
+
+                    position += new BlockOffset(row, column);
+                }
+
+                Console.Clear();
+            }
         }
-        
+
+        private record BlockCoordinate(int Row, int Column)
+        {
+            public static BlockCoordinate operator +(BlockCoordinate Start, BlockOffset Move) => new(Start.Row + Move.RowOffset, Start.Column + Move.ColumnOffset);
+
+            public static BlockCoordinate operator +(BlockOffset Move, BlockCoordinate Start) => Start + Move;
+
+            public static BlockCoordinate operator +(BlockCoordinate Start, Direction Move)
+            {
+                return Move switch
+                {
+                    Direction.North => new(Start.Row - 1, Start.Column),
+                    Direction.East => new(Start.Row, Start.Column + 1),
+                    Direction.South => new(Start.Row + 1, Start.Column),
+                    Direction.West => new(Start.Row, Start.Column - 1)
+                };
+            }
+
+            public static BlockCoordinate operator +(Direction Move, BlockCoordinate Start) =>  Start + Move;
+        }
+
+        private record BlockOffset(int RowOffset, int ColumnOffset); 
+        private enum Direction { North, East, South, West }
+
         public static void IndexingOperandCity()
         {
             throw new NotImplementedException();
