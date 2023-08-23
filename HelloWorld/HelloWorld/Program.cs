@@ -173,6 +173,10 @@ while (!shouldExit)
     PrintProgram(ref code, "IndexingOperandCity");
     PrintProgram(ref code, "ConvertingDirectionsToOffsets");
 
+    PrintLevel(42);
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "TheThreeLenses");
+
     Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
@@ -421,6 +425,12 @@ while (!shouldExit)
             break;
         case "80":
             Level41.ConvertingDirectionsToOffsets();
+            break;
+        case "81":
+            Level42.Notes();
+            break;
+        case "82":
+            Level42.TheThreeLenses();
             break;
     }
 
