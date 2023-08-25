@@ -177,6 +177,10 @@ while (!shouldExit)
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "TheThreeLenses");
 
+    PrintLevel(43);
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "TheRepeatingStream");
+
     Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
@@ -431,6 +435,12 @@ while (!shouldExit)
             break;
         case "82":
             Level42.TheThreeLenses();
+            break;
+        case "83":
+            Level43.Notes();
+            break;
+        case "84":
+            Level43.TheRepeatingStream();
             break;
     }
 
