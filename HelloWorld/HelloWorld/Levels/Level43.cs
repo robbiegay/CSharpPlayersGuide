@@ -306,7 +306,98 @@ namespace CSharpPlayersGuide.Levels
 
         public static void TheRepeatingStream()
         {
+            var recentNumbers = new RecentNumbers();
+            var numberGenerator = new NumberGenerator(120);
 
+            Utilities.PrintInColor("Welcome to the Repeating Stream of Numbers!", 3);
+            Console.WriteLine();
+            Utilities.PrintInColor($"Watch as the numbers repeat for {numberGenerator.LoopLengthInSeconds} seconds.", 5);
+            Utilities.PrintInColor("When you see a number repeat, press any key!", 5);
+            Utilities.PrintInColor("Press 'e' to exit.", 5);
+            Console.WriteLine();
+
+            var thread = new Thread(numberGenerator.Run);
+            thread.Start(recentNumbers);
+
+            while (true)
+            {
+                var input = Console.ReadKey(true);
+
+                if (input.KeyChar.ToString() == "e")
+                {
+                    numberGenerator.Exit = true;
+                    break;
+                }
+
+                if (recentNumbers.Check())
+                {
+                    Utilities.PrintInColor("The numbers are a match!", 6);
+                }
+                else
+                {
+                    Utilities.PrintInColor("The numbers are different...", 1);
+                }
+            }
+        }
+
+        private class NumberGenerator
+        {
+            public int LoopLengthInSeconds { get; set; }
+            public bool Exit { get; set; } = false;
+
+            public void Run(object? r)
+            {
+                if (r is null) return;
+                var recentNumbers = (RecentNumbers)r;
+
+                var rnd = new Random();
+
+                for (int i = 0; i < LoopLengthInSeconds; i++)
+                {
+                    if (Exit) return;
+
+                    var number = rnd.Next(10);
+                    recentNumbers.Add(number);
+                    var color = number == 8 ? 10 : number;
+                    Utilities.PrintInColor($"Number: {number}", color);
+                    Thread.Sleep(1000);
+                }
+            }
+
+            public NumberGenerator(int loopLengthInSeconds)
+            {
+                LoopLengthInSeconds = loopLengthInSeconds;
+            }
+        }
+
+        private class RecentNumbers
+        {
+            private object _lock = new();
+            private int[] _values;
+
+            public void Add(int number)
+            {
+                lock (_lock)
+                {
+                    _values[1] = _values[0];
+                    _values[0] = number;
+                }
+            }
+
+            public bool Check()
+            {
+                lock (_lock)
+                {
+                    if (_values[0] == _values[1] && _values[1] != -1)
+                        return true;
+                    return false;
+                }
+            }
+
+            public RecentNumbers()
+            {
+                _values = new int[2] { -1, -1 };
+            }
         }
     }
 }
