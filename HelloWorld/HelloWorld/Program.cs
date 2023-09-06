@@ -181,6 +181,11 @@ while (!shouldExit)
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "TheRepeatingStream");
 
+    PrintLevel(44);
+    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "AsynchronousRandomWords");
+    PrintProgram(ref code, "ManyRandomWords");
+
     Console.Write("> ");
     var input = Console.ReadLine();
     Console.Clear();
@@ -441,6 +446,15 @@ while (!shouldExit)
             break;
         case "84":
             Level43.TheRepeatingStream();
+            break;
+        case "85":
+            Level44.Notes();
+            break;
+        case "86":
+            Level44.AsynchronousRandomWords();
+            break;
+        case "87":
+            Level44.ManyRandomWords();
             break;
     }
 
