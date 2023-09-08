@@ -7,8 +7,61 @@
             Utilities.PrintNotesTitle(44);
             Console.WriteLine(
 """
+Trying to understand async/await, each version is me trying out a different mental model:
 
+v1 notes:
+Task.Run( ... code to run ...);
+will kick off a new thread.
 
+If the method returns void, then it kicks off and you dont wait.
+Task or Task<T> means you wait
+You have to await a method and can only call await in an async method
+
+v2 notes:
+async/await: can await a Task (ie another thread)
+Task and Task<T>: run something on another thread
+Can also run something on another thread with void to run but not await
+
+v3 notes:
+When you make a method 'async', the compiler adds some plumbing code that automatically returns
+void, Task or Task<T>. 
+You can only await Tasks
+A Task is just something running on another thread, though I think you have to actually kick off that run.
+
+v4 notes:
+A task can run something on a new thread (though it doesn't have to. Here's how:
+
+Task MyMethod()
+{
+    return Task.Run(() => /* do something */ );
+}
+- OR -
+Task<int> MyMethod()
+{
+    return Task.Run(() => { return 5; } );
+}
+
+Now you can await either of those via:
+
+async Task MyCallingMethod() // Mark your calling method as a Task if you want it awaited
+{
+    await MyMethod();
+}
+
+You can also call a task a return void. This means that you can still kick off a new thread,
+but you cannot await it:
+
+void MyMethod()
+{
+    Task.Run(() => { /* do something */ } );
+}
+
+async Task MyCallingMethod()
+{
+    MyMethod();
+}
+
+--------------------------------------------------------
 
 Quiz:
 1. async
@@ -97,7 +150,7 @@ Quiz:
             });
         }
 
-        public static async void AsynchronousRandomWords()
+        public static async Task AsynchronousRandomWords()
         {
             string? word = null;
 
@@ -189,9 +242,119 @@ Quiz:
             return attempts;
         }
 
-        public static void ManyRandomWords()
+        public static async Task ManyRandomWords()
         {
-            throw new NotImplementedException();
+            Utilities.PrintInColor("Enter words to kick off a random word generator!", 2);
+            Utilities.PrintInColor("", 2);
+            Utilities.PrintInColor("Type 'exit' to exit", 2);
+            Utilities.PrintInColor("", 2);
+
+            while (true)
+            {
+                Utilities.PrintInColor("Enter a word: ", 3);
+                var word = Console.ReadLine();
+                if (word == "exit") break;
+
+                // So this works
+                // FIXED: made this method Task and awaited it in Program
+                //var t = new Thread(() => { var r = GenerateRandomWords(word); Console.WriteLine(r.Result.iterations); });
+                //t.Start();
+                //t.Join();
+
+                GenerateRandomWords(word ?? "");
+            }
+        }
+
+        private static void GenerateRandomWords(string word)
+        {
+            Task.Run(() =>
+            {
+                var start = DateTime.Now;
+
+                string? randomWord = null;
+                var iterations = 0;
+                var rnd = new Random();
+
+                do
+                {
+                    randomWord = null;
+
+                    for (int i = 0; i < word.Length; i++)
+                    {
+                        randomWord += (char)('a' + rnd.Next(26));
+                    }
+
+                    iterations++;
+                }
+                while (randomWord != word);
+
+                var end = DateTime.Now;
+                var elapsed = end - start;
+
+                var result = new Results(iterations, elapsed);
+
+                Utilities.PrintInColor($"The word {word} was generated in {result.iterations} iterations over a period of {result.timeElapsed.TotalSeconds} seconds.", 10);
+            });
+        }
+
+        private record Results(int iterations, TimeSpan timeElapsed);
+
+        public static async Task TaskExperiments()
+        {
+            Console.WriteLine("""
+                1: void -> kicks off but doesn't wait
+                2: Task -> awaits but no return type
+                3: Task<T> -> awaits with a return type
+                """);
+            var input = Console.ReadLine();
+
+            if (input == "1")
+            {
+                Test1();
+                Console.WriteLine("RUNS AFTER TEST 1");
+            }
+            else if (input == "2")
+            {
+                await Test2();
+                Console.WriteLine("RUNS AFTER TEST 2");
+            }
+            else if (input == "3")
+            {
+                var value = await Test3();
+                Console.WriteLine($"GOT THE VALUE: {value}");
+            }
+        }
+
+        private static void Test1()
+        {
+            Task.Run(() =>
+            {
+                Console.WriteLine("Sleeping for 3 seconds...");
+                Thread.Sleep(3000);
+                Console.WriteLine("Test1: DONE!");
+            });
+        }
+
+        private static Task Test2()
+        {
+            return Task.Run(() =>
+            {
+                Console.WriteLine("Sleeping for 3 seconds...");
+                Thread.Sleep(3000);
+                Console.WriteLine("Test2: DONE!");
+            });
+        }
+
+        private static Task<int> Test3()
+        {
+            return Task.Run(() =>
+            {
+                var value = 5;
+                Console.WriteLine("Sleeping for 3 seconds...");
+                Thread.Sleep(3000);
+                Console.WriteLine($"Test3: DONE! and returning {value}");
+                return value;
+            });
         }
     }
 }

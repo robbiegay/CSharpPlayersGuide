@@ -185,6 +185,7 @@ while (!shouldExit)
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "AsynchronousRandomWords");
     PrintProgram(ref code, "ManyRandomWords");
+    PrintProgram(ref code, "TaskExperiments");
 
     Console.Write("> ");
     var input = Console.ReadLine();
@@ -451,10 +452,13 @@ while (!shouldExit)
             Level44.Notes();
             break;
         case "86":
-            Level44.AsynchronousRandomWords();
+            await Level44.AsynchronousRandomWords();
             break;
         case "87":
-            Level44.ManyRandomWords();
+            await Level44.ManyRandomWords();
+            break;
+        case "88":
+            await Level44.TaskExperiments();
             break;
     }
 
