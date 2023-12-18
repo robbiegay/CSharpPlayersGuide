@@ -514,6 +514,9 @@ while (!shouldExit)
         case "91":
             Level45.TheRobotFactory();
             break;
+        case "92":
+            Level46.Notes();
+            break;
     }
 
     if (input != "e")
