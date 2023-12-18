@@ -190,6 +190,8 @@ while (!shouldExit)
 
     PrintLevel(ref level); // Level 45
     PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "UniterOfAdds");
+    PrintProgram(ref code, "TheRobotFactory");
 
     PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
@@ -502,6 +504,15 @@ while (!shouldExit)
             break;
         case "88":
             await Level44.TaskExperiments();
+            break;
+        case "89":
+            Level45.Notes();
+            break;
+        case "90":
+            Level45.UniterOfAdds();
+            break;
+        case "91":
+            Level45.TheRobotFactory();
             break;
     }
 
