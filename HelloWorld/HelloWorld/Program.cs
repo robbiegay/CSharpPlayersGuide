@@ -7,185 +7,228 @@ var shouldExit = false;
 while (!shouldExit) 
 {
     var code = 0;
+    var level = 0;
 
     Console.Title = "C# Player's Guide";
 
     Console.WriteLine("Press 'e' to exit...\n\nEnter a value to run a program:");
-    PrintLevel(1, true);
+    PrintLevel(ref level, true); // Level 1
 
-    PrintLevel(2, true);
+    PrintLevel(ref level, true);
 
-    PrintLevel(3);
+    PrintLevel(ref level);
     PrintProgram(ref code, "HelloWorld");
     PrintProgram(ref code, "WhatComesNext");
     PrintProgram(ref code, "TheMakingsOfAProgrammer");
     PrintProgram(ref code, "ConsolasAndTelim");
 
-    PrintLevel(4);
+    PrintLevel(ref level);
     PrintProgram(ref code, "TheThingNamer3000");
 
-    PrintLevel(5, true);
+    PrintLevel(ref level, true); // Level 5
 
-    PrintLevel(6);
+    PrintLevel(ref level);
     PrintProgram(ref code, "TheVariableShop");
     PrintProgram(ref code, "TheVariableShopReturns");
     PrintProgram(ref code, "Notes");
 
-    PrintLevel(7);
+    PrintLevel(ref level);
     PrintProgram(ref code, "TheTriangleFarmer");
     PrintProgram(ref code, "TheFourSistersAndTheDuckbear");
     PrintProgram(ref code, "TheDominionOfKings");
 
-    PrintLevel(8);
+    PrintLevel(ref level);
     PrintProgram(ref code, "ColorsAndSounds");
     PrintProgram(ref code, "TheDefenseOfConsolas");
 
-    PrintLevel(9);
+    PrintLevel(ref level);
     PrintProgram(ref code, "RepairingTheClocktower");
     PrintProgram(ref code, "Watchtower");
 
-    PrintLevel(10);
+    PrintLevel(ref level); // Level 10
     PrintProgram(ref code, "BuyingInventory");
     PrintProgram(ref code, "DiscountedInventory");
 
-    PrintLevel(11);
+    PrintLevel(ref level);
     PrintProgram(ref code, "ThePrototype");
     PrintProgram(ref code, "TheMagicCannon");
 
-    PrintLevel(12);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "TheReplicatorOfDTo");
     PrintProgram(ref code, "TheLawsOfFreach");
 
-    PrintLevel(13);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Countdown");
 
-    PrintLevel(14);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "HuntingTheMantiCore");
 
-    PrintLevel(15, true);
+    PrintLevel(ref level, true); // Level 15
 
-    PrintLevel(16);
+    PrintLevel(ref level);
     PrintProgram(ref code, "SimulasTest");
 
-    PrintLevel(17);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "SimulasSoup");
 
-    PrintLevel(18);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "TellMeTheFiveObjectOrientedPrinciples");
     PrintProgram(ref code, "VinFletchersArrows");
 
-    PrintLevel(19);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "VinsTrouble");
 
-    PrintLevel(20);
+    PrintLevel(ref level); // Level 20
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "ThePropertiesOfArrows");
 
-    PrintLevel(21);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "ArrowFactories");
 
-    PrintLevel(22);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
 
-    PrintLevel(23);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
 
-    PrintLevel(24);
+    PrintLevel(ref level);
     PrintProgram(ref code, "BossBattles");
 
-    PrintLevel(25);
+    PrintLevel(ref level); // Level 25
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "PackingInventory");
 
-    PrintLevel(26);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "LabelingInventory");
     PrintProgram(ref code, "TheOldRobot");
 
-    PrintLevel(27);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "RoboticInterface");
 
-    PrintLevel(28);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "RoomCoordinates");
 
-    PrintLevel(29);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "WarPreparations");
 
-    PrintLevel(30);
+    PrintLevel(ref level); // Level 30
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "ColoredItems");
 
-    PrintLevel(31);
+    PrintLevel(ref level);
     PrintProgram(ref code, "DesignNotes");
     PrintProgram(ref code, "TheFountainOfObjects");
 
-    PrintLevel(32);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
 
-    PrintLevel(33);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "TheFeud");
     PrintProgram(ref code, "DuelingTraditions");
 
-    PrintLevel(34);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "SaferNumberCrunching");
     PrintProgram(ref code, "BetterRandom");
 
-    PrintLevel(35);
+    PrintLevel(ref level); // Level 35
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "ExeptisGame");
 
-    PrintLevel(36);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "TheSieve");
 
-    PrintLevel(37);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "CharberryTrees");
 
-    PrintLevel(38);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "TheLambdaSieve");
 
-    PrintLevel(39);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "MessageInABottle");
     PrintProgram(ref code, "HighScores");
     PrintProgram(ref code, "TheLongGame");
 
-    PrintLevel(40);
+    PrintLevel(ref level); // Level 40
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "ThePotionMastersOfPattren");
 
-    PrintLevel(41);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "NavigatingOperandCity");
     PrintProgram(ref code, "IndexingOperandCity");
     PrintProgram(ref code, "ConvertingDirectionsToOffsets");
 
-    PrintLevel(42);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "TheThreeLenses");
 
-    PrintLevel(43);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "TheRepeatingStream");
 
-    PrintLevel(44);
+    PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
     PrintProgram(ref code, "AsynchronousRandomWords");
     PrintProgram(ref code, "ManyRandomWords");
     PrintProgram(ref code, "TaskExperiments");
+
+    PrintLevel(ref level); // Level 45
+    PrintProgram(ref code, "Notes");
+
+    PrintLevel(ref level);
+    PrintProgram(ref code, "Notes");
+
+    PrintLevel(ref level);
+    PrintProgram(ref code, "Notes");
+
+    PrintLevel(ref level);
+    PrintProgram(ref code, "Notes");
+
+    PrintLevel(ref level);
+    PrintProgram(ref code, "Notes");
+
+    PrintLevel(ref level); // Level 50
+    PrintProgram(ref code, "Notes");
+
+    PrintLevel(ref level);
+    PrintProgram(ref code, "Notes");
+
+    PrintLevel(ref level);
+    PrintProgram(ref code, "Notes");
+
+    PrintLevel(ref level); // Level 53
+    PrintProgram(ref code, "Notes");
+
+    PrintBonusLevel("Bonus Level A");
+    PrintProgram(ref code, "Notes");
+
+    PrintBonusLevel("Bonus Level B");
+    PrintProgram(ref code, "Notes");
+
+    PrintBonusLevel("Bonus Level C");
+    PrintProgram(ref code, "Notes");
+
+    PrintBonusLevel("C# 11 Expansion");
+    PrintProgram(ref code, "Notes");
+
+    PrintBonusLevel("C# 12 Expansion");
+    PrintProgram(ref code, "Notes");
 
     Console.Write("> ");
     var input = Console.ReadLine();
@@ -470,14 +513,26 @@ while (!shouldExit)
     }
 }
 
-void PrintLevel(int level, bool hasNoExercises = false)
+void PrintLevel(ref int level, bool hasNoExercises = false)
 {
+    level += 1;
+
     Console.WriteLine();
 
     Utilities.PrintInColor($"\t~~ Level {level} ~~", 2);
 
     if (hasNoExercises)
         Utilities.PrintInColor($"\t[Level {level} has no exercises]", 5);
+}
+
+void PrintBonusLevel(string level, bool hasNoExercises = false)
+{
+    Console.WriteLine();
+
+    Utilities.PrintInColor($"\t~~ {level} ~~", 2);
+
+    if (hasNoExercises)
+        Utilities.PrintInColor($"\t[{level} has no exercises]", 5);
 }
 
 void PrintProgram(ref int code, string program)
