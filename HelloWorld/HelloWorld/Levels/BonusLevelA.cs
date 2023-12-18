@@ -4,7 +4,10 @@
     {
         public static void Notes()
         {
-            throw new NotImplementedException();
+            Console.WriteLine(
+"""
+
+""");
         }
     }
 }
