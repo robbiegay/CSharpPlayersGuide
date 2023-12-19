@@ -201,6 +201,8 @@ while (!shouldExit)
 
     PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "TheColoredConsole");
+    PrintProgram(ref code, "TheGreatHumanizer");
 
     PrintLevel(ref level);
     PrintProgram(ref code, "Notes");
@@ -519,6 +521,15 @@ while (!shouldExit)
             break;
         case "93":
             Level47.Notes();
+            break;
+        case "94":
+            Level48.Notes();
+            break;
+        case "95":
+            Level48.TheColoredConsole();
+            break;
+        case "96":
+            Level48.TheGreatHumanizer();
             break;
     }
 
