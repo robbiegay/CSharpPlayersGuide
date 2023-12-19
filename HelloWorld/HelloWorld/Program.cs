@@ -534,6 +534,9 @@ while (!shouldExit)
         case "97":
             Level49.Notes();
             break;
+        case "98":
+            Level50.Notes();
+            break;
     }
 
     if (input != "e")
