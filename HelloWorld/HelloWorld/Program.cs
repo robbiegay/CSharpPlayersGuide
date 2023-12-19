@@ -531,6 +531,9 @@ while (!shouldExit)
         case "96":
             Level48.TheGreatHumanizer();
             break;
+        case "97":
+            Level49.Notes();
+            break;
     }
 
     if (input != "e")
