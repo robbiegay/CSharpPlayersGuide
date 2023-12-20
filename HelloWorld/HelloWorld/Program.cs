@@ -214,10 +214,9 @@ while (!shouldExit)
     PrintProgram(ref code, "Notes");
 
     PrintLevel(ref level);
-    PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "BookSummary");
 
-    PrintLevel(ref level); // Level 53
-    PrintProgram(ref code, "Notes");
+    PrintLevel(ref level, true); // Level 53
 
     PrintBonusLevel("Bonus Level A");
     PrintProgram(ref code, "Notes");
@@ -539,6 +538,9 @@ while (!shouldExit)
             break;
         case "99":
             Level51.Notes();
+            break;
+        case "100":
+            Level52.BookSummary();
             break;
     }
 

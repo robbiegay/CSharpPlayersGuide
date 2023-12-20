@@ -1,13 +1,7 @@
 ﻿namespace CSharpPlayersGuide.Levels
 {
-    internal class Level53 : ILevel
+    internal class Level53
     {
-        public static void Notes()
-        {
-            Console.WriteLine(
-"""
-
-""");
-        }
+        // No exercises in Level 53
     }
 }
