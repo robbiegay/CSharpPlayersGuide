@@ -545,6 +545,18 @@ while (!shouldExit)
         case "101":
             BonusLevelA.Notes();
             break;
+        case "102":
+            BonusLevelB.Notes();
+            break;
+        case "103":
+            BonusLevelC.Notes();
+            break;
+        case "104":
+            BonusLevelCSharp11.Notes();
+            break;
+        case "105":
+            BonusLevelCSharp12.Notes();
+            break;
     }
 
     if (input != "e")

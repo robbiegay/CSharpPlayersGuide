@@ -6,7 +6,7 @@
         {
             Console.WriteLine(
 """
-
+C# 12
 """);
         }
     }
