@@ -542,6 +542,9 @@ while (!shouldExit)
         case "100":
             Level52.BookSummary();
             break;
+        case "101":
+            BonusLevelA.Notes();
+            break;
     }
 
     if (input != "e")
