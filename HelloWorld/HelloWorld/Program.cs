@@ -236,6 +236,8 @@ while (!shouldExit)
 
     PrintBonusLevel("C# 12 Expansion");
     PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "Hunted");
+    PrintProgram(ref code, "ANightInTheWastelands");
 
     Console.Write("> ");
     var input = Console.ReadLine();
@@ -569,6 +571,15 @@ while (!shouldExit)
             break;
         case "108":
             BonusLevelCSharp11.BlastDamage();
+            break;
+        case "109":
+            BonusLevelCSharp12.Notes();
+            break;
+        case "110":
+            BonusLevelCSharp12.Hunted();
+            break;
+        case "111":
+            BonusLevelCSharp12.ANightInTheWastelands();
             break;
     }
 
