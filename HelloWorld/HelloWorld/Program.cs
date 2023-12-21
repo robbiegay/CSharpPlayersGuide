@@ -229,6 +229,10 @@ while (!shouldExit)
 
     PrintBonusLevel("C# 11 Expansion");
     PrintProgram(ref code, "Notes");
+    PrintProgram(ref code, "ProgramMakingProgram");
+    PrintProgram(ref code, "TheMap");
+    PrintProgram(ref code, "PremixedPotions");
+    PrintProgram(ref code, "BlastDamage [Skipped]");
 
     PrintBonusLevel("C# 12 Expansion");
     PrintProgram(ref code, "Notes");
@@ -555,7 +559,16 @@ while (!shouldExit)
             BonusLevelCSharp11.Notes();
             break;
         case "105":
-            BonusLevelCSharp12.Notes();
+            await BonusLevelCSharp11.ProgramMakingProgram();
+            break;
+        case "106":
+            BonusLevelCSharp11.TheMap();
+            break;
+        case "107":
+            BonusLevelCSharp11.PremixedPotions();
+            break;
+        case "108":
+            BonusLevelCSharp11.BlastDamage();
             break;
     }
 
