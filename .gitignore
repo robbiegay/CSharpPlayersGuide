@@ -1,0 +1,14 @@
+################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+*.suo
+*.user
+bin
+obj
+packages
+*.vs
+/HelloWorld/.vs/
+
+# Ignore macOS folder view settings
+.DS_Store
